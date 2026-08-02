@@ -20,25 +20,25 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://mindbodyandsoul.lk"),
   title: {
     default:
-      "Mind Body & Soul | Luxury Adult Care Retirement Living in Dambulla",
+      "Mind Body & Soul is a luxury adult care retirement facility in Dambulla ,Sri Lanka",
     template: "%s | Mind Body & Soul",
   },
   description:
-    "Mind Body & Soul by T-Villa — a luxury adult care retirement facility in Dambulla, Sri Lanka. Independent living with care and close care, villa homes, on-site nursing, and 28 acres of gardens and lake.",
+    "Mind Body & Soul is a luxury adult care retirement facility in Dambulla ,Sri Lanka. The resort provides both 'independent living with care' and 'close care' with on-site nursing and care support. The main languages spoken in the seniors care facility are English and Sinhala",
   keywords: [
     "Mind Body & Soul",
     "Mind Body & Soul by T-Villa",
     "Dambulla retirement care",
     "Sri Lanka adult care",
     "independent living with care",
-    "luxury retirement villa Sri Lanka",
+    "close care",
     "elderly care Dambulla",
-    "memory care Sri Lanka",
   ],
   openGraph: {
-    title: "Mind Body & Soul | Luxury Adult Care in Dambulla",
+    title:
+      "Mind Body & Soul is a luxury adult care retirement facility in Dambulla ,Sri Lanka",
     description:
-      "Live the life you still deserve — with nature. Independent living with care and close care in villa homes across 28 acres in Dambulla, Sri Lanka.",
+      "The resort provides both 'independent living with care' and 'close care' with on-site nursing and care support. live your life that you still deserve with nature",
     url: "https://mindbodyandsoul.lk",
     siteName: "Mind Body & Soul",
     locale: "en_LK",
@@ -54,9 +54,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mind Body & Soul | Luxury Adult Care in Dambulla",
+    title:
+      "Mind Body & Soul is a luxury adult care retirement facility in Dambulla ,Sri Lanka",
     description:
-      "Independence with care — villa living, on-site nursing, and dignified retirement life in Dambulla, Sri Lanka.",
+      "The resort provides both 'independent living with care' and 'close care' with on-site nursing and care support.",
     images: [
       "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1200&q=80",
     ],

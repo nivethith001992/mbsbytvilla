@@ -1,16 +1,44 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { brand, navLinks } from "@/lib/content";
+import { brand, footerContent, navLinks } from "@/lib/content";
 import { Reveal } from "./Reveal";
 import { ScrollTo } from "./ScrollTo";
 
 const footerLinks = [
   ...navLinks.filter((link) =>
-    ["story", "retreat", "villas", "experiences", "gallery"].includes(link.id),
+    ["story", "retreat", "villas", "experiences", "gallery", "location"].includes(
+      link.id,
+    ),
   ),
   { label: "Enquire", id: "booking" },
 ];
+
+function FooterBlock({
+  title,
+  paragraphs,
+}: {
+  title: string;
+  paragraphs: string[];
+}) {
+  return (
+    <div>
+      <p className="text-[0.64rem] uppercase tracking-[0.28em] text-sand-beige/85">
+        {title}
+      </p>
+      <div className="mt-4 space-y-3.5">
+        {paragraphs.map((paragraph) => (
+          <p
+            key={paragraph.slice(0, 48)}
+            className="text-[0.86rem] font-light leading-[1.75] text-warm-white/62"
+          >
+            {paragraph}
+          </p>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -48,7 +76,7 @@ export function Footer() {
                   {brand.name}
                 </p>
                 <p className="mt-5 font-serif text-xl italic leading-snug text-sand-beige/90 md:text-2xl">
-                  {brand.mission}
+                  “{brand.tagline}”
                 </p>
                 <p className="mt-5 max-w-md text-sm font-light leading-relaxed text-warm-white/58 md:text-[0.95rem]">
                   {brand.description}
@@ -73,9 +101,39 @@ export function Footer() {
               </div>
             </div>
 
+            {/* Document closing sections — verbatim, column layout */}
+            <div className="mt-12 grid gap-10 border-t border-white/10 pt-10 md:mt-14 md:grid-cols-2 md:gap-x-10 md:gap-y-12 md:pt-12 lg:grid-cols-12">
+              <div className="md:col-span-1 lg:col-span-6">
+                <FooterBlock
+                  title={footerContent.aboutUs.title}
+                  paragraphs={footerContent.aboutUs.paragraphs}
+                />
+              </div>
+              <div className="md:col-span-1 lg:col-span-6">
+                <FooterBlock
+                  title={footerContent.theCare.title}
+                  paragraphs={footerContent.theCare.paragraphs}
+                />
+              </div>
+              <div className="md:col-span-1 lg:col-span-6">
+                <FooterBlock
+                  title={footerContent.whyWeAreHere.title}
+                  paragraphs={footerContent.whyWeAreHere.paragraphs}
+                />
+              </div>
+              <div className="md:col-span-1 lg:col-span-6">
+                <FooterBlock
+                  title={footerContent.ourStaff.title}
+                  paragraphs={footerContent.ourStaff.paragraphs}
+                />
+              </div>
+            </div>
+
             <div className="mt-12 grid gap-10 border-t border-white/10 pt-10 md:mt-14 md:grid-cols-12 md:gap-8 md:pt-12">
-              <nav className="md:col-span-4" aria-label="Footer">
-                <p className="text-[0.64rem] uppercase tracking-[0.28em] text-sand-beige/85">Explore</p>
+              <nav className="md:col-span-3" aria-label="Footer">
+                <p className="text-[0.64rem] uppercase tracking-[0.28em] text-sand-beige/85">
+                  Explore
+                </p>
                 <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-3 md:flex-col md:gap-3">
                   {footerLinks.map((link) => (
                     <li key={link.id}>
@@ -91,13 +149,23 @@ export function Footer() {
               </nav>
 
               <div className="md:col-span-5">
-                <p className="text-[0.64rem] uppercase tracking-[0.28em] text-sand-beige/85">Contact</p>
+                <p className="text-[0.64rem] uppercase tracking-[0.28em] text-sand-beige/85">
+                  Contact
+                </p>
                 <div className="mt-5 space-y-4 text-[0.95rem] font-light leading-relaxed text-warm-white/68">
-                  <p className="max-w-xs">
-                    {brand.address.line}
-                    <br />
-                    {brand.address.city}, {brand.address.country}
-                  </p>
+                  <div className="max-w-sm">
+                    <p className="text-warm-white/80">{brand.legalName}</p>
+                    <p className="mt-2">
+                      {brand.address.line}
+                      <br />
+                      {brand.address.city}, {brand.address.country}
+                    </p>
+                    <p className="mt-2 text-warm-white/50">
+                      {brand.address.context}
+                      <br />
+                      {brand.address.documentLine}
+                    </p>
+                  </div>
                   <a
                     href={`mailto:${brand.email}`}
                     className="block transition hover:text-warm-white"
@@ -112,15 +180,19 @@ export function Footer() {
                         className="block transition hover:text-warm-white"
                       >
                         <span className="text-warm-white/45">{phone.label}</span>
-                        <span className="mt-0.5 block text-warm-white/80">{phone.number}</span>
+                        <span className="mt-0.5 block text-warm-white/80">
+                          {phone.number}
+                        </span>
                       </a>
                     ))}
                   </div>
                 </div>
               </div>
 
-              <div className="md:col-span-3">
-                <p className="text-[0.64rem] uppercase tracking-[0.28em] text-sand-beige/85">Connect</p>
+              <div className="md:col-span-4">
+                <p className="text-[0.64rem] uppercase tracking-[0.28em] text-sand-beige/85">
+                  Connect
+                </p>
                 <div className="mt-5 flex flex-wrap gap-2.5">
                   <a
                     href={brand.social.instagram}
@@ -147,6 +219,13 @@ export function Footer() {
                     Maps
                   </a>
                 </div>
+
+                <div className="mt-8 border-t border-white/10 pt-7">
+                  <FooterBlock
+                    title={footerContent.numerology.title}
+                    paragraphs={footerContent.numerology.paragraphs}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -156,7 +235,7 @@ export function Footer() {
           <p suppressHydrationWarning>
             © {year} {brand.legalName}
           </p>
-          <p className="max-w-md sm:text-right">{brand.numerologyNote}</p>
+          <p className="max-w-lg sm:text-right">{brand.numerologyNote}</p>
         </div>
       </div>
     </footer>
