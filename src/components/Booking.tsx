@@ -1,8 +1,8 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { brand, testimonials } from "@/lib/content";
-import { Reveal } from "./Reveal";
+import { bookingIntro, brand, testimonials } from "@/lib/content";
+import { Reveal, Stagger, StaggerItem } from "./Reveal";
 
 type FormState = {
   name: string;
@@ -34,7 +34,7 @@ function validate(form: FormState): FormErrors {
     errors.email = "Please enter a valid email.";
   }
 
-  if (form.arrival && form.departure && form.departure < form.arrival) {
+  if (form.arrival && form.departure && form.departure <= form.arrival) {
     errors.departure = "Departure should be after arrival.";
   }
 
@@ -77,7 +77,7 @@ export function Booking() {
     if (Object.keys(nextErrors).length > 0) return;
 
     const subject = encodeURIComponent(
-      `Stay enquiry — ${form.name.trim()} (${form.arrival || "dates TBC"})`,
+      `Care enquiry — ${form.name.trim()} (${form.arrival || "dates TBC"})`,
     );
     const body = encodeURIComponent(
       [
@@ -108,85 +108,97 @@ export function Booking() {
       />
 
       <div className="container-lux relative">
-        <Reveal>
-          <p className="eyebrow">Begin Your Escape</p>
+        <Reveal variant="clip" y={44}>
+          <p className="eyebrow">{bookingIntro.eyebrow}</p>
           <h2 className="display-lg mt-6 max-w-4xl text-deep-charcoal">
-            <span className="block">Your quiet days</span>
-            <span className="mt-1 block italic text-earth-brown/90">await in Dambulla</span>
+            <span className="block">{bookingIntro.title[0]}</span>
+            <span className="mt-1 block italic text-earth-brown/90">
+              {bookingIntro.title[1]}
+            </span>
           </h2>
           <p className="mt-7 max-w-xl text-base font-light leading-relaxed text-soft-grey md:text-lg">
-            Share your dates and we will personally help you choose the chalet that fits your journey.
+            {bookingIntro.support}
           </p>
         </Reveal>
 
         <div className="mt-16 grid gap-14 lg:mt-24 lg:grid-cols-12 lg:gap-16">
-          <Reveal className="lg:col-span-5">
-            <div className="space-y-11">
-              <blockquote className="border-l border-sand-beige pl-7">
-                <p className="font-serif text-2xl italic leading-snug text-deep-charcoal md:text-[1.9rem]">
-                  “{quote.quote}”
-                </p>
-                <footer className="mt-6 text-[0.68rem] uppercase tracking-[0.22em] text-soft-grey">
-                  {quote.name} · {quote.detail}
-                </footer>
-              </blockquote>
+          <Reveal className="lg:col-span-5" variant="left" y={40}>
+            <Stagger className="space-y-11" stagger={0.12}>
+              <StaggerItem>
+                <blockquote className="border-l border-sand-beige pl-7">
+                  <p className="font-serif text-2xl italic leading-snug text-deep-charcoal md:text-[1.9rem]">
+                    “{quote.quote}”
+                  </p>
+                  <footer className="mt-6 text-[0.68rem] uppercase tracking-[0.22em] text-soft-grey">
+                    {quote.name} · {quote.detail}
+                  </footer>
+                </blockquote>
+              </StaggerItem>
 
-              <div className="divider-lux" />
+              <StaggerItem>
+                <div className="divider-lux" />
+              </StaggerItem>
 
-              <div>
-                <p className="eyebrow">Address</p>
-                <p className="mt-5 font-serif text-3xl leading-snug text-deep-charcoal">
-                  {brand.address.line}
-                </p>
-                <p className="mt-2 text-soft-grey">
-                  {brand.address.city}, {brand.address.country}
-                </p>
-              </div>
+              <StaggerItem>
+                <div>
+                  <p className="eyebrow">Address</p>
+                  <p className="mt-5 font-serif text-3xl leading-snug text-deep-charcoal">
+                    {brand.address.line}
+                  </p>
+                  <p className="mt-2 text-soft-grey">
+                    {brand.address.city}, {brand.address.country}
+                  </p>
+                </div>
+              </StaggerItem>
 
-              <div>
-                <p className="eyebrow">Speak with us</p>
-                <ul className="mt-5 space-y-4">
-                  {brand.phones.map((phone) => (
-                    <li key={phone.number}>
-                      <a href={phone.href} className="group block">
-                        <span className="block text-sm text-soft-grey">{phone.label}</span>
-                        <span className="mt-1 block font-serif text-2xl text-deep-charcoal transition group-hover:text-earth-brown">
-                          {phone.number}
-                        </span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href={`mailto:${brand.email}`}
-                  className="mt-7 inline-block font-serif text-xl text-deep-charcoal transition hover:text-earth-brown"
-                >
-                  {brand.email}
-                </a>
-              </div>
+              <StaggerItem>
+                <div>
+                  <p className="eyebrow">Speak with us</p>
+                  <ul className="mt-5 space-y-4">
+                    {brand.phones.map((phone) => (
+                      <li key={phone.number}>
+                        <a href={phone.href} className="group block">
+                          <span className="block text-sm text-soft-grey">{phone.label}</span>
+                          <span className="mt-1 block font-serif text-2xl text-deep-charcoal transition group-hover:text-earth-brown">
+                            {phone.number}
+                          </span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    href={`mailto:${brand.email}`}
+                    className="mt-7 inline-block font-serif text-xl text-deep-charcoal transition hover:text-earth-brown"
+                  >
+                    {brand.email}
+                  </a>
+                </div>
+              </StaggerItem>
 
-              <div className="flex flex-wrap gap-3">
-                <a
-                  href={brand.whatsapp.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn-primary"
-                >
-                  WhatsApp
-                </a>
-                <a
-                  href={brand.social.instagram}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn-secondary-dark"
-                >
-                  Instagram
-                </a>
-              </div>
-            </div>
+              <StaggerItem>
+                <div className="flex flex-wrap gap-3">
+                  <a
+                    href={brand.whatsapp.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn-primary"
+                  >
+                    WhatsApp
+                  </a>
+                  <a
+                    href={brand.social.instagram}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn-secondary-dark"
+                  >
+                    Instagram
+                  </a>
+                </div>
+              </StaggerItem>
+            </Stagger>
           </Reveal>
 
-          <Reveal delay={0.1} className="lg:col-span-7">
+          <Reveal delay={0.12} variant="right" y={40} className="lg:col-span-7">
             <form onSubmit={onSubmit} className="form-shell" noValidate>
               <div className="grid gap-7 sm:grid-cols-2">
                 <label className="block">
@@ -279,7 +291,7 @@ export function Booking() {
                     required
                     className={`input-lux ${errors.message ? "input-lux-error" : ""}`}
                     name="message"
-                    placeholder="Which chalet calls to you? Meal preferences or special requests..."
+                    placeholder={bookingIntro.placeholder}
                     aria-invalid={Boolean(errors.message)}
                     aria-describedby={errors.message ? "error-message" : undefined}
                     value={form.message}
@@ -295,7 +307,7 @@ export function Booking() {
 
               <div className="mt-10 flex flex-wrap items-center gap-5">
                 <button type="submit" className="btn-primary">
-                  Begin Your Escape
+                  {bookingIntro.cta}
                 </button>
                 {status === "sent" ? (
                   <p className="text-sm text-earth-brown" role="status">
@@ -303,7 +315,7 @@ export function Booking() {
                   </p>
                 ) : (
                   <p className="max-w-xs text-sm font-light text-soft-grey">
-                    We respond personally — usually within one business day.
+                    {bookingIntro.formNote}
                   </p>
                 )}
               </div>

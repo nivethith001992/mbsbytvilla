@@ -3,7 +3,8 @@
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useId, useRef, useState } from "react";
-import { gallery } from "@/lib/content";
+import { gallery, galleryIntro } from "@/lib/content";
+import { lockBodyScroll, unlockBodyScroll } from "@/lib/scroll";
 import { Reveal } from "./Reveal";
 
 export function Gallery() {
@@ -17,7 +18,7 @@ export function Gallery() {
   useEffect(() => {
     if (active === null) {
       if (openRef.current) {
-        document.body.style.overflow = "";
+        unlockBodyScroll();
         previouslyFocused.current?.focus({ preventScroll: true });
         previouslyFocused.current = null;
         openRef.current = false;
@@ -28,7 +29,7 @@ export function Gallery() {
     if (!openRef.current) {
       previouslyFocused.current = document.activeElement as HTMLElement | null;
       openRef.current = true;
-      document.body.style.overflow = "hidden";
+      lockBodyScroll();
       const timer = window.setTimeout(() => closeRef.current?.focus(), 40);
       return () => window.clearTimeout(timer);
     }
@@ -80,21 +81,26 @@ export function Gallery() {
 
   useEffect(() => {
     return () => {
-      document.body.style.overflow = "";
+      if (openRef.current) {
+        unlockBodyScroll();
+        openRef.current = false;
+      }
     };
   }, []);
 
   return (
     <section id="gallery" className="section-pad-lg section-atmosphere relative overflow-hidden">
       <div className="container-lux">
-        <Reveal className="mx-auto max-w-3xl text-center">
-          <p className="eyebrow">Gallery</p>
+        <Reveal className="mx-auto max-w-3xl text-center" variant="clip" y={44}>
+          <p className="eyebrow">{galleryIntro.eyebrow}</p>
           <h2 className="display-lg mt-6 text-deep-charcoal">
-            <span className="block">Moments of</span>
-            <span className="mt-1 block italic text-earth-brown/90">stillness</span>
+            <span className="block">{galleryIntro.title[0]}</span>
+            <span className="mt-1 block italic text-earth-brown/90">
+              {galleryIntro.title[1]}
+            </span>
           </h2>
           <p className="mt-7 text-base font-light leading-relaxed text-soft-grey md:text-lg">
-            A glimpse into the garden, the chalets, and the quiet light of Dambulla.
+            {galleryIntro.support}
           </p>
         </Reveal>
 
@@ -102,7 +108,10 @@ export function Gallery() {
           {gallery.map((item, index) => (
             <Reveal
               key={`${item.src}-${index}`}
-              delay={(index % 3) * 0.06}
+              delay={(index % 3) * 0.09}
+              variant={index % 3 === 0 ? "scale" : index % 3 === 1 ? "up" : "blur"}
+              y={42}
+              duration={1.1}
               className="gallery-item"
             >
               <button
@@ -118,7 +127,7 @@ export function Gallery() {
                 aria-label={`Open image: ${item.caption}`}
               >
                 <span
-                  className={`relative block w-full ${
+                  className={`relative block w-full overflow-hidden ${
                     item.span === "tall"
                       ? "aspect-[3/4]"
                       : item.span === "wide"
@@ -131,10 +140,10 @@ export function Gallery() {
                     alt={item.alt}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw"
-                    className="object-cover transition duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                    className="object-cover transition duration-[1.8s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
                   />
-                  <span className="absolute inset-0 bg-deep-charcoal/0 transition duration-500 group-hover:bg-deep-charcoal/30" />
-                  <span className="absolute inset-x-0 bottom-0 translate-y-2 p-6 opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                  <span className="absolute inset-0 bg-deep-charcoal/0 transition duration-700 group-hover:bg-deep-charcoal/32" />
+                  <span className="absolute inset-x-0 bottom-0 translate-y-4 p-6 opacity-0 transition duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0 group-hover:opacity-100">
                     <span className="block font-serif text-xl text-warm-white md:text-2xl">
                       {item.caption}
                     </span>
@@ -187,10 +196,18 @@ export function Gallery() {
 
             <motion.div
               key={active}
-              initial={reduceMotion ? false : { opacity: 0, scale: 0.985 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={reduceMotion ? undefined : { opacity: 0, scale: 0.985 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              initial={
+                reduceMotion
+                  ? false
+                  : { opacity: 0, scale: 0.94, y: 24, filter: "blur(8px)" }
+              }
+              animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
+              exit={
+                reduceMotion
+                  ? undefined
+                  : { opacity: 0, scale: 0.97, y: -12, filter: "blur(4px)" }
+              }
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
               className="relative flex w-full max-w-5xl flex-col items-center"
               onClick={(event) => event.stopPropagation()}
             >

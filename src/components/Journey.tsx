@@ -5,54 +5,61 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
-import { journeySteps } from "@/lib/content";
+import { journeyIntro, journeySteps } from "@/lib/content";
 import { Reveal } from "./Reveal";
 
 const PIN_MQ = "(min-width: 1024px)";
 
 export function Journey() {
   const sectionRef = useRef<HTMLElement>(null);
+  const pinRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (reduceMotion) return;
+
     gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.config({ ignoreMobileResize: true });
 
     const section = sectionRef.current;
+    const pin = pinRef.current;
     const track = trackRef.current;
-    if (!section || !track) return;
+    if (!section || !pin || !track) return;
 
     const mm = gsap.matchMedia();
 
     mm.add(PIN_MQ, () => {
       const panels = gsap.utils.toArray<HTMLElement>(
-        section.querySelectorAll(".journey-panel"),
+        track.querySelectorAll(".journey-panel"),
       );
       if (panels.length === 0) return;
 
-      const getScrollDistance = () =>
-        Math.max(track.scrollWidth - window.innerWidth, window.innerWidth);
+      const getDistance = () =>
+        Math.max(track.scrollWidth - pin.clientWidth, 0);
 
-      const tween = gsap.to(panels, {
-        xPercent: -100 * (panels.length - 1),
+      // Translate the whole track — avoids xPercent white-gap / width mismatch bugs
+      const tween = gsap.to(track, {
+        x: () => -getDistance(),
         ease: "none",
         scrollTrigger: {
-          trigger: section,
+          trigger: pin,
           pin: true,
           scrub: 0.85,
           anticipatePin: 1,
           start: "top top",
-          end: () => `+=${getScrollDistance()}`,
+          end: () => `+=${Math.max(getDistance(), window.innerWidth * 0.6)}`,
           invalidateOnRefresh: true,
+          fastScrollEnd: true,
         },
       });
 
       const nested: ScrollTrigger[] = [];
 
       panels.forEach((panel) => {
-        const image = panel.querySelector(".journey-image");
-        const copy = panel.querySelector(".journey-copy");
+        const image = panel.querySelector<HTMLElement>(".journey-image");
+        const copy = panel.querySelector<HTMLElement>(".journey-copy");
+        const frame = panel.querySelector<HTMLElement>(".journey-frame");
 
         if (image) {
           nested.push(
@@ -63,7 +70,28 @@ export function Journey() {
               end: "right left",
               scrub: true,
               onUpdate: (self) => {
-                gsap.set(image, { scale: 1.1 - self.progress * 0.1 });
+                const p = self.progress;
+                gsap.set(image, {
+                  scale: 1.18 - p * 0.14,
+                  xPercent: (0.5 - p) * 5,
+                });
+              },
+            }),
+          );
+        }
+
+        if (frame) {
+          nested.push(
+            ScrollTrigger.create({
+              trigger: panel,
+              containerAnimation: tween,
+              start: "left 90%",
+              end: "left 40%",
+              scrub: true,
+              onUpdate: (self) => {
+                gsap.set(frame, {
+                  borderRadius: `${2.5 - self.progress * 0.25}rem`,
+                });
               },
             }),
           );
@@ -74,13 +102,14 @@ export function Journey() {
             ScrollTrigger.create({
               trigger: panel,
               containerAnimation: tween,
-              start: "left 70%",
+              start: "left 80%",
               end: "center center",
               scrub: true,
               onUpdate: (self) => {
+                const p = self.progress;
                 gsap.set(copy, {
-                  y: 28 * (1 - self.progress),
-                  opacity: 0.4 + self.progress * 0.6,
+                  y: 36 * (1 - p),
+                  opacity: 0.35 + p * 0.65,
                 });
               },
             }),
@@ -88,18 +117,86 @@ export function Journey() {
         }
       });
 
-      const onResize = () => ScrollTrigger.refresh();
+      let resizeTimer = 0;
+      const onResize = () => {
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 140);
+      };
+
       window.addEventListener("resize", onResize);
-      // Refresh after images/layout settle
-      const refreshTimer = window.setTimeout(() => ScrollTrigger.refresh(), 200);
+      window.addEventListener("orientationchange", onResize);
+      const refreshTimer = window.setTimeout(() => ScrollTrigger.refresh(), 280);
 
       return () => {
         window.clearTimeout(refreshTimer);
+        window.clearTimeout(resizeTimer);
         window.removeEventListener("resize", onResize);
+        window.removeEventListener("orientationchange", onResize);
         nested.forEach((st) => st.kill());
         tween.scrollTrigger?.kill();
         tween.kill();
-        gsap.set(panels, { clearProps: "transform" });
+        gsap.set(track, { clearProps: "transform" });
+        panels.forEach((panel) => {
+          const image = panel.querySelector(".journey-image");
+          const copy = panel.querySelector(".journey-copy");
+          const frame = panel.querySelector(".journey-frame");
+          if (image) gsap.set(image, { clearProps: "transform" });
+          if (copy) gsap.set(copy, { clearProps: "transform,opacity" });
+          if (frame) gsap.set(frame, { clearProps: "borderRadius" });
+        });
+      };
+    });
+
+    // Mobile / tablet: vertical stack with soft parallax — no pin
+    mm.add("(max-width: 1023px)", () => {
+      const panels = gsap.utils.toArray<HTMLElement>(
+        track.querySelectorAll(".journey-panel"),
+      );
+      const triggers: ScrollTrigger[] = [];
+
+      panels.forEach((panel) => {
+        const image = panel.querySelector<HTMLElement>(".journey-image");
+        const copy = panel.querySelector<HTMLElement>(".journey-copy");
+
+        if (image) {
+          triggers.push(
+            ScrollTrigger.create({
+              trigger: panel,
+              start: "top 92%",
+              end: "bottom 8%",
+              scrub: true,
+              onUpdate: (self) => {
+                gsap.set(image, {
+                  scale: 1.1 - self.progress * 0.07,
+                  yPercent: (0.5 - self.progress) * 6,
+                });
+              },
+            }),
+          );
+        }
+
+        if (copy) {
+          triggers.push(
+            ScrollTrigger.create({
+              trigger: panel,
+              start: "top 85%",
+              end: "center 45%",
+              scrub: true,
+              onUpdate: (self) => {
+                gsap.set(copy, {
+                  y: 22 * (1 - self.progress),
+                  opacity: 0.45 + self.progress * 0.55,
+                });
+              },
+            }),
+          );
+        }
+      });
+
+      return () => {
+        triggers.forEach((st) => st.kill());
         panels.forEach((panel) => {
           const image = panel.querySelector(".journey-image");
           const copy = panel.querySelector(".journey-copy");
@@ -118,55 +215,63 @@ export function Journey() {
     <section
       id="journey"
       ref={sectionRef}
-      className="relative overflow-hidden bg-surface"
+      className="relative overflow-x-clip bg-surface"
       aria-label="Your journey begins"
     >
-      <div className="container-lux relative z-10 pt-24 md:pt-32">
-        <Reveal>
-          <p className="eyebrow">Your Journey Begins</p>
+      <div className="container-lux relative z-10 pt-24 md:pt-32 lg:pb-4">
+        <Reveal variant="clip" y={44}>
+          <p className="eyebrow">{journeyIntro.eyebrow}</p>
           <h2 className="display-lg mt-6 max-w-3xl text-deep-charcoal">
-            <span className="block">Arrive. Explore.</span>
-            <span className="mt-1 block italic text-earth-brown/90">Relax. Reconnect.</span>
+            <span className="block">{journeyIntro.title[0]}</span>
+            <span className="mt-1 block italic text-earth-brown/90">
+              {journeyIntro.title[1]}
+            </span>
           </h2>
         </Reveal>
       </div>
 
+      {/* Pin only this viewport — keeps the title outside so panels aren't clipped */}
       <div
-        ref={trackRef}
-        className="mt-14 flex flex-col gap-8 px-[max(1.25rem,calc((100%-1180px)/2))] pb-24 lg:mt-16 lg:flex-row lg:gap-6 lg:overflow-visible lg:pb-28 lg:pr-0"
+        ref={pinRef}
+        className="journey-pin relative mt-12 w-full lg:mt-10 lg:h-[100svh] lg:overflow-hidden"
       >
-        {journeySteps.map((step) => (
-          <article
-            key={step.id}
-            className="journey-panel relative w-full shrink-0 lg:h-[70svh] lg:w-[78vw] lg:max-w-[980px] xl:w-[68vw]"
-          >
-            <div className="journey-frame relative h-[58vh] lg:h-full">
-              <div className="journey-image absolute inset-0 will-change-transform">
-                <Image
-                  src={step.image}
-                  alt={step.imageAlt}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 70vw"
-                  className="object-cover"
-                />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-deep-charcoal/78 via-deep-charcoal/28 to-transparent" />
-              <div className="grain" />
+        <div
+          ref={trackRef}
+          className="journey-track flex w-full flex-col gap-8 px-[max(1.25rem,calc((100%-1180px)/2))] pb-24 will-change-transform lg:h-full lg:w-max lg:flex-row lg:items-center lg:gap-7 lg:px-0 lg:pb-0 lg:pl-[max(1.25rem,calc((100%-1180px)/2))] lg:pr-[12vw]"
+        >
+          {journeySteps.map((step) => (
+            <article
+              key={step.id}
+              className="journey-panel relative w-full shrink-0 lg:h-[min(78svh,720px)] lg:w-[min(78vw,980px)]"
+            >
+              <div className="journey-frame relative h-[56vh] overflow-hidden lg:h-full">
+                <div className="journey-image absolute inset-0 will-change-transform">
+                  <Image
+                    src={step.image}
+                    alt={step.imageAlt}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 78vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-deep-charcoal/78 via-deep-charcoal/28 to-transparent" />
+                <div className="grain" />
 
-              <div className="journey-copy absolute inset-x-0 bottom-0 p-8 md:p-12 lg:p-14">
-                <p className="text-[0.68rem] uppercase tracking-[0.35em] text-sand-beige">
-                  {step.step}
-                </p>
-                <h3 className="mt-4 font-serif text-4xl text-warm-white md:text-5xl lg:text-6xl">
-                  {step.title}
-                </h3>
-                <p className="mt-5 max-w-md text-sm font-light leading-relaxed text-warm-white/75 md:text-base">
-                  {step.description}
-                </p>
+                <div className="journey-copy absolute inset-x-0 bottom-0 p-8 will-change-transform md:p-12 lg:p-14">
+                  <p className="text-[0.68rem] uppercase tracking-[0.35em] text-sand-beige">
+                    {step.step}
+                  </p>
+                  <h3 className="mt-4 font-serif text-4xl text-warm-white md:text-5xl lg:text-6xl">
+                    {step.title}
+                  </h3>
+                  <p className="mt-5 max-w-md text-sm font-light leading-relaxed text-warm-white/75 md:text-base">
+                    {step.description}
+                  </p>
+                </div>
               </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );

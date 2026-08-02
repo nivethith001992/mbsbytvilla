@@ -19,24 +19,26 @@ const body = Figtree({
 export const metadata: Metadata = {
   metadataBase: new URL("https://mindbodyandsoul.lk"),
   title: {
-    default: "Mind Body & Soul | Private Luxury Villa Retreat in Dambulla",
+    default:
+      "Mind Body & Soul | Luxury Adult Care Retirement Living in Dambulla",
     template: "%s | Mind Body & Soul",
   },
   description:
-    "Leave the busy world behind at Mind Body & Soul — a peaceful private escape in Dambulla, Sri Lanka. Four chakra-inspired chalets, yoga, meditation, and authentic hospitality.",
+    "Mind Body & Soul by T-Villa — a luxury adult care retirement facility in Dambulla, Sri Lanka. Independent living with care and close care, villa homes, on-site nursing, and 28 acres of gardens and lake.",
   keywords: [
     "Mind Body & Soul",
-    "Dambulla villa",
-    "Sri Lanka luxury retreat",
-    "private chalet",
-    "wellness villa",
-    "Sigiriya stay",
-    "yoga retreat Sri Lanka",
+    "Mind Body & Soul by T-Villa",
+    "Dambulla retirement care",
+    "Sri Lanka adult care",
+    "independent living with care",
+    "luxury retirement villa Sri Lanka",
+    "elderly care Dambulla",
+    "memory care Sri Lanka",
   ],
   openGraph: {
-    title: "Mind Body & Soul | Private Luxury Villa Retreat",
+    title: "Mind Body & Soul | Luxury Adult Care in Dambulla",
     description:
-      "Reconnect with nature. Experience peace, privacy & luxury in a secret garden in Dambulla, Sri Lanka.",
+      "Live the life you still deserve — with nature. Independent living with care and close care in villa homes across 28 acres in Dambulla, Sri Lanka.",
     url: "https://mindbodyandsoul.lk",
     siteName: "Mind Body & Soul",
     locale: "en_LK",
@@ -46,15 +48,15 @@ export const metadata: Metadata = {
         url: "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1200&q=80",
         width: 1200,
         height: 630,
-        alt: "Mind Body & Soul private villa garden retreat",
+        alt: "Mind Body & Soul luxury adult care villas and gardens in Dambulla",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mind Body & Soul | Private Luxury Villa Retreat",
+    title: "Mind Body & Soul | Luxury Adult Care in Dambulla",
     description:
-      "A peaceful private escape in Dambulla — four unique chalets surrounded by nature.",
+      "Independence with care — villa living, on-site nursing, and dignified retirement life in Dambulla, Sri Lanka.",
     images: [
       "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1200&q=80",
     ],
