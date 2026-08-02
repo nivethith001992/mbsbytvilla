@@ -89,8 +89,8 @@ export function Booking() {
       />
 
       <div className="container-lux relative">
-        <div className="mx-auto max-w-2xl">
-          <Reveal variant="clip" y={44}>
+        <div className="grid items-start gap-12 md:grid-cols-2 md:gap-10 lg:gap-16 xl:gap-20">
+          <Reveal variant="clip" y={44} className="md:sticky md:top-28 md:pt-2">
             <p className="eyebrow">{bookingIntro.eyebrow}</p>
             <h2 className="display-lg mt-6 text-deep-charcoal">
               <span className="block">{bookingIntro.title[0]}</span>
@@ -98,12 +98,12 @@ export function Booking() {
                 {bookingIntro.title[1]}
               </span>
             </h2>
-            <p className="mt-7 max-w-xl text-base font-light leading-relaxed text-soft-grey md:text-lg">
+            <p className="mt-7 max-w-md text-base font-light leading-relaxed text-soft-grey md:text-lg">
               {bookingIntro.support}
             </p>
           </Reveal>
 
-          <Reveal delay={0.12} variant="up" y={36} className="mt-12 md:mt-14">
+          <Reveal delay={0.12} variant="up" y={36}>
             <form onSubmit={onSubmit} className="form-shell" noValidate>
               <div className="grid gap-7 sm:grid-cols-2">
                 <label className="block">
