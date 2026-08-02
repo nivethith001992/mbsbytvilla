@@ -1,9 +1,16 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { brand, navLinks } from "@/lib/content";
-import { lockBodyScroll, unlockBodyScroll } from "@/lib/scroll";
+import {
+  getActiveSectionId,
+  getLenis,
+  getScrollY,
+  lockBodyScroll,
+  unlockBodyScroll,
+} from "@/lib/scroll";
 import { ScrollTo } from "./ScrollTo";
 
 const SECTION_IDS = [
@@ -15,16 +22,22 @@ const SECTION_IDS = [
   "booking",
 ] as const;
 
+/** Hysteresis avoids transparent↔solid flicker near the threshold. */
+const SCROLL_SOLID_ON = 36;
+const SCROLL_SOLID_OFF = 12;
+
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("");
+  const [mounted, setMounted] = useState(false);
   const reduceMotion = useReducedMotion();
   const menuId = useId();
   const headerRef = useRef<HTMLElement>(null);
   const menuOpenRef = useRef(false);
   const previouslyFocused = useRef<HTMLElement | null>(null);
   const firstMobileLinkRef = useRef<HTMLButtonElement>(null);
+  const scrolledRef = useRef(false);
 
   const setMenuOpen = (next: boolean) => {
     // Side effects outside the state updater — Strict Mode can double-invoke updaters
@@ -42,40 +55,62 @@ export function Navbar() {
   };
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 28);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    setMounted(true);
   }, []);
 
   useEffect(() => {
-    const elements = SECTION_IDS.map((id) => document.getElementById(id)).filter(
-      (el): el is HTMLElement => Boolean(el),
-    );
-    if (elements.length === 0) return;
+    const syncChrome = () => {
+      const y = getScrollY();
+      const nextSolid = scrolledRef.current
+        ? y > SCROLL_SOLID_OFF
+        : y > SCROLL_SOLID_ON;
+      if (nextSolid !== scrolledRef.current) {
+        scrolledRef.current = nextSolid;
+        setScrolled(nextSolid);
+      }
+      setActive(getActiveSectionId(SECTION_IDS));
+    };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // Near the very top, clear active so hero doesn't keep a stale underline
-        if (window.scrollY < 80) {
-          setActive("");
-          return;
-        }
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]?.target.id) {
-          setActive(visible[0].target.id);
-        }
-      },
-      {
-        rootMargin: "-28% 0px -55% 0px",
-        threshold: [0.08, 0.2, 0.4],
-      },
-    );
+    syncChrome();
 
-    elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+    window.addEventListener("scroll", syncChrome, { passive: true });
+    window.addEventListener("resize", syncChrome, { passive: true });
+
+    let removeLenis: (() => void) | null = null;
+    let pollId = 0;
+
+    const attachLenis = () => {
+      const lenis = getLenis();
+      if (!lenis) return false;
+      removeLenis?.();
+      removeLenis = lenis.on("scroll", syncChrome);
+      return true;
+    };
+
+    if (!attachLenis()) {
+      // Lenis mounts in a sibling effect — retry briefly
+      pollId = window.setInterval(() => {
+        if (attachLenis()) window.clearInterval(pollId);
+      }, 50);
+      window.setTimeout(() => window.clearInterval(pollId), 2000);
+    }
+
+    return () => {
+      window.removeEventListener("scroll", syncChrome);
+      window.removeEventListener("resize", syncChrome);
+      window.clearInterval(pollId);
+      removeLenis?.();
+    };
+  }, []);
+
+  // Close mobile menu when crossing to desktop breakpoint
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const onChange = () => {
+      if (mq.matches && menuOpenRef.current) setMenuOpen(false);
+    };
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
   }, []);
 
   useEffect(() => {
@@ -92,11 +127,23 @@ export function Navbar() {
         return;
       }
 
-      if (event.key !== "Tab" || !headerRef.current) return;
+      if (event.key !== "Tab") return;
 
-      const focusable = headerRef.current.querySelectorAll<HTMLElement>(
-        'button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      const root = document.getElementById(menuId) ?? headerRef.current;
+      if (!root) return;
+
+      const focusable = [
+        ...root.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        ),
+      ];
+      // Keep the hamburger (in header) in the tab cycle when menu is portaled
+      const toggle = headerRef.current?.querySelector<HTMLElement>(
+        '[aria-controls="' + menuId + '"]',
       );
+      if (toggle && !focusable.includes(toggle)) {
+        focusable.unshift(toggle);
+      }
       if (focusable.length === 0) return;
 
       const first = focusable[0];
@@ -115,7 +162,7 @@ export function Navbar() {
       window.clearTimeout(focusTimer);
       window.removeEventListener("keydown", onKey);
     };
-  }, [open]);
+  }, [open, menuId]);
 
   useEffect(() => {
     return () => {
@@ -127,6 +174,7 @@ export function Navbar() {
   }, []);
 
   const solid = scrolled || open;
+  const bookingActive = active === "booking";
 
   const linkClass = (id: string) => {
     const isActive = active === id;
@@ -141,19 +189,135 @@ export function Navbar() {
 
   const closeMenu = () => setMenuOpen(false);
 
+  const mobileMenu = mounted
+    ? createPortal(
+        <AnimatePresence>
+          {open ? (
+            <motion.div
+              id={menuId}
+              key="mobile-nav"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Menu"
+              initial={
+                reduceMotion
+                  ? false
+                  : { opacity: 0, clipPath: "inset(0 0 100% 0)" }
+              }
+              animate={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }}
+              exit={
+                reduceMotion
+                  ? undefined
+                  : { opacity: 0, clipPath: "inset(0 0 100% 0)" }
+              }
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              className="fixed inset-0 z-[80] flex flex-col bg-warm-white lg:hidden"
+            >
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0"
+                  style={{
+                    background:
+                      "radial-gradient(ellipse at 12% 0%, rgba(220,203,184,0.42), transparent 48%), radial-gradient(ellipse at 90% 100%, rgba(232,224,212,0.7), transparent 45%)",
+                  }}
+                />
+
+                <nav
+                  className="relative flex h-full flex-col px-[max(1.25rem,calc((100%-1180px)/2))] pb-10 pt-[5.75rem]"
+                  aria-label="Mobile"
+                >
+                  <div className="flex flex-1 flex-col justify-center gap-1">
+                    {navLinks.map((link, index) => {
+                      const isActive = active === link.id;
+                      return (
+                        <motion.div
+                          key={link.id}
+                          initial={
+                            reduceMotion ? false : { opacity: 0, y: 28, x: -12 }
+                          }
+                          animate={{ opacity: 1, y: 0, x: 0 }}
+                          transition={{
+                            duration: 0.55,
+                            delay: 0.08 + index * 0.07,
+                            ease: [0.22, 1, 0.36, 1],
+                          }}
+                        >
+                          <ScrollTo
+                            ref={index === 0 ? firstMobileLinkRef : undefined}
+                            to={link.id}
+                            onNavigate={closeMenu}
+                            className={`group flex w-full items-baseline justify-between border-b border-[color:var(--line)] py-4 text-left transition-colors ${
+                              isActive ? "border-earth-brown/35" : ""
+                            }`}
+                          >
+                            <span
+                              className={`font-serif text-[clamp(2.4rem,9vw,3.4rem)] leading-none tracking-[-0.02em] transition-colors duration-300 group-hover:text-earth-brown ${
+                                isActive
+                                  ? "text-earth-brown"
+                                  : "text-deep-charcoal"
+                              }`}
+                            >
+                              {link.label}
+                            </span>
+                            <span
+                              className={`text-[0.62rem] uppercase tracking-[0.28em] transition-opacity duration-300 ${
+                                isActive
+                                  ? "text-earth-brown opacity-100"
+                                  : "text-soft-grey opacity-40 group-hover:opacity-80"
+                              }`}
+                            >
+                              {String(index + 1).padStart(2, "0")}
+                            </span>
+                          </ScrollTo>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+
+                  <motion.div
+                    initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.5,
+                      delay: 0.12 + navLinks.length * 0.07,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    className="mt-8 space-y-4"
+                  >
+                    <ScrollTo
+                      to="booking"
+                      className="btn-primary w-full !min-h-[3.25rem] !rounded-[1.05rem]"
+                      onNavigate={closeMenu}
+                    >
+                      Enquire About Care
+                    </ScrollTo>
+                    <p className="text-center text-[0.72rem] font-light tracking-[0.04em] text-soft-grey">
+                      Independence with care · Dambulla
+                    </p>
+                  </motion.div>
+                </nav>
+              </motion.div>
+            ) : null}
+        </AnimatePresence>,
+        document.body,
+      )
+    : null;
+
   return (
     <header
       ref={headerRef}
-      className={`fixed inset-x-0 top-0 z-[60] transition-[background-color,border-color,backdrop-filter,box-shadow,color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+      className={`fixed inset-x-0 top-0 transition-[background-color,border-color,box-shadow] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        open ? "z-[90]" : "z-[60]"
+      } ${
         solid
           ? "border-b border-[color:var(--line)] bg-warm-white/97 shadow-[0_12px_40px_rgba(41,41,41,0.05)] backdrop-blur-xl"
-          : "border-b border-transparent bg-transparent shadow-none"
+          : "border-b border-transparent bg-transparent shadow-none backdrop-blur-0"
       }`}
     >
       <div className="container-lux relative z-[70] flex h-[4.5rem] items-center justify-between md:h-[5rem]">
         <ScrollTo
           to="top"
-          className={`font-serif text-[1.35rem] tracking-[0.01em] transition-colors duration-500 md:text-[1.55rem] ${
+          className={`font-serif text-[1.35rem] tracking-[0.01em] transition-colors duration-[400ms] md:text-[1.55rem] ${
             solid
               ? "text-deep-charcoal"
               : "text-warm-white [text-shadow:0_1px_18px_rgba(41,41,41,0.35)]"
@@ -178,7 +342,9 @@ export function Navbar() {
           ))}
           <ScrollTo
             to="booking"
-            className={`nav-book ${solid ? "nav-book--solid" : "nav-book--ghost"}`}
+            className={`nav-book ${solid ? "nav-book--solid" : "nav-book--ghost"}${
+              bookingActive ? " nav-book--active" : ""
+            }`}
           >
             Enquire
           </ScrollTo>
@@ -189,7 +355,7 @@ export function Navbar() {
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           aria-controls={menuId}
-          className={`flex h-11 w-11 items-center justify-center rounded-[0.85rem] transition-colors duration-300 lg:hidden ${
+          className={`relative z-[90] flex h-11 w-11 items-center justify-center rounded-[0.85rem] transition-colors duration-300 lg:hidden ${
             open || solid
               ? "text-deep-charcoal hover:bg-surface/80"
               : "text-warm-white hover:bg-white/10"
@@ -217,106 +383,7 @@ export function Navbar() {
         </button>
       </div>
 
-      <AnimatePresence>
-        {open ? (
-          <motion.div
-            id={menuId}
-            initial={
-              reduceMotion ? false : { opacity: 0, clipPath: "inset(0 0 100% 0)" }
-            }
-            animate={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }}
-            exit={
-              reduceMotion
-                ? undefined
-                : { opacity: 0, clipPath: "inset(0 0 100% 0)" }
-            }
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-[55] flex flex-col bg-warm-white lg:hidden"
-          >
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(ellipse at 12% 0%, rgba(220,203,184,0.42), transparent 48%), radial-gradient(ellipse at 90% 100%, rgba(232,224,212,0.7), transparent 45%)",
-              }}
-            />
-
-            <nav
-              className="relative flex h-full flex-col px-[max(1.25rem,calc((100%-1180px)/2))] pb-10 pt-[5.75rem]"
-              aria-label="Mobile"
-            >
-              <div className="flex flex-1 flex-col justify-center gap-1">
-                {navLinks.map((link, index) => {
-                  const isActive = active === link.id;
-                  return (
-                    <motion.div
-                      key={link.id}
-                      initial={
-                        reduceMotion ? false : { opacity: 0, y: 28, x: -12 }
-                      }
-                      animate={{ opacity: 1, y: 0, x: 0 }}
-                      transition={{
-                        duration: 0.55,
-                        delay: 0.08 + index * 0.07,
-                        ease: [0.22, 1, 0.36, 1],
-                      }}
-                    >
-                      <ScrollTo
-                        ref={index === 0 ? firstMobileLinkRef : undefined}
-                        to={link.id}
-                        onNavigate={closeMenu}
-                        className={`group flex w-full items-baseline justify-between border-b border-[color:var(--line)] py-4 text-left transition-colors ${
-                          isActive ? "border-earth-brown/35" : ""
-                        }`}
-                      >
-                        <span
-                          className={`font-serif text-[clamp(2.4rem,9vw,3.4rem)] leading-none tracking-[-0.02em] transition-colors duration-300 group-hover:text-earth-brown ${
-                            isActive ? "text-earth-brown" : "text-deep-charcoal"
-                          }`}
-                        >
-                          {link.label}
-                        </span>
-                        <span
-                          className={`text-[0.62rem] uppercase tracking-[0.28em] transition-opacity duration-300 ${
-                            isActive
-                              ? "text-earth-brown opacity-100"
-                              : "text-soft-grey opacity-40 group-hover:opacity-80"
-                          }`}
-                        >
-                          {String(index + 1).padStart(2, "0")}
-                        </span>
-                      </ScrollTo>
-                    </motion.div>
-                  );
-                })}
-              </div>
-
-              <motion.div
-                initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.5,
-                  delay: 0.12 + navLinks.length * 0.07,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="mt-8 space-y-4"
-              >
-                <ScrollTo
-                  to="booking"
-                  className="btn-primary w-full !min-h-[3.25rem] !rounded-[1.05rem]"
-                  onNavigate={closeMenu}
-                >
-                  Enquire About Care
-                </ScrollTo>
-                <p className="text-center text-[0.72rem] font-light tracking-[0.04em] text-soft-grey">
-                  Independence with care · Dambulla
-                </p>
-              </motion.div>
-            </nav>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+      {mobileMenu}
     </header>
   );
 }

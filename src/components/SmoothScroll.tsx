@@ -7,7 +7,7 @@ import Lenis from "lenis";
 import { registerLenis } from "@/lib/scroll";
 
 /**
- * Cinematic slow-mo smooth scroll via Lenis, synced to GSAP ScrollTrigger.
+ * Silky smooth scroll via Lenis, synced to GSAP ScrollTrigger.
  * Disabled when prefers-reduced-motion is set.
  */
 export function SmoothScroll() {
@@ -39,11 +39,10 @@ export function SmoothScroll() {
       gsap.registerPlugin(ScrollTrigger);
 
       lenis = new Lenis({
-        // Very low lerp = long, silky catch-up (luxury slow-mo)
-        lerp: 0.038,
+        // Slightly snappier than ultra-slow luxury, still silky
+        lerp: 0.062,
         smoothWheel: true,
-        // Each wheel notch travels less → feels slower without feeling stuck
-        wheelMultiplier: 0.52,
+        wheelMultiplier: 0.7,
         // Native touch on phones — avoid laggy syncTouch on iOS
         syncTouch: false,
         touchMultiplier: 1,

@@ -23,9 +23,12 @@ export const ScrollTo = forwardRef<HTMLButtonElement, ScrollToProps>(
         type="button"
         className={["scroll-to", className].filter(Boolean).join(" ")}
         onClick={() => {
-          // Close overlays / unlock body first so scroll isn't blocked by overflow:hidden
+          // Close overlays / unlock body first so scroll isn't blocked
           onNavigate?.();
-          scrollToId(to);
+          // Defer so Lenis.start() after unlock settles before scrollTo
+          requestAnimationFrame(() => {
+            scrollToId(to);
+          });
         }}
         {...rest}
       >

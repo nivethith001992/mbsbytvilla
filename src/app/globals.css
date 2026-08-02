@@ -320,6 +320,16 @@ body {
   box-shadow: 0 12px 28px rgba(41, 41, 41, 0.14);
 }
 
+.nav-book--ghost.nav-book--active {
+  background: color-mix(in srgb, var(--warm-white) 92%, var(--sand-beige));
+  box-shadow: 0 12px 30px rgba(41, 41, 41, 0.18);
+}
+
+.nav-book--solid.nav-book--active {
+  background: var(--earth-brown);
+  border-color: var(--earth-brown);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .nav-link::after {
     transition: none;
@@ -644,7 +654,7 @@ textarea.input-lux {
   left: 0;
   right: 0;
   height: 1.5px;
-  /* Below nav (z-60) so it never paints over the mobile menu */
+  /* Above page, below nav (60) and mobile menu portal (80) */
   z-index: 50;
   transform-origin: left center;
   background: linear-gradient(
@@ -654,6 +664,11 @@ textarea.input-lux {
   );
   opacity: 0.9;
   pointer-events: none;
+}
+
+html.scroll-locked,
+html.scroll-locked body {
+  overflow: hidden !important;
 }
 
 .section-atmosphere {
