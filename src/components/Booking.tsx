@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { bookingIntro, brand, testimonials } from "@/lib/content";
+import { bookingIntro, brand } from "@/lib/content";
 import { Reveal, Stagger, StaggerItem } from "./Reveal";
 
 type FormState = {
@@ -56,7 +56,6 @@ export function Booking() {
   const [form, setForm] = useState<FormState>(initialState);
   const [errors, setErrors] = useState<FormErrors>({});
   const [status, setStatus] = useState<"idle" | "sent">("idle");
-  const quote = testimonials[0];
 
   const update = (field: keyof FormState, value: string) => {
     setForm((current) => ({ ...current, [field]: value }));
@@ -123,16 +122,18 @@ export function Booking() {
 
         <div className="mt-16 grid gap-14 lg:mt-24 lg:grid-cols-12 lg:gap-16">
           <Reveal className="lg:col-span-5" variant="left" y={40}>
-            <Stagger className="space-y-11" stagger={0.12}>
+            <Stagger className="space-y-9" stagger={0.12}>
               <StaggerItem>
-                <blockquote className="border-l border-sand-beige pl-7">
-                  <p className="font-serif text-2xl italic leading-snug text-deep-charcoal md:text-[1.9rem]">
-                    “{quote.quote}”
+                <div>
+                  <p className="eyebrow">Address</p>
+                  <p className="mt-4 font-serif text-2xl leading-snug text-deep-charcoal md:text-3xl">
+                    {brand.address.line}
+                    <span className="text-soft-grey"> · </span>
+                    <span className="font-sans text-base font-light tracking-normal text-soft-grey md:text-lg">
+                      {brand.address.city}, {brand.address.country}
+                    </span>
                   </p>
-                  <footer className="mt-6 text-[0.68rem] uppercase tracking-[0.22em] text-soft-grey">
-                    {quote.name} · {quote.detail}
-                  </footer>
-                </blockquote>
+                </div>
               </StaggerItem>
 
               <StaggerItem>
@@ -141,37 +142,30 @@ export function Booking() {
 
               <StaggerItem>
                 <div>
-                  <p className="eyebrow">Address</p>
-                  <p className="mt-5 font-serif text-3xl leading-snug text-deep-charcoal">
-                    {brand.address.line}
-                  </p>
-                  <p className="mt-2 text-soft-grey">
-                    {brand.address.city}, {brand.address.country}
-                  </p>
-                </div>
-              </StaggerItem>
-
-              <StaggerItem>
-                <div>
                   <p className="eyebrow">Speak with us</p>
-                  <ul className="mt-5 space-y-4">
+                  <ul className="mt-4 space-y-3">
                     {brand.phones.map((phone) => (
                       <li key={phone.number}>
-                        <a href={phone.href} className="group block">
-                          <span className="block text-sm text-soft-grey">{phone.label}</span>
-                          <span className="mt-1 block font-serif text-2xl text-deep-charcoal transition group-hover:text-earth-brown">
+                        <a
+                          href={phone.href}
+                          className="group flex flex-wrap items-baseline gap-x-3 gap-y-1"
+                        >
+                          <span className="text-sm text-soft-grey">{phone.label}</span>
+                          <span className="font-serif text-xl text-deep-charcoal transition group-hover:text-earth-brown md:text-2xl">
                             {phone.number}
                           </span>
                         </a>
                       </li>
                     ))}
+                    <li>
+                      <a
+                        href={`mailto:${brand.email}`}
+                        className="inline-block font-serif text-xl text-deep-charcoal transition hover:text-earth-brown"
+                      >
+                        {brand.email}
+                      </a>
+                    </li>
                   </ul>
-                  <a
-                    href={`mailto:${brand.email}`}
-                    className="mt-7 inline-block font-serif text-xl text-deep-charcoal transition hover:text-earth-brown"
-                  >
-                    {brand.email}
-                  </a>
                 </div>
               </StaggerItem>
 

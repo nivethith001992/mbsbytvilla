@@ -68,74 +68,41 @@ export function Location() {
                   allowFullScreen
                 />
               </div>
-              <div className="mt-7 flex flex-wrap items-end justify-between gap-4">
-                <div>
-                  <p className="font-serif text-2xl text-deep-charcoal md:text-3xl">
-                    {brand.address.line}
-                  </p>
-                  <p className="mt-1 text-sm text-soft-grey">
-                    {brand.address.city}, {brand.address.country}
-                  </p>
-                </div>
-                <a
-                  href={brand.social.maps}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn-ghost"
-                >
-                  Open in Maps
-                </a>
-              </div>
+              <p className="mt-7 font-serif text-xl leading-snug text-deep-charcoal md:text-2xl">
+                {brand.address.line}
+                <span className="text-soft-grey"> · </span>
+                <span className="font-sans text-base font-light tracking-normal text-soft-grey md:text-lg">
+                  {brand.address.city}, {brand.address.country}
+                </span>
+              </p>
             </Reveal>
 
-            <div className="flex flex-col gap-10 lg:col-span-5">
-              <div>
-                <Reveal variant="right">
-                  <p className="eyebrow">Nearby</p>
-                </Reveal>
-                <Stagger className="mt-7 space-y-0" delay={0.08} stagger={0.1}>
-                  {location.attractions.map((item, index) => (
-                    <StaggerItem key={item.name} y={28}>
-                      <div className="grid grid-cols-[auto_1fr] gap-4 border-b border-[color:var(--line)] py-6">
-                        <span className="pt-1 text-[0.65rem] tracking-[0.22em] text-sand-beige">
-                          {String(index + 1).padStart(2, "0")}
-                        </span>
-                        <div>
-                          <h3 className="font-serif text-2xl text-deep-charcoal">{item.name}</h3>
-                          <p className="mt-2 text-sm font-light leading-relaxed text-soft-grey">
-                            {item.detail}
-                          </p>
-                        </div>
-                      </div>
-                    </StaggerItem>
-                  ))}
-                </Stagger>
-              </div>
-
-              <Reveal delay={0.1} variant="scale" className="panel-lux relative p-8 md:p-10">
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0 opacity-30"
-                  style={{
-                    background:
-                      "radial-gradient(ellipse at 80% 20%, rgba(220,203,184,0.25), transparent 50%)",
-                  }}
-                />
-                <div className="relative">
-                  <p className="eyebrow eyebrow-light">Travel</p>
-                  <ul className="mt-6 space-y-3.5">
-                    {location.travel.map((item) => (
-                      <li
-                        key={item}
-                        className="flex gap-3 text-sm font-light leading-relaxed text-warm-white/78"
-                      >
-                        <span aria-hidden className="mt-2 h-px w-3 shrink-0 bg-sand-beige" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+            <div className="lg:col-span-5">
+              <Reveal variant="right">
+                <p className="eyebrow">Nearby</p>
               </Reveal>
+              <Stagger className="mt-7 space-y-0" delay={0.08} stagger={0.1}>
+                {location.attractions.map((item, index) => (
+                  <StaggerItem key={item.name} y={28}>
+                    <div className="grid grid-cols-[auto_1fr] gap-4 border-b border-[color:var(--line)] py-5">
+                      <span className="pt-1 text-[0.65rem] tracking-[0.22em] text-sand-beige">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-3">
+                        <h3 className="shrink-0 font-serif text-xl text-deep-charcoal md:text-2xl">
+                          {item.name}
+                        </h3>
+                        <p className="text-sm font-light leading-relaxed text-soft-grey">
+                          <span className="hidden text-sand-beige sm:inline" aria-hidden>
+                            ·{" "}
+                          </span>
+                          {item.detail}
+                        </p>
+                      </div>
+                    </div>
+                  </StaggerItem>
+                ))}
+              </Stagger>
             </div>
           </div>
         </div>

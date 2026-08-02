@@ -404,12 +404,6 @@ export const location = {
         "The area around the resort is excellent for walking for those who feel more active.",
     },
   ],
-  travel: [
-    "still only 10 minutes from the city",
-    "operating transport with a hydraulic wheelchair lift",
-    "Hospital visits will normally be accompanied by our staff.",
-    "Weekly shopping trips are arranged.",
-  ],
 };
 
 export const bookingIntro = {
@@ -422,16 +416,6 @@ export const bookingIntro = {
   placeholder:
     "independent living with care or close care? Disabled Guests, Couples, Friends and relatives, dietary requirements…",
 };
-
-/** Exact philosophy line from the owner document — not a fabricated guest review */
-export const testimonials = [
-  {
-    quote:
-      "Providing sufficient 'care' whilst maintaining individual dignity is our main philosophy.",
-    name: "The Care",
-    detail: "Mind Body & Soul by T-Villa",
-  },
-];
 
 export const galleryIntro = {
   eyebrow: "Gallery",
