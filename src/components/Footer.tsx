@@ -8,12 +8,6 @@ const footerLinks = [
   { label: "Enquire", id: "booking" },
 ];
 
-const socialLinks = [
-  { label: "Instagram", href: brand.social.instagram },
-  { label: "Facebook", href: brand.social.facebook },
-  { label: "Maps", href: brand.social.maps },
-] as const;
-
 export function Footer() {
   const year = new Date().getFullYear();
 
@@ -29,7 +23,7 @@ export function Footer() {
       />
 
       <div className="container-lux relative py-14 md:py-16">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-10">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-4">
             <ScrollTo
@@ -68,33 +62,41 @@ export function Footer() {
           {/* Contact */}
           <div className="lg:col-span-4">
             <p className="text-[0.64rem] font-medium uppercase tracking-[0.26em] text-sand-beige/85">
-              Contact
+              Address
             </p>
-            <div className="mt-4 space-y-3 text-[0.92rem] font-light leading-relaxed text-warm-white/65">
-              <p>
-                {brand.address.line}
-                <br />
-                {brand.address.city}, {brand.address.country}
-              </p>
-              <a
-                href={`mailto:${brand.email}`}
-                className="block transition hover:text-warm-white"
-              >
-                {brand.email}
-              </a>
-              <div className="space-y-1.5 pt-0.5">
-                {brand.phones.map((phone) => (
+            <p className="mt-4 text-[0.92rem] font-light leading-relaxed text-warm-white/65">
+              {brand.address.line}
+              <span className="text-warm-white/35"> · </span>
+              {brand.address.city}, {brand.address.country}
+            </p>
+
+            <p className="mt-7 text-[0.64rem] font-medium uppercase tracking-[0.26em] text-sand-beige/85">
+              Speak with us
+            </p>
+            <ul className="mt-3 space-y-2">
+              {brand.phones.map((phone) => (
+                <li key={phone.number}>
                   <a
-                    key={phone.number}
                     href={phone.href}
-                    className="block transition hover:text-warm-white"
+                    className="group flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5 transition"
                   >
-                    <span className="text-warm-white/40">{phone.label}</span>
-                    <span className="ml-2 text-warm-white/75">{phone.number}</span>
+                    <span className="text-[0.88rem] font-light text-warm-white/45 group-hover:text-warm-white/70">
+                      {phone.label}
+                    </span>
+                    <span className="text-[0.95rem] font-light text-warm-white/80 group-hover:text-warm-white">
+                      {phone.number}
+                    </span>
                   </a>
-                ))}
-              </div>
-            </div>
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href={`mailto:${brand.email}`}
+              className="mt-5 inline-block text-[0.95rem] font-light text-warm-white/70 transition hover:text-warm-white"
+            >
+              {brand.email}
+            </a>
           </div>
 
           {/* Connect */}
@@ -103,18 +105,6 @@ export function Footer() {
               Connect
             </p>
             <ul className="mt-4 flex flex-col gap-2.5">
-              {socialLinks.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-[0.92rem] font-light text-warm-white/65 transition hover:text-warm-white"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
               <li>
                 <a
                   href={brand.whatsapp.href}
@@ -123,6 +113,16 @@ export function Footer() {
                   className="text-[0.92rem] font-light text-warm-white/65 transition hover:text-warm-white"
                 >
                   WhatsApp
+                </a>
+              </li>
+              <li>
+                <a
+                  href={brand.social.instagram}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-[0.92rem] font-light text-warm-white/65 transition hover:text-warm-white"
+                >
+                  Instagram
                 </a>
               </li>
             </ul>
