@@ -39,7 +39,7 @@ export function SmoothScroll() {
       gsap.registerPlugin(ScrollTrigger);
 
       lenis = new Lenis({
-        // Silky but a touch quicker — still luxury, not snappy-harsh
+        // Keep speed unchanged — smoothness comes from lighter page work
         lerp: 0.085,
         smoothWheel: true,
         wheelMultiplier: 0.85,
@@ -53,10 +53,12 @@ export function SmoothScroll() {
       registerLenis(lenis);
       removeScrollListener = lenis.on("scroll", ScrollTrigger.update);
 
+      // Drive Lenis from GSAP ticker so ScrollTrigger scrub stays in lockstep
       tickerFn = (time: number) => {
         lenis?.raf(time * 1000);
       };
       gsap.ticker.add(tickerFn);
+      // lagSmoothing(0) prevents GSAP from “catching up” after tab stalls (feels like hitch)
       gsap.ticker.lagSmoothing(0);
 
       // Recalculate pins after Lenis mounts

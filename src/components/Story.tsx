@@ -9,25 +9,36 @@ import {
 } from "framer-motion";
 import { useRef } from "react";
 import { about } from "@/lib/content";
+import { useLightMotion } from "@/lib/motion";
 import { Reveal, Stagger, StaggerItem } from "./Reveal";
 
 export function Story() {
   const ref = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
+  const lightMotion = useLightMotion();
+  const skipParallax = Boolean(reduceMotion || lightMotion);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
-  const floatY = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [28, -28]);
-  const slowY = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [-18, 22]);
-  const mainScale = useTransform(
+  // Mild translate-only parallax — no scale (scale + large images = paint jank)
+  const slowY = useTransform(
     scrollYProgress,
-    [0, 0.5, 1],
-    reduceMotion ? [1, 1, 1] : [1.06, 1, 1.03],
+    [0, 1],
+    skipParallax ? [0, 0] : [-12, 14],
+  );
+  const floatY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    skipParallax ? [0, 0] : [14, -14],
   );
 
   return (
-    <section id="about" ref={ref} className="section-pad-lg section-atmosphere relative overflow-hidden">
+    <section
+      id="about"
+      ref={ref}
+      className="section-pad-lg section-atmosphere relative overflow-hidden"
+    >
       <div className="container-lux">
         <div className="mb-16 md:mb-24 lg:mb-28">
           <Reveal variant="up">
@@ -43,7 +54,7 @@ export function Story() {
         <div className="relative grid items-start gap-12 lg:grid-cols-12 lg:gap-8">
           <Reveal className="relative lg:col-span-7" variant="up" y={36} duration={0.9}>
             <div className="image-reveal relative aspect-[4/5] overflow-hidden md:aspect-[5/6] lg:min-h-[44rem]">
-              <motion.div style={{ y: slowY, scale: mainScale }} className="absolute inset-[-6%]">
+              <motion.div style={{ y: slowY }} className="absolute inset-[-5%]">
                 <Image
                   src={about.image}
                   alt={about.imageAlt}
@@ -58,7 +69,7 @@ export function Story() {
           <div className="relative z-10 lg:col-span-5 lg:pt-16 xl:pt-24">
             <motion.div
               style={{ y: floatY }}
-              className="image-reveal relative mb-12 aspect-[4/5] w-[80%] overflow-hidden border-[12px] border-warm-white shadow-[0_28px_70px_rgba(41,41,41,0.12)] md:w-[72%] lg:absolute lg:-left-[16%] lg:top-8 lg:mb-0 lg:w-[56%] xl:-left-[20%]"
+              className="image-reveal relative mb-12 aspect-[4/5] w-[80%] overflow-hidden border-[12px] border-warm-white shadow-[0_20px_48px_rgba(41,41,41,0.1)] md:w-[72%] lg:absolute lg:-left-[16%] lg:top-8 lg:mb-0 lg:w-[56%] xl:-left-[20%]"
             >
               <Reveal variant="up" delay={0.1} className="absolute inset-0" y={0}>
                 <Image
@@ -106,7 +117,11 @@ export function Story() {
               />
             </div>
           </Reveal>
-          <Reveal delay={0.1} variant="up" className="panel-lux relative p-9 md:col-span-7 md:p-12 lg:p-14">
+          <Reveal
+            delay={0.1}
+            variant="up"
+            className="panel-lux relative p-9 md:col-span-7 md:p-12 lg:p-14"
+          >
             <div className="grain opacity-[0.06]" />
             <p className="eyebrow eyebrow-light">{about.whyWeAreHere.eyebrow}</p>
             <p className="mt-6 font-serif text-2xl leading-snug text-warm-white xl:text-[1.95rem]">

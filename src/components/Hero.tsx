@@ -5,7 +5,6 @@ import {
   motion,
   useReducedMotion,
   useScroll,
-  useSpring,
   useTransform,
 } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
@@ -16,6 +15,7 @@ import {
   heroImage,
   heroSupport,
 } from "@/lib/content";
+import { useLightMotion } from "@/lib/motion";
 import { ScrollTo } from "./ScrollTo";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -27,40 +27,35 @@ function splitWords(text: string) {
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
+  const lightMotion = useLightMotion();
+  const skipParallax = Boolean(reduceMotion || lightMotion);
   const [entered, setEntered] = useState(false);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
 
-  const rawY = useTransform(
+  // Direct transforms (no useSpring) — springs lag behind Lenis and feel janky
+  const y = useTransform(
     scrollYProgress,
     [0, 1],
-    ["0%", reduceMotion ? "0%" : "18%"],
+    ["0%", skipParallax ? "0%" : "12%"],
   );
-  const rawScale = useTransform(
+  const scale = useTransform(
     scrollYProgress,
     [0, 1],
-    [1, reduceMotion ? 1 : 1.08],
+    [1, skipParallax ? 1 : 1.05],
   );
-  const rawOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.35]);
-  const rawTextY = useTransform(
+  const textY = useTransform(
     scrollYProgress,
     [0, 1],
-    ["0%", reduceMotion ? "0%" : "10%"],
+    ["0%", skipParallax ? "0%" : "8%"],
   );
-  const rawTextOpacity = useTransform(scrollYProgress, [0, 0.65], [1, 0.15]);
-  const rawVignette = useTransform(
+  const textOpacity = useTransform(
     scrollYProgress,
-    [0, 1],
-    [0.35, reduceMotion ? 0.35 : 0.52],
+    [0, 0.7],
+    [1, skipParallax ? 1 : 0.2],
   );
-
-  const y = useSpring(rawY, { stiffness: 70, damping: 32, restDelta: 0.001 });
-  const scale = useSpring(rawScale, { stiffness: 55, damping: 30 });
-  const opacity = useSpring(rawOpacity, { stiffness: 70, damping: 32 });
-  const textY = useSpring(rawTextY, { stiffness: 70, damping: 32 });
-  const textOpacity = useSpring(rawTextOpacity, { stiffness: 70, damping: 32 });
 
   useEffect(() => {
     const seen =
@@ -81,31 +76,33 @@ export function Hero() {
       className="relative flex min-h-[100svh] items-end overflow-hidden"
       aria-label="Hero"
     >
-      <motion.div style={{ y, opacity }} className="absolute inset-0">
-        <motion.div
-          style={{ scale }}
-          className={`absolute inset-[-4%] ${reduceMotion ? "" : "ken-burns"}`}
-        >
-          <Image
-            src={heroImage}
-            alt="Cinematic view of Mind Body & Soul luxury care villas and gardens in Dambulla"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center"
-          />
+      {/* Transform-only parallax — never fade the full-bleed image (opacity paint is costly) */}
+      <motion.div style={{ y }} className="absolute inset-0">
+        <motion.div style={{ scale }} className="absolute inset-[-3%]">
+          <div
+            className={`absolute inset-0 ${
+              reduceMotion || lightMotion ? "" : "ken-burns"
+            }`}
+          >
+            <Image
+              src={heroImage}
+              alt="Cinematic view of Mind Body & Soul luxury care villas and gardens in Dambulla"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-center"
+            />
+          </div>
         </motion.div>
         <div className="absolute inset-0 bg-gradient-to-t from-deep-charcoal/90 via-deep-charcoal/38 to-deep-charcoal/28" />
-        <motion.div
+        <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse at center, transparent 8%, rgba(41,41,41,0.55) 100%)",
-            opacity: rawVignette,
+              "radial-gradient(ellipse at center, transparent 8%, rgba(41,41,41,0.48) 100%)",
           }}
         />
         <div className="grain" />
-
       </motion.div>
 
       {/* Cinematic entrance veil */}
@@ -137,7 +134,10 @@ export function Hero() {
 
           <h1 className="display-hero mt-6 text-warm-white">
             {brandWords.map((word, index) => (
-              <span key={`${word}-${index}`} className="mr-[0.22em] inline-block overflow-hidden align-bottom">
+              <span
+                key={`${word}-${index}`}
+                className="mr-[0.22em] inline-block overflow-hidden align-bottom"
+              >
                 <motion.span
                   className="inline-block"
                   initial={false}

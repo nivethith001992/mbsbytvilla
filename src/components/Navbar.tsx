@@ -59,6 +59,9 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
+    let raf = 0;
+    let activeId = "";
+
     const syncChrome = () => {
       const y = getScrollY();
       const nextSolid = scrolledRef.current
@@ -68,13 +71,26 @@ export function Navbar() {
         scrolledRef.current = nextSolid;
         setScrolled(nextSolid);
       }
-      setActive(getActiveSectionId(SECTION_IDS));
+      const nextActive = getActiveSectionId(SECTION_IDS);
+      if (nextActive !== activeId) {
+        activeId = nextActive;
+        setActive(nextActive);
+      }
+    };
+
+    // Coalesce Lenis + native scroll into one layout read per frame
+    const scheduleSync = () => {
+      if (raf) return;
+      raf = window.requestAnimationFrame(() => {
+        raf = 0;
+        syncChrome();
+      });
     };
 
     syncChrome();
 
-    window.addEventListener("scroll", syncChrome, { passive: true });
-    window.addEventListener("resize", syncChrome, { passive: true });
+    window.addEventListener("scroll", scheduleSync, { passive: true });
+    window.addEventListener("resize", scheduleSync, { passive: true });
 
     let removeLenis: (() => void) | null = null;
     let pollId = 0;
@@ -83,7 +99,8 @@ export function Navbar() {
       const lenis = getLenis();
       if (!lenis) return false;
       removeLenis?.();
-      removeLenis = lenis.on("scroll", syncChrome);
+      // Prefer Lenis as the scroll source once ready — still keep native as fallback
+      removeLenis = lenis.on("scroll", scheduleSync);
       return true;
     };
 
@@ -96,9 +113,10 @@ export function Navbar() {
     }
 
     return () => {
-      window.removeEventListener("scroll", syncChrome);
-      window.removeEventListener("resize", syncChrome);
+      window.removeEventListener("scroll", scheduleSync);
+      window.removeEventListener("resize", scheduleSync);
       window.clearInterval(pollId);
+      if (raf) window.cancelAnimationFrame(raf);
       removeLenis?.();
     };
   }, []);
@@ -310,8 +328,8 @@ export function Navbar() {
         open ? "z-[90]" : "z-[60]"
       } ${
         solid
-          ? "border-b border-[color:var(--line)] bg-warm-white/97 shadow-[0_12px_40px_rgba(41,41,41,0.05)] backdrop-blur-xl"
-          : "border-b border-transparent bg-transparent shadow-none backdrop-blur-0"
+          ? "border-b border-[color:var(--line)] bg-warm-white shadow-[0_8px_28px_rgba(41,41,41,0.04)]"
+          : "border-b border-transparent bg-transparent shadow-none"
       }`}
     >
       <div className="container-lux relative z-[70] flex h-[4.5rem] items-center justify-between md:h-[5rem]">

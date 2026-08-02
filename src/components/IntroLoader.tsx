@@ -104,9 +104,7 @@ export function IntroLoader({ onComplete }: IntroLoaderProps) {
           className="fixed inset-0 z-[100] flex items-center justify-center bg-deep-charcoal"
           initial={{ opacity: 1 }}
           exit={
-            reduceMotion
-              ? { opacity: 0 }
-              : { opacity: 0, scale: 1.04, filter: "blur(8px)" }
+            reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 1.02 }
           }
           transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
           aria-hidden
@@ -131,8 +129,8 @@ export function IntroLoader({ onComplete }: IntroLoaderProps) {
             </motion.p>
             <motion.p
               className="mt-6 font-serif text-[clamp(2.4rem,7vw,4.5rem)] leading-none tracking-[-0.02em] text-warm-white"
-              initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
             >
               {brand.name}

@@ -1,22 +1,18 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
+import { motion, useReducedMotion, useScroll } from "framer-motion";
 
 export function ScrollProgress() {
   const { scrollYProgress } = useScroll();
   const reduceMotion = useReducedMotion();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 120,
-    damping: 28,
-    restDelta: 0.001,
-  });
 
   if (reduceMotion) return null;
 
+  // Direct scaleX — springs on every scroll frame add lag behind Lenis
   return (
     <motion.div
       className="scroll-progress"
-      style={{ scaleX, willChange: "transform" }}
+      style={{ scaleX: scrollYProgress }}
       aria-hidden
     />
   );

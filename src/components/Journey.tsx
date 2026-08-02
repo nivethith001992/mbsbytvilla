@@ -29,15 +29,10 @@ export function Journey() {
     const mm = gsap.matchMedia();
 
     mm.add(PIN_MQ, () => {
-      const panels = gsap.utils.toArray<HTMLElement>(
-        track.querySelectorAll(".journey-panel"),
-      );
-      if (panels.length === 0) return;
-
       const getDistance = () =>
         Math.max(track.scrollWidth - pin.clientWidth, 0);
 
-      // Soft scrub + single transform on the track — fewer nested scrub listeners = less jank
+      // Single track tween only — nested per-panel scrub was a major jank source
       const tween = gsap.to(track, {
         x: () => -getDistance(),
         ease: "none",
@@ -45,39 +40,15 @@ export function Journey() {
         scrollTrigger: {
           trigger: pin,
           pin: true,
-          scrub: 1.15,
+          scrub: 1,
           anticipatePin: 1,
           start: "top top",
-          end: () => `+=${Math.max(getDistance() * 0.92, window.innerWidth * 0.55)}`,
+          end: () =>
+            `+=${Math.max(getDistance() * 0.92, window.innerWidth * 0.55)}`,
           invalidateOnRefresh: true,
           fastScrollEnd: true,
           preventOverlaps: true,
         },
-      });
-
-      // One light parallax pass per panel image (no borderRadius / opacity scrubbing)
-      const nested: ScrollTrigger[] = [];
-      panels.forEach((panel) => {
-        const image = panel.querySelector<HTMLElement>(".journey-image");
-        if (!image) return;
-
-        nested.push(
-          ScrollTrigger.create({
-            trigger: panel,
-            containerAnimation: tween,
-            start: "left right",
-            end: "right left",
-            scrub: 1.2,
-            onUpdate: (self) => {
-              const p = self.progress;
-              gsap.set(image, {
-                scale: 1.08 - p * 0.06,
-                xPercent: (0.5 - p) * 2.5,
-                force3D: true,
-              });
-            },
-          }),
-        );
       });
 
       let resizeTimer = 0;
@@ -97,18 +68,12 @@ export function Journey() {
         window.clearTimeout(resizeTimer);
         window.removeEventListener("resize", onResize);
         window.removeEventListener("orientationchange", onResize);
-        nested.forEach((st) => st.kill());
         tween.scrollTrigger?.kill();
         tween.kill();
         gsap.set(track, { clearProps: "transform" });
-        panels.forEach((panel) => {
-          const image = panel.querySelector(".journey-image");
-          if (image) gsap.set(image, { clearProps: "transform" });
-        });
       };
     });
 
-    // Mobile: no pin, no parallax scrub — static stack for calm scroll
     return () => {
       mm.revert();
     };
@@ -139,7 +104,7 @@ export function Journey() {
       >
         <div
           ref={trackRef}
-          className="journey-track flex w-full flex-col gap-8 px-[max(1.25rem,calc((100%-1180px)/2))] pb-24 lg:h-full lg:w-max lg:flex-row lg:items-center lg:gap-7 lg:px-0 lg:pb-0 lg:pl-[max(1.25rem,calc((100%-1180px)/2))] lg:pr-[12vw] lg:will-change-transform"
+          className="journey-track flex w-full flex-col gap-8 px-[max(1.25rem,calc((100%-1180px)/2))] pb-24 lg:h-full lg:w-max lg:flex-row lg:items-center lg:gap-7 lg:px-0 lg:pb-0 lg:pl-[max(1.25rem,calc((100%-1180px)/2))] lg:pr-[12vw]"
         >
           {journeySteps.map((step) => (
             <article
@@ -147,7 +112,7 @@ export function Journey() {
               className="journey-panel relative w-full shrink-0 lg:h-[min(78svh,720px)] lg:w-[min(78vw,980px)]"
             >
               <div className="journey-frame relative h-[56vh] overflow-hidden lg:h-full">
-                <div className="journey-image absolute inset-0 lg:will-change-transform">
+                <div className="absolute inset-0">
                   <Image
                     src={step.image}
                     alt={step.imageAlt}

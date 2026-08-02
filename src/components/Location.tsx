@@ -9,23 +9,31 @@ import {
 } from "framer-motion";
 import { useRef } from "react";
 import { brand, location } from "@/lib/content";
+import { useLightMotion } from "@/lib/motion";
 import { Reveal, Stagger, StaggerItem } from "./Reveal";
 
 export function Location() {
   const heroRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
+  const lightMotion = useLightMotion();
+  const skipParallax = Boolean(reduceMotion || lightMotion);
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start end", "end start"],
   });
-  const imageY = useTransform(scrollYProgress, [0, 1], reduceMotion ? ["0%", "0%"] : ["-6%", "6%"]);
-  const imageScale = useTransform(scrollYProgress, [0, 1], reduceMotion ? [1, 1] : [1.08, 1]);
-  const copyY = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [16, -12]);
+  const imageY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    skipParallax ? ["0%", "0%"] : ["-4%", "4%"],
+  );
 
   return (
     <section id="location" className="relative overflow-hidden">
-      <div ref={heroRef} className="relative min-h-[70svh] overflow-hidden md:min-h-[80svh]">
-        <motion.div style={{ y: imageY, scale: imageScale }} className="absolute inset-[-8%]">
+      <div
+        ref={heroRef}
+        className="relative min-h-[70svh] overflow-hidden md:min-h-[80svh]"
+      >
+        <motion.div style={{ y: imageY }} className="absolute inset-[-5%]">
           <Image
             src={location.image}
             alt={location.imageAlt}
@@ -37,8 +45,8 @@ export function Location() {
         <div className="absolute inset-0 bg-gradient-to-t from-deep-charcoal/85 via-deep-charcoal/42 to-deep-charcoal/30" />
         <div className="grain" />
         <div className="relative z-10 flex min-h-[70svh] items-end md:min-h-[80svh]">
-          <motion.div style={{ y: copyY }} className="container-lux w-full pb-16 pt-32 md:pb-24">
-            <Reveal variant="blur" y={44}>
+          <div className="container-lux w-full pb-16 pt-32 md:pb-24">
+            <Reveal variant="up" y={36}>
               <p className="eyebrow eyebrow-light">Location</p>
               <h2 className="display-lg mt-6 max-w-4xl text-warm-white">
                 <span className="block">{location.displayTitle[0]}</span>
@@ -50,15 +58,15 @@ export function Location() {
                 {location.atmosphere}
               </p>
             </Reveal>
-          </motion.div>
+          </div>
         </div>
       </div>
 
       <div className="section-pad bg-warm-white">
         <div className="container-lux">
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-14">
-            <Reveal className="relative lg:col-span-7" variant="scale" y={40} duration={1.2}>
-              <div className="media-frame relative aspect-[16/11] w-full bg-surface-deep shadow-[0_20px_50px_rgba(41,41,41,0.06)] md:!rounded-[2.1rem_1.6rem_2.6rem_1.6rem]">
+            <Reveal className="relative lg:col-span-7" variant="up" y={32} duration={0.9}>
+              <div className="media-frame relative aspect-[16/11] w-full bg-surface-deep shadow-[0_16px_40px_rgba(41,41,41,0.05)] md:!rounded-[2.1rem_1.6rem_2.6rem_1.6rem]">
                 <iframe
                   title="Mind Body & Soul location map"
                   src={brand.mapEmbed}

@@ -9,6 +9,7 @@ import {
 } from "framer-motion";
 import { useRef } from "react";
 import { retreatIntro, retreatSpaces } from "@/lib/content";
+import { useLightMotion } from "@/lib/motion";
 import { Reveal } from "./Reveal";
 
 function RetreatRow({
@@ -20,24 +21,17 @@ function RetreatRow({
 }) {
   const rowRef = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
+  const lightMotion = useLightMotion();
+  const skipParallax = Boolean(reduceMotion || lightMotion);
   const { scrollYProgress } = useScroll({
     target: rowRef,
     offset: ["start end", "end start"],
   });
+  // Single mild Y parallax — no scale, no copy drift (those stacked badly)
   const imageY = useTransform(
     scrollYProgress,
     [0, 1],
-    reduceMotion ? ["0%", "0%"] : ["-4%", "4%"],
-  );
-  const imageScale = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    reduceMotion ? [1, 1, 1] : [1.06, 1.01, 1.04],
-  );
-  const copyY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    reduceMotion ? [0, 0] : [16, -16],
+    skipParallax ? ["0%", "0%"] : ["-3%", "3%"],
   );
   const reverse = index % 2 === 1;
 
@@ -49,8 +43,8 @@ function RetreatRow({
       <Reveal
         className={`relative lg:col-span-7 ${reverse ? "lg:order-2" : ""}`}
         variant={reverse ? "right" : "left"}
-        y={44}
-        duration={1.15}
+        y={36}
+        duration={0.9}
       >
         <div
           className={`image-reveal relative overflow-hidden ${
@@ -61,7 +55,7 @@ function RetreatRow({
                 : "aspect-[16/11]"
           }`}
         >
-          <motion.div style={{ y: imageY, scale: imageScale }} className="absolute inset-[-8%]">
+          <motion.div style={{ y: imageY }} className="absolute inset-[-6%]">
             <Image
               src={space.image}
               alt={space.imageAlt}
@@ -74,9 +68,13 @@ function RetreatRow({
         </div>
       </Reveal>
 
-      <motion.div style={{ y: copyY }} className={`lg:col-span-5 ${reverse ? "lg:order-1 lg:pr-4" : "lg:pl-2 xl:pl-8"}`}>
-        <Reveal delay={0.12} variant="up" y={36}>
-          <p className="text-[0.7rem] tracking-[0.35em] text-sand-beige/80">{space.label}</p>
+      <div
+        className={`lg:col-span-5 ${reverse ? "lg:order-1 lg:pr-4" : "lg:pl-2 xl:pl-8"}`}
+      >
+        <Reveal delay={0.1} variant="up" y={28}>
+          <p className="text-[0.7rem] tracking-[0.35em] text-sand-beige/80">
+            {space.label}
+          </p>
           <h3 className="mt-5 font-serif text-4xl text-warm-white md:text-5xl">
             {space.title}
           </h3>
@@ -87,7 +85,7 @@ function RetreatRow({
             {space.description}
           </p>
         </Reveal>
-      </motion.div>
+      </div>
     </article>
   );
 }
@@ -109,7 +107,7 @@ export function Retreat() {
       <div className="grain opacity-[0.05]" />
 
       <div className="container-lux relative">
-        <Reveal variant="blur" y={42}>
+        <Reveal variant="up" y={36}>
           <p className="eyebrow eyebrow-light">{retreatIntro.eyebrow}</p>
           <h2 className="display-lg mt-6 max-w-4xl text-warm-white">
             <span className="block">{retreatIntro.title[0]}</span>

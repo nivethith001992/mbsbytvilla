@@ -91,7 +91,7 @@ export function Gallery() {
   return (
     <section id="gallery" className="section-pad-lg section-atmosphere relative overflow-hidden">
       <div className="container-lux">
-        <Reveal className="mx-auto max-w-3xl text-center" variant="clip" y={44}>
+        <Reveal className="mx-auto max-w-3xl text-center" variant="up" y={32}>
           <p className="eyebrow">{galleryIntro.eyebrow}</p>
           <h2 className="display-lg mt-6 text-deep-charcoal">
             <span className="block">{galleryIntro.title[0]}</span>
@@ -108,10 +108,10 @@ export function Gallery() {
           {gallery.map((item, index) => (
             <Reveal
               key={`${item.src}-${index}`}
-              delay={(index % 3) * 0.09}
-              variant={index % 3 === 0 ? "scale" : index % 3 === 1 ? "up" : "blur"}
-              y={42}
-              duration={1.1}
+              delay={(index % 3) * 0.06}
+              variant="up"
+              y={28}
+              duration={0.75}
               className="gallery-item"
             >
               <button
@@ -162,7 +162,7 @@ export function Gallery() {
         {active !== null ? (
           <motion.div
             id="gallery-lightbox"
-            className="fixed inset-0 z-[80] flex items-center justify-center bg-deep-charcoal/95 p-5 backdrop-blur-[3px]"
+            className="fixed inset-0 z-[80] flex items-center justify-center bg-deep-charcoal/96 p-5"
             initial={reduceMotion ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

@@ -15,7 +15,7 @@ export function VillaShowcase() {
   return (
     <section id="villas" className="relative overflow-hidden bg-warm-white">
       <div className="container-lux section-pad pb-12 md:pb-14">
-        <Reveal variant="clip" y={44}>
+        <Reveal variant="up" y={32}>
           <p className="eyebrow">{villasIntro.eyebrow}</p>
           <h2 className="display-lg mt-6 max-w-4xl text-deep-charcoal">
             <span className="block">{villasIntro.title[0]}</span>
@@ -45,42 +45,27 @@ export function VillaShowcase() {
       </div>
 
       <div className="relative px-[max(1.25rem,calc((100%-1180px)/2))] pb-16 md:pb-24">
-        <Reveal variant="scale" y={28} duration={1.2}>
-          <div className="media-frame relative min-h-[82svh] overflow-hidden shadow-[0_28px_80px_rgba(41,41,41,0.08)] md:min-h-[88svh] md:!rounded-[2.6rem]">
+        <Reveal variant="up" y={24} duration={0.85}>
+          <div className="media-frame relative min-h-[82svh] overflow-hidden shadow-[0_18px_48px_rgba(41,41,41,0.06)] md:min-h-[88svh] md:!rounded-[2.6rem]">
             <AnimatePresence mode="wait">
               <motion.article
                 key={chalet.id}
                 id={chalet.id}
-                initial={
-                  reduceMotion
-                    ? false
-                    : { opacity: 0, scale: 1.02 }
-                }
-                animate={{ opacity: 1, scale: 1 }}
-                exit={
-                  reduceMotion
-                    ? undefined
-                    : { opacity: 0, scale: 0.99 }
-                }
-                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                initial={reduceMotion ? false : { opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={reduceMotion ? undefined : { opacity: 0 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 className="relative min-h-[82svh] md:min-h-[88svh]"
               >
                 <div className="absolute inset-0">
-                  <motion.div
-                    className="absolute inset-0"
-                    initial={reduceMotion ? false : { scale: 1.06 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-                  >
-                    <Image
-                      src={chalet.image}
-                      alt={chalet.imageAlt}
-                      fill
-                      priority={active === 0}
-                      sizes="100vw"
-                      className="object-cover"
-                    />
-                  </motion.div>
+                  <Image
+                    src={chalet.image}
+                    alt={chalet.imageAlt}
+                    fill
+                    priority={active === 0}
+                    sizes="100vw"
+                    className="object-cover"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-r from-deep-charcoal/82 via-deep-charcoal/48 to-deep-charcoal/22" />
                   <div className="absolute inset-0 bg-gradient-to-t from-deep-charcoal/72 via-transparent to-deep-charcoal/25" />
                   <div className="grain" />
