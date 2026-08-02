@@ -151,7 +151,7 @@ export function Hero() {
             {heroEyebrow}
           </motion.p>
 
-          <p className="display-hero mt-6 text-warm-white" aria-label={brand.name}>
+          <h1 className="display-hero mt-6 text-warm-white">
             {brandWords.map((word, index) => (
               <span key={`${word}-${index}`} className="mr-[0.22em] inline-block overflow-hidden align-bottom">
                 <motion.span
@@ -173,9 +173,9 @@ export function Hero() {
                 </motion.span>
               </span>
             ))}
-          </p>
+          </h1>
 
-          <h1 className="mt-9 max-w-xl font-serif text-[1.7rem] font-light leading-[1.28] tracking-wide text-warm-white/95 md:mt-11 md:text-[2.15rem] lg:text-[2.4rem]">
+          <p className="mt-9 max-w-xl font-serif text-[1.7rem] font-light leading-[1.28] tracking-wide text-warm-white/95 md:mt-11 md:text-[2.15rem] lg:text-[2.4rem]">
             {headlineWords.map((word, index) => (
               <motion.span
                 key={`${word}-${index}`}
@@ -195,7 +195,7 @@ export function Hero() {
                 {word}
               </motion.span>
             ))}
-          </h1>
+          </p>
 
           <motion.p
             className="mt-5 max-w-md text-sm font-light leading-relaxed text-warm-white/70 md:mt-6 md:text-base"

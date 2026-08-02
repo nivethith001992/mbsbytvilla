@@ -101,20 +101,8 @@ export const retreatSpaces = [
     imageAlt: "Garden produce and hospitality dining",
   },
   {
-    id: "community",
-    label: "03",
-    title: "Community, Activities and Excursions",
-    subtitle:
-      "As resort has massive gardens containing thousands of trees and a lake, it is a fantastic place to walk and relax.",
-    description:
-      "A successful retirement facility is not merely about the care support given. Its success also lies in the variety of activities available for its guests and building a community amongst those at the resort, both carer and guests. As resort has massive gardens containing thousands of trees and a lake, it is a fantastic place to walk and relax.",
-    image:
-      "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=1800&q=80",
-    imageAlt: "Welcoming villa interior for community living",
-  },
-  {
     id: "the-care",
-    label: "04",
+    label: "03",
     title: "The Care",
     subtitle:
       "Providing sufficient 'care' whilst maintaining individual dignity is our main philosophy.",
@@ -267,7 +255,7 @@ export const journeySteps = [
     step: "03",
     title: "Why We Are Here",
     description:
-      "I came out with this idea, I have experienced with my father and father in law and my grandparents, who had an idea to have like this kind of life in their retired age, which wasn’t provided by me when they suffering by dementia and Alzheimer, until passed. They were my inspiration for what we do here. I pay close attention to the running of the retired village and the care and happiness of our guests.",
+      "This is a privately-owned and operated business. I have tried to focus the resort as the type of environment that I would wish to live in myself. I came out with this idea, I have experienced with my father and father in law and my grandparents, who had an idea to have like this kind of life in their retired age, which wasn’t provided by me when they suffering by dementia and Alzheimer, until passed. They were my inspiration for what we do here. I pay close attention to the running of the retired village and the care and happiness of our guests.",
     image:
       "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Calm outdoor living space at the resort",
@@ -282,13 +270,23 @@ export const journeySteps = [
       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Open landscape around Dambulla",
   },
+  {
+    id: "numerology",
+    step: "05",
+    title: "Mind Body & Soul meaning according to Numerology 9",
+    description:
+      "Compassion, generosity and universal love define your name vibration. You are destined to serve humanity in meaningful ways.",
+    image:
+      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Sunlight through trees at Mind Body & Soul",
+  },
 ];
 
 export const experiencesIntro = {
-  eyebrow: "Community, Activities and Excursions",
-  title: ["Community, Activities", "and Excursions"],
+  eyebrow: "Activities",
+  title: ["Activities", "Outside Activities/Excursions"],
   support:
-    "A successful retirement facility is not merely about the care support given. Its success also lies in the variety of activities available for its guests and building a community amongst those at the resort, both carer and guests.",
+    "Modern medical thinking emphasizes the importance of activity and routine for the physical and medical welfare of the elderly. As resort has massive gardens containing thousands of trees and a lake, it is a fantastic place to walk and relax.",
 };
 
 export const experiences = [
@@ -297,10 +295,10 @@ export const experiences = [
     story:
       "Modern medical thinking emphasizes the importance of activity and routine for the physical and medical welfare of the elderly.",
     description:
-      "Our planned services will provide a variety of activities including arts and crafts, card and board games, singing, quizzes, needle-crafts, photography, fishing on our lake, gardening (guests are able to have a small garden area next to their villa for their own gardening enjoyment), cooking, group games and of course swimming in our 3 pools. Those who feel even more active can use our Panchakarma ,Ayurveda oil treatment unit and sauna. The resort is fully Wi-Fi equipped with an excellent Wi-Fi signal. We celebrate our guest's birthdays as well as the major holiday events such as Christmas.",
+      "Our planned services will provide a variety of activities including arts and crafts, card and board games, singing, quizzes, needle-crafts, photography, fishing on our lake, gardening (guests are able to have a small garden area next to their villa for their own gardening enjoyment), cooking, group games and of course swimming in our 3 pools. Those who feel even more active can use our Panchakarma ,Ayurveda oil treatment unit and sauna. The resort is fully Wi-Fi equipped with an excellent Wi-Fi signal. We celebrate our guest's birthdays as well as the major holiday events such as Christmas. As resort has massive gardens containing thousands of trees and a lake, it is a fantastic place to walk and relax.",
     image:
       "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Shared living space for community activities",
+    imageAlt: "Shared living space for activities",
   },
   {
     title: "Outside Activities/Excursions",
@@ -331,16 +329,6 @@ export const experiences = [
     image:
       "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Calm wellness atmosphere",
-  },
-  {
-    title: "Community, Activities and Excursions",
-    story:
-      "As resort has massive gardens containing thousands of trees and a lake, it is a fantastic place to walk and relax.",
-    description:
-      "A successful retirement facility is not merely about the care support given. Its success also lies in the variety of activities available for its guests and building a community amongst those at the resort, both carer and guests. As resort has massive gardens containing thousands of trees and a lake, it is a fantastic place to walk and relax.",
-    image:
-      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Sunlit forest path through private gardens",
   },
   {
     title: "Meals",
@@ -487,40 +475,4 @@ export const galleryIntro = {
   title: ["About us", ""],
   support:
     "The resort is incredibly beautiful and spacious, hosting more than 4500 trees, home for 60 varieties of birds, gardens, a lake and fishponds.",
-};
-
-/** Footer closing blocks — owner document wording, unmodified */
-export const footerContent = {
-  aboutUs: {
-    title: "About us",
-    paragraphs: [
-      "Mind Body & Soul by T-Villa is set in the beautiful and tranquil Dambulla bordering by bindunu wewa-Rathmalgaha- Ela. Just 5 kilometers from Dambulla town and 22km from Sigiriya Lion Rock, in the central of Sri Lanka . The retirement facility is an enclosed 4-star facility built on 28 acres’ man made (by Mr &Mrs Christopher Amrit) forest of land with mountain & Lake views. The resort is incredibly beautiful and spacious, hosting more than 4500 trees, home for 60 varieties of birds, gardens, a lake and fishponds. The wellness facility provides a safe environment away from the traffic and pollution but still only 10 minutes from the city.",
-      "The resort is relaxing, quiet and secure. Accommodation is   provided in beautiful villas sited throughout the gardens, each with their own bathroom facilities, air-conditioning, terrace and plunge pool. There are different designs of villas to suit your needs",
-    ],
-  },
-  theCare: {
-    title: "The Care",
-    paragraphs: [
-      "This actual journey was a dream of Dr.Naren , Youngest experienced ,Qualified Clinical psychologist, who wanted to step into host and look after only few retired senior guests under his close Monitoring,  Providing sufficient 'care' whilst maintaining individual dignity is our main philosophy. Adequate provision of care levels can achieve excellent improvement in both health and lifestyle. The retirement facility has its own dedicated, We believe that good care works. Good care requires people numbers. We cater for all levels of required care whilst giving as much independence to the individual as their condition allows. We do not represent the view of an institutionalized nursing home; life with us is like living in a star class resort but with the required care on-hand. Our 'tagline' reflects our philosophy  “live your life that you still deserve with nature”",
-    ],
-  },
-  whyWeAreHere: {
-    title: "Why We Are Here",
-    paragraphs: [
-      "The beautiful retirement facility has been established to fulfill the needs of the elderly community who require more care as they reach that later stage in life. We very much subscribe to the belief that even in the latter part of life people should be able to enjoy a quality in life, retain as much independence as possible and retain their dignity. 'Dignity' is an important word here! We have meal-periods, not meal- times, and a huge choice of dishes to choose from.",
-      "This is a privately-owned and operated business. I have tried to focus the resort as the type of environment that I would wish to live in myself. I came out with this idea, I have experienced with my father and father in law and my grandparents, who had an idea to have like this kind of life in their retired age, which wasn’t provided by me when they suffering by dementia and Alzheimer, until passed. They were my inspiration for what we do here. I pay close attention to the running of the retired village and the care and happiness of our guests.",
-    ],
-  },
-  ourStaff: {
-    title: "Our Staff",
-    paragraphs: [
-      "Our staff are predominantly local Village people. This is an area a exceptionally strong family values and a conservative tradition. These people have a natural respect for the elderly as part of their culture; they expect to care for the elderly and this provides the basis for an exceptional care ethic. It is not always easy to undertake the duties of caring for the elderly whilst remaining cheerful and friendly but, in the main, they are seem to achieve it.",
-    ],
-  },
-  numerology: {
-    title: "Mind Body & Soul meaning according to Numerology 9",
-    paragraphs: [
-      "Compassion, generosity and universal love define your name vibration. You are destined to serve humanity in meaningful ways.",
-    ],
-  },
 };
