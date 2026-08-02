@@ -1,5 +1,4 @@
 import { Booking } from "@/components/Booking";
-import { Experiences } from "@/components/Experiences";
 import { Footer } from "@/components/Footer";
 import { Gallery } from "@/components/Gallery";
 import { Hero } from "@/components/Hero";
@@ -26,8 +25,7 @@ export default function Home() {
         <OrganicSeparator from="var(--deep-charcoal)" to="var(--warm-white)" variant="wave" />
         <VillaShowcase />
         <Journey />
-        <Experiences />
-        <OrganicSeparator from="var(--deep-charcoal)" to="var(--warm-white)" variant="soft" />
+        <OrganicSeparator from="var(--surface)" to="var(--warm-white)" variant="soft" />
         <Gallery />
         <Location />
         <Booking />

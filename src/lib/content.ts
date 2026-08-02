@@ -39,7 +39,6 @@ export const navLinks = [
   { label: "Story", id: "story" },
   { label: "Care", id: "retreat" },
   { label: "Stay", id: "villas" },
-  { label: "Life", id: "experiences" },
   { label: "Gallery", id: "gallery" },
   { label: "Location", id: "location" },
 ];
@@ -111,6 +110,30 @@ export const retreatSpaces = [
     image:
       "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1800&q=80",
     imageAlt: "Peaceful luxury accommodation among trees",
+  },
+  {
+    id: "health-checks",
+    label: "04",
+    title: "Health Checks and Care",
+    subtitle:
+      "The level of care provided is something that we take pride in. We do not limit care but tailor the care to the guest's needs.",
+    description:
+      "We want to ensure guests welfare as much as possible. other health checks if necessary. We are able to manage guest medication, including injection regimes, if required.",
+    image:
+      "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1800&q=80",
+    imageAlt: "Quiet professional care setting",
+  },
+  {
+    id: "external-medical",
+    label: "05",
+    title: "External Medical Services",
+    subtitle:
+      "Hospital visits will normally be accompanied by our staff.",
+    description:
+      "Sri Lanka  does not operate a 'general practitioner service but works direct to specialists in the wealth of good world-class hospitals that Colombo has such as Lanka Hospitals, Durdens, Asiri ,Hemas and Nawaloka . Hospital visits will normally be accompanied by our staff.",
+    image:
+      "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1800&q=80",
+    imageAlt: "Calm wellness atmosphere",
   },
 ];
 
@@ -279,66 +302,6 @@ export const journeySteps = [
     image:
       "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Sunlight through trees at Mind Body & Soul",
-  },
-];
-
-export const experiencesIntro = {
-  eyebrow: "Activities",
-  title: ["Activities", "Outside Activities/Excursions"],
-  support:
-    "Modern medical thinking emphasizes the importance of activity and routine for the physical and medical welfare of the elderly. As resort has massive gardens containing thousands of trees and a lake, it is a fantastic place to walk and relax.",
-};
-
-export const experiences = [
-  {
-    title: "Activities",
-    story:
-      "Modern medical thinking emphasizes the importance of activity and routine for the physical and medical welfare of the elderly.",
-    description:
-      "Our planned services will provide a variety of activities including arts and crafts, card and board games, singing, quizzes, needle-crafts, photography, fishing on our lake, gardening (guests are able to have a small garden area next to their villa for their own gardening enjoyment), cooking, group games and of course swimming in our 3 pools. Those who feel even more active can use our Panchakarma ,Ayurveda oil treatment unit and sauna. The resort is fully Wi-Fi equipped with an excellent Wi-Fi signal. We celebrate our guest's birthdays as well as the major holiday events such as Christmas. As resort has massive gardens containing thousands of trees and a lake, it is a fantastic place to walk and relax.",
-    image:
-      "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Shared living space for activities",
-  },
-  {
-    title: "Outside Activities/Excursions",
-    story:
-      "It is important that guests do not feel confined to the resort however extensive it is.",
-    description:
-      "Weekly shopping trips are arranged. Dambulla  has a wealth of attractions and monthly trips take place to see sights in Kandy and Polonnaruwa, enjoy activities and gain knowledge of Sri Lankan country side life. The area around the resort is excellent for walking for those who feel more active.",
-    image:
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Scenic Sri Lankan hills for excursions",
-  },
-  {
-    title: "Health Checks and Care",
-    story:
-      "The level of care provided is something that we take pride in. We do not limit care but tailor the care to the guest's needs.",
-    description:
-      "We want to ensure guests welfare as much as possible. other health checks if necessary. We are able to manage guest medication, including injection regimes, if required.",
-    image:
-      "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Quiet professional care setting",
-  },
-  {
-    title: "External Medical Services",
-    story:
-      "Sri Lanka  does not operate a 'general practitioner service but works direct to specialists in the wealth of good world-class hospitals that Colombo has such as Lanka Hospitals, Durdens, Asiri ,Hemas and Nawaloka .",
-    description:
-      "Hospital visits will normally be accompanied by our staff.",
-    image:
-      "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Calm wellness atmosphere",
-  },
-  {
-    title: "Meals",
-    story:
-      "Meals are cooked in our own professional kitchens by local traditional cook ,in addition we have German experienced chef for expats",
-    description:
-      "and provided in our guest restaurants or delivered to the room or if they wish can have it in our dining area We do not have set 'mealtimes' guests can eat at a time of their choosing in broad time bands Meals include breakfast, lunch, and dinner and can provide a social gathering alongside the meal but because of the flexible meal times there is no compulsion to eat as a group . The menu choice is a mixture of Western, Thai, Asian and vegetarian cuisines with a handpicked chemical free ,Organic vegetable from own garden to focus on healthy eating but we have an extensive menu from which the guest can choose. We also try to meet guest's ethnic cooking, favorites or dietary requirements on request.",
-    image:
-      "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Fresh organic garden produce for daily meals",
   },
 ];
 

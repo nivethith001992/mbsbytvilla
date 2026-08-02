@@ -7,9 +7,7 @@ import { ScrollTo } from "./ScrollTo";
 
 const footerLinks = [
   ...navLinks.filter((link) =>
-    ["story", "retreat", "villas", "experiences", "gallery", "location"].includes(
-      link.id,
-    ),
+    ["story", "retreat", "villas", "gallery", "location"].includes(link.id),
   ),
   { label: "Enquire", id: "booking" },
 ];

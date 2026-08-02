@@ -10,7 +10,6 @@ const SECTION_IDS = [
   "story",
   "retreat",
   "villas",
-  "experiences",
   "gallery",
   "location",
   "booking",
