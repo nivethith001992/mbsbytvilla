@@ -294,40 +294,61 @@ body {
     box-shadow 0.4s ease;
 }
 
+/* Hero / transparent nav: light ghost on dark imagery */
 .nav-book--ghost {
-  background: var(--warm-white);
-  color: var(--deep-charcoal);
-  border-color: var(--warm-white);
-  box-shadow: 0 10px 28px rgba(41, 41, 41, 0.16);
+  background: color-mix(in srgb, var(--warm-white) 14%, transparent);
+  color: var(--warm-white);
+  border-color: color-mix(in srgb, var(--warm-white) 70%, transparent);
+  box-shadow: none;
 }
 
 .nav-book--ghost:hover {
-  background: color-mix(in srgb, var(--warm-white) 92%, var(--sand-beige));
+  background: var(--warm-white);
+  color: var(--deep-charcoal);
+  border-color: var(--warm-white);
   transform: translateY(-1px);
   box-shadow: 0 14px 32px rgba(41, 41, 41, 0.2);
 }
 
+.nav-book--ghost:active {
+  background: color-mix(in srgb, var(--warm-white) 92%, var(--sand-beige));
+  color: var(--deep-charcoal);
+  border-color: var(--warm-white);
+}
+
+/* Scrolled solid warm bar: filled earth-brown, warm-white label */
 .nav-book--solid {
-  background: var(--deep-charcoal);
+  background: var(--earth-brown);
   color: var(--warm-white);
-  border-color: var(--deep-charcoal);
+  border-color: var(--earth-brown);
+  box-shadow: 0 8px 22px rgba(41, 41, 41, 0.1);
 }
 
 .nav-book--solid:hover {
-  background: var(--earth-brown);
-  border-color: var(--earth-brown);
+  background: var(--deep-charcoal);
+  color: var(--warm-white);
+  border-color: var(--deep-charcoal);
   transform: translateY(-1px);
   box-shadow: 0 12px 28px rgba(41, 41, 41, 0.14);
 }
 
+.nav-book--solid:active {
+  background: color-mix(in srgb, var(--deep-charcoal) 88%, var(--earth-brown));
+  color: var(--warm-white);
+  border-color: var(--deep-charcoal);
+}
+
 .nav-book--ghost.nav-book--active {
-  background: color-mix(in srgb, var(--warm-white) 92%, var(--sand-beige));
+  background: var(--warm-white);
+  color: var(--deep-charcoal);
+  border-color: var(--warm-white);
   box-shadow: 0 12px 30px rgba(41, 41, 41, 0.18);
 }
 
 .nav-book--solid.nav-book--active {
-  background: var(--earth-brown);
-  border-color: var(--earth-brown);
+  background: var(--deep-charcoal);
+  color: var(--warm-white);
+  border-color: var(--deep-charcoal);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -372,14 +393,15 @@ body {
   font: inherit;
   cursor: pointer;
   text-align: inherit;
-  color: inherit;
 }
 
+/* Plain nav links inherit parent color; styled CTAs keep their own contrast */
 .scroll-to:not(.btn-primary):not(.btn-secondary):not(.btn-secondary-dark):not(.nav-book) {
   background: transparent;
   border: none;
   padding: 0;
   margin: 0;
+  color: inherit;
 }
 
 .ken-burns {

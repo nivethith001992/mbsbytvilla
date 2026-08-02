@@ -39,10 +39,10 @@ export function SmoothScroll() {
       gsap.registerPlugin(ScrollTrigger);
 
       lenis = new Lenis({
-        // Slightly snappier than ultra-slow luxury, still silky
-        lerp: 0.062,
+        // Silky but a touch quicker — still luxury, not snappy-harsh
+        lerp: 0.085,
         smoothWheel: true,
-        wheelMultiplier: 0.7,
+        wheelMultiplier: 0.85,
         // Native touch on phones — avoid laggy syncTouch on iOS
         syncTouch: false,
         touchMultiplier: 1,

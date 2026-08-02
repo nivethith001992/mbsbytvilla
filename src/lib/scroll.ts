@@ -2,8 +2,8 @@ import type Lenis from "lenis";
 
 const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 
-/** Programmatic nav scroll duration (seconds) — slightly snappy, still silky. */
-const SCROLL_TO_DURATION = 1.7;
+/** Programmatic nav scroll duration (seconds) — silky, a touch quicker. */
+const SCROLL_TO_DURATION = 1.4;
 
 let lockCount = 0;
 let previousOverflow = "";
