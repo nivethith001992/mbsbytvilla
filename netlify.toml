@@ -1,0 +1,15 @@
+# Next.js App Router on Netlify (Essential Next.js / OpenNext runtime)
+# https://docs.netlify.com/frameworks/next-js/overview/
+
+[build]
+  command = "npm run build"
+  # Required for @netlify/plugin-nextjs — do NOT set this to "out" or "dist"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NEXT_TELEMETRY_DISABLED = "1"
+
+# Essential Next.js plugin — handles SSR, ISR, Image CDN, App Router
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
