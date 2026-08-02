@@ -27,17 +27,17 @@ function RetreatRow({
   const imageY = useTransform(
     scrollYProgress,
     [0, 1],
-    reduceMotion ? ["0%", "0%"] : ["-8%", "8%"],
+    reduceMotion ? ["0%", "0%"] : ["-4%", "4%"],
   );
   const imageScale = useTransform(
     scrollYProgress,
     [0, 0.5, 1],
-    reduceMotion ? [1, 1, 1] : [1.14, 1.02, 1.1],
+    reduceMotion ? [1, 1, 1] : [1.06, 1.01, 1.04],
   );
   const copyY = useTransform(
     scrollYProgress,
     [0, 1],
-    reduceMotion ? [0, 0] : [40, -40],
+    reduceMotion ? [0, 0] : [16, -16],
   );
   const reverse = index % 2 === 1;
 
@@ -61,7 +61,7 @@ function RetreatRow({
                 : "aspect-[16/11]"
           }`}
         >
-          <motion.div style={{ y: imageY, scale: imageScale }} className="absolute inset-[-12%]">
+          <motion.div style={{ y: imageY, scale: imageScale }} className="absolute inset-[-8%]">
             <Image
               src={space.image}
               alt={space.imageAlt}

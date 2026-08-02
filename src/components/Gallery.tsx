@@ -140,10 +140,10 @@ export function Gallery() {
                     alt={item.alt}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw"
-                    className="object-cover transition duration-[1.8s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
+                    className="object-cover transition duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
                   />
-                  <span className="absolute inset-0 bg-deep-charcoal/0 transition duration-700 group-hover:bg-deep-charcoal/32" />
-                  <span className="absolute inset-x-0 bottom-0 translate-y-4 p-6 opacity-0 transition duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0 group-hover:opacity-100">
+                  <span className="absolute inset-0 bg-deep-charcoal/0 transition duration-500 group-hover:bg-deep-charcoal/28" />
+                  <span className="absolute inset-x-0 bottom-0 translate-y-3 p-6 opacity-0 transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0 group-hover:opacity-100">
                     <span className="block font-serif text-xl text-warm-white md:text-2xl">
                       {item.caption}
                     </span>
@@ -199,15 +199,15 @@ export function Gallery() {
               initial={
                 reduceMotion
                   ? false
-                  : { opacity: 0, scale: 0.94, y: 24, filter: "blur(8px)" }
+                  : { opacity: 0, scale: 0.98, y: 12 }
               }
-              animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={
                 reduceMotion
                   ? undefined
-                  : { opacity: 0, scale: 0.97, y: -12, filter: "blur(4px)" }
+                  : { opacity: 0, scale: 0.99, y: -8 }
               }
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
               className="relative flex w-full max-w-5xl flex-col items-center"
               onClick={(event) => event.stopPropagation()}
             >

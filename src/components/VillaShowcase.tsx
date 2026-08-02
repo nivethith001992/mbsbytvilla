@@ -54,23 +54,23 @@ export function VillaShowcase() {
                 initial={
                   reduceMotion
                     ? false
-                    : { opacity: 0, scale: 1.04, filter: "blur(6px)" }
+                    : { opacity: 0, scale: 1.02 }
                 }
-                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                animate={{ opacity: 1, scale: 1 }}
                 exit={
                   reduceMotion
                     ? undefined
-                    : { opacity: 0, scale: 0.98, filter: "blur(4px)" }
+                    : { opacity: 0, scale: 0.99 }
                 }
-                transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
                 className="relative min-h-[82svh] md:min-h-[88svh]"
               >
                 <div className="absolute inset-0">
                   <motion.div
                     className="absolute inset-0"
-                    initial={reduceMotion ? false : { scale: 1.14 }}
+                    initial={reduceMotion ? false : { scale: 1.06 }}
                     animate={{ scale: 1 }}
-                    transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                   >
                     <Image
                       src={chalet.image}

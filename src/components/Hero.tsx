@@ -36,31 +36,31 @@ export function Hero() {
   const rawY = useTransform(
     scrollYProgress,
     [0, 1],
-    ["0%", reduceMotion ? "0%" : "32%"],
+    ["0%", reduceMotion ? "0%" : "18%"],
   );
   const rawScale = useTransform(
     scrollYProgress,
     [0, 1],
-    [1, reduceMotion ? 1 : 1.18],
+    [1, reduceMotion ? 1 : 1.08],
   );
-  const rawOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0.12]);
+  const rawOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.35]);
   const rawTextY = useTransform(
     scrollYProgress,
     [0, 1],
-    ["0%", reduceMotion ? "0%" : "18%"],
+    ["0%", reduceMotion ? "0%" : "10%"],
   );
-  const rawTextOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
+  const rawTextOpacity = useTransform(scrollYProgress, [0, 0.65], [1, 0.15]);
   const rawVignette = useTransform(
     scrollYProgress,
     [0, 1],
-    [0.35, reduceMotion ? 0.35 : 0.7],
+    [0.35, reduceMotion ? 0.35 : 0.52],
   );
 
-  const y = useSpring(rawY, { stiffness: 90, damping: 28, restDelta: 0.001 });
-  const scale = useSpring(rawScale, { stiffness: 70, damping: 26 });
-  const opacity = useSpring(rawOpacity, { stiffness: 90, damping: 28 });
-  const textY = useSpring(rawTextY, { stiffness: 90, damping: 28 });
-  const textOpacity = useSpring(rawTextOpacity, { stiffness: 90, damping: 28 });
+  const y = useSpring(rawY, { stiffness: 70, damping: 32, restDelta: 0.001 });
+  const scale = useSpring(rawScale, { stiffness: 55, damping: 30 });
+  const opacity = useSpring(rawOpacity, { stiffness: 70, damping: 32 });
+  const textY = useSpring(rawTextY, { stiffness: 70, damping: 32 });
+  const textOpacity = useSpring(rawTextOpacity, { stiffness: 70, damping: 32 });
 
   useEffect(() => {
     const seen =
@@ -106,22 +106,6 @@ export function Hero() {
         />
         <div className="grain" />
 
-        {!reduceMotion ? (
-          <>
-            <motion.div
-              aria-hidden
-              className="pointer-events-none absolute -left-[10%] top-[18%] h-[42vmin] w-[42vmin] rounded-full bg-sand-beige/18 blur-3xl"
-              animate={{ x: [0, 36, -12, 0], y: [0, -24, 18, 0], opacity: [0.35, 0.55, 0.4, 0.35] }}
-              transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-            />
-            <motion.div
-              aria-hidden
-              className="pointer-events-none absolute -right-[8%] bottom-[22%] h-[36vmin] w-[36vmin] rounded-full bg-earth-brown/16 blur-3xl"
-              animate={{ x: [0, -28, 16, 0], y: [0, 20, -14, 0], opacity: [0.25, 0.45, 0.3, 0.25] }}
-              transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </>
-        ) : null}
       </motion.div>
 
       {/* Cinematic entrance veil */}
@@ -159,8 +143,8 @@ export function Hero() {
                   initial={false}
                   animate={
                     entered || reduceMotion
-                      ? { opacity: 1, y: 0, rotateX: 0 }
-                      : { opacity: 0, y: "1.1em", rotateX: -28 }
+                      ? { opacity: 1, y: 0 }
+                      : { opacity: 0, y: "0.55em" }
                   }
                   transition={{
                     duration: reduceMotion ? 0.25 : 1.15,
@@ -183,8 +167,8 @@ export function Hero() {
                 initial={false}
                 animate={
                   entered || reduceMotion
-                    ? { opacity: 1, y: 0, filter: "blur(0px)" }
-                    : { opacity: 0, y: 22, filter: reduceMotion ? "blur(0px)" : "blur(8px)" }
+                    ? { opacity: 1, y: 0 }
+                    : { opacity: 0, y: 14 }
                 }
                 transition={{
                   duration: reduceMotion ? 0.25 : 0.95,
@@ -242,9 +226,9 @@ export function Hero() {
       </motion.div>
 
       <ScrollTo
-        to="story"
+        to="about"
         className="scroll-cue absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-warm-white/60 transition hover:text-warm-white"
-        aria-label="Scroll to story"
+        aria-label="Scroll to about"
       >
         <motion.span
           className="text-[0.62rem] uppercase tracking-[0.32em]"

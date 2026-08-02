@@ -367,16 +367,15 @@ body {
 }
 
 .ken-burns {
-  animation: kenBurns 28s ease-in-out infinite alternate;
-  will-change: transform;
+  animation: kenBurns 36s ease-in-out infinite alternate;
 }
 
 @keyframes kenBurns {
   from {
-    transform: scale(1.06) translate3d(0, 0, 0);
+    transform: scale(1.03) translate3d(0, 0, 0);
   }
   to {
-    transform: scale(1.2) translate3d(-2.2%, -1.4%, 0);
+    transform: scale(1.1) translate3d(-1.2%, -0.8%, 0);
   }
 }
 

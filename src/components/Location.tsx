@@ -18,14 +18,14 @@ export function Location() {
     target: heroRef,
     offset: ["start end", "end start"],
   });
-  const imageY = useTransform(scrollYProgress, [0, 1], reduceMotion ? ["0%", "0%"] : ["-12%", "12%"]);
-  const imageScale = useTransform(scrollYProgress, [0, 1], reduceMotion ? [1, 1] : [1.18, 1]);
-  const copyY = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [36, -24]);
+  const imageY = useTransform(scrollYProgress, [0, 1], reduceMotion ? ["0%", "0%"] : ["-6%", "6%"]);
+  const imageScale = useTransform(scrollYProgress, [0, 1], reduceMotion ? [1, 1] : [1.08, 1]);
+  const copyY = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [16, -12]);
 
   return (
     <section id="location" className="relative overflow-hidden">
       <div ref={heroRef} className="relative min-h-[70svh] overflow-hidden md:min-h-[80svh]">
-        <motion.div style={{ y: imageY, scale: imageScale }} className="absolute inset-[-12%]">
+        <motion.div style={{ y: imageY, scale: imageScale }} className="absolute inset-[-8%]">
           <Image
             src={location.image}
             alt={location.imageAlt}

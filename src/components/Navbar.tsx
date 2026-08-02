@@ -7,7 +7,7 @@ import { lockBodyScroll, unlockBodyScroll } from "@/lib/scroll";
 import { ScrollTo } from "./ScrollTo";
 
 const SECTION_IDS = [
-  "story",
+  "about",
   "retreat",
   "villas",
   "gallery",

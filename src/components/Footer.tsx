@@ -7,7 +7,7 @@ import { ScrollTo } from "./ScrollTo";
 
 const footerLinks = [
   ...navLinks.filter((link) =>
-    ["story", "retreat", "villas", "gallery", "location"].includes(link.id),
+    ["about", "retreat", "villas", "gallery", "location"].includes(link.id),
   ),
   { label: "Enquire", id: "booking" },
 ];
@@ -160,7 +160,11 @@ export function Footer() {
           </div>
         </Reveal>
 
-        <div className="mt-8 flex flex-col gap-2 px-1 text-[0.7rem] text-warm-white/38 sm:mt-10 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+        <p className="mt-8 max-w-2xl px-1 text-[0.72rem] font-light leading-relaxed text-warm-white/32">
+          {brand.numerologyNote}
+        </p>
+
+        <div className="mt-6 flex flex-col gap-2 px-1 text-[0.7rem] text-warm-white/38 sm:mt-8 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
           <p suppressHydrationWarning>
             © {year} {brand.legalName}
           </p>

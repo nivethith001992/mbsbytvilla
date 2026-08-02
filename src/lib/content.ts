@@ -32,11 +32,11 @@ export const brand = {
   mapEmbed:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.2!2d80.6738738!3d7.8445328!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3afcaf652ef18c33%3A0xc90ec139683167d7!2sMind%20Body%20%26%20Soul!5e0!3m2!1sen!2slk!4v1700000000000!5m2!1sen!2slk",
   numerologyNote:
-    "Mind Body & Soul meaning according to Numerology 9  Compassion, generosity and universal love define your name vibration. You are destined to serve humanity in meaningful ways.",
+    "Numerology 9 — Compassion, generosity and universal love define your name vibration. You are destined to serve humanity in meaningful ways.",
 };
 
 export const navLinks = [
-  { label: "Story", id: "story" },
+  { label: "About", id: "about" },
   { label: "Care", id: "retreat" },
   { label: "Stay", id: "villas" },
   { label: "Gallery", id: "gallery" },
@@ -51,19 +51,29 @@ export const heroHeadline = "live your life that you still deserve with nature";
 export const heroSupport =
   "Mind Body & Soul is a luxury adult care retirement facility in Dambulla ,Sri Lanka. The resort provides both 'independent living with care' and 'close care' with on-site nursing and care support. The main languages spoken in the seniors care facility are English and Sinhala";
 
+/** Single About editorial — place, philosophy, Why We Are Here, Staff (once each). */
 export const about = {
-  eyebrow: "Everybody is an Individual",
-  title: "Everybody is an Individual",
-  displayTitle: ["Everybody is an", "Individual"],
+  eyebrow: "About us",
+  title: "About us",
+  displayTitle: ["About us", ""],
   pullQuote: "live your life that you still deserve with nature",
+  placeIntro:
+    "Mind Body & Soul by T-Villa is set in the beautiful and tranquil Dambulla bordering by bindunu wewa-Rathmalgaha- Ela. Just 5 kilometers from Dambulla town and 22km from Sigiriya Lion Rock, in the central of Sri Lanka . The retirement facility is an enclosed 4-star facility built on 28 acres’ man made (by Mr &Mrs Christopher Amrit) forest of land with mountain & Lake views. The resort is incredibly beautiful and spacious, hosting more than 4500 trees, home for 60 varieties of birds, gardens, a lake and fishponds. The wellness facility provides a safe environment away from the traffic and pollution but still only 10 minutes from the city. The resort is relaxing, quiet and secure. Accommodation is provided in beautiful villas sited throughout the gardens, each with their own bathroom facilities, air-conditioning, terrace and plunge pool. There are different designs of villas to suit your needs",
   paragraphs: [
     "The provision of retirement care in Sri Lanka may be more affordable than you think (but it is not cheap); in a country renowned for its high class, cost-effective medical services. We have opened this resort is to provide a level of comfort that people deserve but may not be able to obtain in their home country. We believe in care, it helps health, it helps self-confidence it allows guests to enjoy life. Quality of life should not end because of some incapacity. The resort has a Villa type luxury accommodation with three plunge pool and going to implement   memory care facility for serious Alzheimer's and other dementia. Our facility caters for both short and long-term stays. Our staffing levels are high, comparison with Western countries is significant to an extreme. People make care work; people allow guests to enjoy their life",
     "Our philosophy is based upon people's individuality; our services can be tailored to meet your requirements in terms of both accommodation and care. Independent accommodation is in beautiful villas set throughout the gardens, Lake view each with alarms to our central office staff. We provide looking to implement disabled-accessible villas and facilities as well as operating transport with a hydraulic wheelchair lift and because we provide short and long stay solutions we provide an excellent venue for disabled vacations. We work hard not to become a 'boarding school for the elderly'; there are no fixed mealtimes and we offer wide food choices from Local traditional cook and in addition German experienced chef for expats",
     "The beautiful retirement facility has been established to fulfill the needs of the elderly community who require more care as they reach that later stage in life. We very much subscribe to the belief that even in the latter part of life people should be able to enjoy a quality in life, retain as much independence as possible and retain their dignity. 'Dignity' is an important word here! We have meal-periods, not meal- times, and a huge choice of dishes to choose from.",
   ],
-  sidePanelEyebrow: "Why We Are Here",
-  sidePanelTitle:
-    "This is a privately-owned and operated business. I have tried to focus the resort as the type of environment that I would wish to live in myself.",
+  whyWeAreHere: {
+    eyebrow: "Why We Are Here",
+    lead: "This is a privately-owned and operated business. I have tried to focus the resort as the type of environment that I would wish to live in myself.",
+    body: "I came out with this idea, I have experienced with my father and father in law and my grandparents, who had an idea to have like this kind of life in their retired age, which wasn’t provided by me when they suffering by dementia and Alzheimer, until passed. They were my inspiration for what we do here. I pay close attention to the running of the retired village and the care and happiness of our guests.",
+  },
+  staff: {
+    eyebrow: "Our Staff",
+    title: "Local people, exceptional care ethic",
+    body: "Our staff are predominantly local Village people. This is an area a exceptionally strong family values and a conservative tradition. These people have a natural respect for the elderly as part of their culture; they expect to care for the elderly and this provides the basis for an exceptional care ethic. It is not always easy to undertake the duties of caring for the elderly whilst remaining cheerful and friendly but, in the main, they are seem to achieve it.",
+  },
   image:
     "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1600&q=80",
   imageAlt: "Lush tropical gardens at Mind Body & Soul in Dambulla",
@@ -106,7 +116,7 @@ export const retreatSpaces = [
     subtitle:
       "Providing sufficient 'care' whilst maintaining individual dignity is our main philosophy.",
     description:
-      "This actual journey was a dream of Dr.Naren , Youngest experienced ,Qualified Clinical psychologist, who wanted to step into host and look after only few retired senior guests under his close Monitoring,  Providing sufficient 'care' whilst maintaining individual dignity is our main philosophy. Adequate provision of care levels can achieve excellent improvement in both health and lifestyle. The retirement facility has its own dedicated, We believe that good care works. Good care requires people numbers. We cater for all levels of required care whilst giving as much independence to the individual as their condition allows. We do not represent the view of an institutionalized nursing home; life with us is like living in a star class resort but with the required care on-hand. Our 'tagline' reflects our philosophy  “live your life that you still deserve with nature”",
+      "This actual journey was a dream of Dr.Naren , Youngest experienced ,Qualified Clinical psychologist, who wanted to step into host and look after only few retired senior guests under his close Monitoring. Adequate provision of care levels can achieve excellent improvement in both health and lifestyle. We believe that good care works. Good care requires people numbers. We cater for all levels of required care whilst giving as much independence to the individual as their condition allows. We do not represent the view of an institutionalized nursing home; life with us is like living in a star class resort but with the required care on-hand.",
     image:
       "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1800&q=80",
     imageAlt: "Peaceful luxury accommodation among trees",
@@ -139,9 +149,9 @@ export const retreatSpaces = [
 
 export const retreatIntro = {
   eyebrow: "The Care",
-  title: ["Everybody is an", "Individual"],
+  title: ["Care,", "with dignity"],
   support:
-    "Our philosophy is based upon people's individuality; our services can be tailored to meet your requirements in terms of both accommodation and care.",
+    "We cater for all levels of required care whilst giving as much independence to the individual as their condition allows — short and long-term stays, with nursing and care support on hand.",
 };
 
 /** Villa / stay types — section text from owner document */
@@ -244,64 +254,55 @@ export const villasIntro = {
   eyebrow: "Accommodation",
   title: ["Accommodation", ""],
   support:
-    "The villa units are beautiful, all provided with spacious room so that privacy and independence is available but care is at the touch of a button. Each villa gifted plunge pool which are all garden situated those who enjoy walking will love the variety of trees and plant and birds. Guests who wish to travel outside the resort independently are encouraged to do so ,has a terrace with furniture for outside relaxation. Inside is air-conditioned. coffee making facilities are provided.",
+    "The villa units are beautiful, all provided with spacious room so that privacy and independence is available but care is at the touch of a button. Each villa gifted plunge pool which are all garden situated those who enjoy walking will love the variety of trees and plant and birds.",
 };
 
+/** Visual grounds journey — short atmosphere captions only (no About / Why / Staff repeats). */
 export const journeyIntro = {
-  eyebrow: "About us",
-  title: ["About us", "Why We Are Here"],
+  eyebrow: "On the grounds",
+  title: ["Quiet acres", "Lake & mountain"],
 };
 
 export const journeySteps = [
   {
-    id: "about-us",
+    id: "forest",
     step: "01",
-    title: "About us",
+    title: "4,500 trees",
     description:
-      "Mind Body & Soul by T-Villa is set in the beautiful and tranquil Dambulla bordering by bindunu wewa-Rathmalgaha- Ela. Just 5 kilometers from Dambulla town and 22km from Sigiriya Lion Rock, in the central of Sri Lanka . The retirement facility is an enclosed 4-star facility built on 28 acres’ man made (by Mr &Mrs Christopher Amrit) forest of land with mountain & Lake views. The resort is incredibly beautiful and spacious, hosting more than 4500 trees, home for 60 varieties of birds, gardens, a lake and fishponds. The wellness facility provides a safe environment away from the traffic and pollution but still only 10 minutes from the city.",
+      "An enclosed forest of land with mountain & Lake views — gardens, a lake and fishponds, home for 60 varieties of birds.",
     image:
-      "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Garden pathway at Mind Body & Soul",
+      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Sunlight through trees at Mind Body & Soul",
   },
   {
-    id: "about-us-villas",
+    id: "villas-grounds",
     step: "02",
-    title: "About us",
+    title: "Garden villas",
     description:
-      "The resort is relaxing, quiet and secure. Accommodation is   provided in beautiful villas sited throughout the gardens, each with their own bathroom facilities, air-conditioning, terrace and plunge pool. There are different designs of villas to suit your needs",
+      "Villas sited throughout the gardens — bathroom facilities, air-conditioning, terrace and plunge pool, different designs to suit your needs.",
     image:
       "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Private villa terrace and plunge pool",
   },
   {
-    id: "why-we-are-here",
+    id: "pools",
     step: "03",
-    title: "Why We Are Here",
+    title: "Pools & quiet",
     description:
-      "This is a privately-owned and operated business. I have tried to focus the resort as the type of environment that I would wish to live in myself. I came out with this idea, I have experienced with my father and father in law and my grandparents, who had an idea to have like this kind of life in their retired age, which wasn’t provided by me when they suffering by dementia and Alzheimer, until passed. They were my inspiration for what we do here. I pay close attention to the running of the retired village and the care and happiness of our guests.",
+      "Three plunge pools among the greenery. Relaxing, quiet and secure — away from traffic and pollution, yet only 10 minutes from the city.",
     image:
       "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Calm outdoor living space at the resort",
   },
   {
-    id: "our-staff",
+    id: "horizons",
     step: "04",
-    title: "Our Staff",
+    title: "Central Sri Lanka",
     description:
-      "Our staff are predominantly local Village people. This is an area a exceptionally strong family values and a conservative tradition. These people have a natural respect for the elderly as part of their culture; they expect to care for the elderly and this provides the basis for an exceptional care ethic. It is not always easy to undertake the duties of caring for the elderly whilst remaining cheerful and friendly but, in the main, they are seem to achieve it.",
+      "Five kilometres from Dambulla town, 22km from Sigiriya Lion Rock — excellent for walking for those who feel more active.",
     image:
       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Open landscape around Dambulla",
-  },
-  {
-    id: "numerology",
-    step: "05",
-    title: "Mind Body & Soul meaning according to Numerology 9",
-    description:
-      "Compassion, generosity and universal love define your name vibration. You are destined to serve humanity in meaningful ways.",
-    image:
-      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Sunlight through trees at Mind Body & Soul",
   },
 ];
 
@@ -375,12 +376,12 @@ export const gallery = [
 ];
 
 export const location = {
-  title: "About us",
-  displayTitle: ["About us", "Dambulla"],
+  title: "Dambulla",
+  displayTitle: ["Find us", "Dambulla"],
   description:
-    "Mind Body & Soul by T-Villa is set in the beautiful and tranquil Dambulla bordering by bindunu wewa-Rathmalgaha- Ela. Just 5 kilometers from Dambulla town and 22km from Sigiriya Lion Rock, in the central of Sri Lanka . The retirement facility is an enclosed 4-star facility built on 28 acres’ man made (by Mr &Mrs Christopher Amrit) forest of land with mountain & Lake views.",
+    "Just 5 kilometers from Dambulla town and 22km from Sigiriya Lion Rock, in the central of Sri Lanka — bordering by bindunu wewa-Rathmalgaha- Ela.",
   atmosphere:
-    "The resort is incredibly beautiful and spacious, hosting more than 4500 trees, home for 60 varieties of birds, gardens, a lake and fishponds. The wellness facility provides a safe environment away from the traffic and pollution but still only 10 minutes from the city. The resort is relaxing, quiet and secure.",
+    "A safe environment away from the traffic and pollution but still only 10 minutes from the city. The area around the resort is excellent for walking for those who feel more active.",
   image:
     "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=2000&q=80",
   imageAlt: "Misty hills near Dambulla in central Sri Lanka",
@@ -419,7 +420,7 @@ export const bookingIntro = {
 
 export const galleryIntro = {
   eyebrow: "Gallery",
-  title: ["About us", ""],
+  title: ["Gardens,", "villas & light"],
   support:
-    "The resort is incredibly beautiful and spacious, hosting more than 4500 trees, home for 60 varieties of birds, gardens, a lake and fishponds.",
+    "A quiet look at the grounds — trees, pools, and villas set through the gardens.",
 };

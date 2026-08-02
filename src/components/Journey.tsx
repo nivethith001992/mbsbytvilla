@@ -22,10 +22,9 @@ export function Journey() {
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.config({ ignoreMobileResize: true });
 
-    const section = sectionRef.current;
     const pin = pinRef.current;
     const track = trackRef.current;
-    if (!section || !pin || !track) return;
+    if (!pin || !track) return;
 
     const mm = gsap.matchMedia();
 
@@ -38,83 +37,47 @@ export function Journey() {
       const getDistance = () =>
         Math.max(track.scrollWidth - pin.clientWidth, 0);
 
-      // Translate the whole track — avoids xPercent white-gap / width mismatch bugs
+      // Soft scrub + single transform on the track — fewer nested scrub listeners = less jank
       const tween = gsap.to(track, {
         x: () => -getDistance(),
         ease: "none",
+        force3D: true,
         scrollTrigger: {
           trigger: pin,
           pin: true,
-          scrub: 0.85,
+          scrub: 1.15,
           anticipatePin: 1,
           start: "top top",
-          end: () => `+=${Math.max(getDistance(), window.innerWidth * 0.6)}`,
+          end: () => `+=${Math.max(getDistance() * 0.92, window.innerWidth * 0.55)}`,
           invalidateOnRefresh: true,
           fastScrollEnd: true,
+          preventOverlaps: true,
         },
       });
 
+      // One light parallax pass per panel image (no borderRadius / opacity scrubbing)
       const nested: ScrollTrigger[] = [];
-
       panels.forEach((panel) => {
         const image = panel.querySelector<HTMLElement>(".journey-image");
-        const copy = panel.querySelector<HTMLElement>(".journey-copy");
-        const frame = panel.querySelector<HTMLElement>(".journey-frame");
+        if (!image) return;
 
-        if (image) {
-          nested.push(
-            ScrollTrigger.create({
-              trigger: panel,
-              containerAnimation: tween,
-              start: "left right",
-              end: "right left",
-              scrub: true,
-              onUpdate: (self) => {
-                const p = self.progress;
-                gsap.set(image, {
-                  scale: 1.18 - p * 0.14,
-                  xPercent: (0.5 - p) * 5,
-                });
-              },
-            }),
-          );
-        }
-
-        if (frame) {
-          nested.push(
-            ScrollTrigger.create({
-              trigger: panel,
-              containerAnimation: tween,
-              start: "left 90%",
-              end: "left 40%",
-              scrub: true,
-              onUpdate: (self) => {
-                gsap.set(frame, {
-                  borderRadius: `${2.5 - self.progress * 0.25}rem`,
-                });
-              },
-            }),
-          );
-        }
-
-        if (copy) {
-          nested.push(
-            ScrollTrigger.create({
-              trigger: panel,
-              containerAnimation: tween,
-              start: "left 80%",
-              end: "center center",
-              scrub: true,
-              onUpdate: (self) => {
-                const p = self.progress;
-                gsap.set(copy, {
-                  y: 36 * (1 - p),
-                  opacity: 0.35 + p * 0.65,
-                });
-              },
-            }),
-          );
-        }
+        nested.push(
+          ScrollTrigger.create({
+            trigger: panel,
+            containerAnimation: tween,
+            start: "left right",
+            end: "right left",
+            scrub: 1.2,
+            onUpdate: (self) => {
+              const p = self.progress;
+              gsap.set(image, {
+                scale: 1.08 - p * 0.06,
+                xPercent: (0.5 - p) * 2.5,
+                force3D: true,
+              });
+            },
+          }),
+        );
       });
 
       let resizeTimer = 0;
@@ -122,12 +85,12 @@ export function Journey() {
         window.clearTimeout(resizeTimer);
         resizeTimer = window.setTimeout(() => {
           ScrollTrigger.refresh();
-        }, 140);
+        }, 180);
       };
 
       window.addEventListener("resize", onResize);
       window.addEventListener("orientationchange", onResize);
-      const refreshTimer = window.setTimeout(() => ScrollTrigger.refresh(), 280);
+      const refreshTimer = window.setTimeout(() => ScrollTrigger.refresh(), 320);
 
       return () => {
         window.clearTimeout(refreshTimer);
@@ -140,72 +103,12 @@ export function Journey() {
         gsap.set(track, { clearProps: "transform" });
         panels.forEach((panel) => {
           const image = panel.querySelector(".journey-image");
-          const copy = panel.querySelector(".journey-copy");
-          const frame = panel.querySelector(".journey-frame");
           if (image) gsap.set(image, { clearProps: "transform" });
-          if (copy) gsap.set(copy, { clearProps: "transform,opacity" });
-          if (frame) gsap.set(frame, { clearProps: "borderRadius" });
         });
       };
     });
 
-    // Mobile / tablet: vertical stack with soft parallax — no pin
-    mm.add("(max-width: 1023px)", () => {
-      const panels = gsap.utils.toArray<HTMLElement>(
-        track.querySelectorAll(".journey-panel"),
-      );
-      const triggers: ScrollTrigger[] = [];
-
-      panels.forEach((panel) => {
-        const image = panel.querySelector<HTMLElement>(".journey-image");
-        const copy = panel.querySelector<HTMLElement>(".journey-copy");
-
-        if (image) {
-          triggers.push(
-            ScrollTrigger.create({
-              trigger: panel,
-              start: "top 92%",
-              end: "bottom 8%",
-              scrub: true,
-              onUpdate: (self) => {
-                gsap.set(image, {
-                  scale: 1.1 - self.progress * 0.07,
-                  yPercent: (0.5 - self.progress) * 6,
-                });
-              },
-            }),
-          );
-        }
-
-        if (copy) {
-          triggers.push(
-            ScrollTrigger.create({
-              trigger: panel,
-              start: "top 85%",
-              end: "center 45%",
-              scrub: true,
-              onUpdate: (self) => {
-                gsap.set(copy, {
-                  y: 22 * (1 - self.progress),
-                  opacity: 0.45 + self.progress * 0.55,
-                });
-              },
-            }),
-          );
-        }
-      });
-
-      return () => {
-        triggers.forEach((st) => st.kill());
-        panels.forEach((panel) => {
-          const image = panel.querySelector(".journey-image");
-          const copy = panel.querySelector(".journey-copy");
-          if (image) gsap.set(image, { clearProps: "transform" });
-          if (copy) gsap.set(copy, { clearProps: "transform,opacity" });
-        });
-      };
-    });
-
+    // Mobile: no pin, no parallax scrub — static stack for calm scroll
     return () => {
       mm.revert();
     };
@@ -216,10 +119,10 @@ export function Journey() {
       id="journey"
       ref={sectionRef}
       className="relative overflow-x-clip bg-surface"
-      aria-label="Your journey begins"
+      aria-label="On the grounds"
     >
       <div className="container-lux relative z-10 pt-24 md:pt-32 lg:pb-4">
-        <Reveal variant="clip" y={44}>
+        <Reveal variant="up" y={32}>
           <p className="eyebrow">{journeyIntro.eyebrow}</p>
           <h2 className="display-lg mt-6 max-w-3xl text-deep-charcoal">
             <span className="block">{journeyIntro.title[0]}</span>
@@ -230,14 +133,13 @@ export function Journey() {
         </Reveal>
       </div>
 
-      {/* Pin only this viewport — keeps the title outside so panels aren't clipped */}
       <div
         ref={pinRef}
         className="journey-pin relative mt-12 w-full lg:mt-10 lg:h-[100svh] lg:overflow-hidden"
       >
         <div
           ref={trackRef}
-          className="journey-track flex w-full flex-col gap-8 px-[max(1.25rem,calc((100%-1180px)/2))] pb-24 will-change-transform lg:h-full lg:w-max lg:flex-row lg:items-center lg:gap-7 lg:px-0 lg:pb-0 lg:pl-[max(1.25rem,calc((100%-1180px)/2))] lg:pr-[12vw]"
+          className="journey-track flex w-full flex-col gap-8 px-[max(1.25rem,calc((100%-1180px)/2))] pb-24 lg:h-full lg:w-max lg:flex-row lg:items-center lg:gap-7 lg:px-0 lg:pb-0 lg:pl-[max(1.25rem,calc((100%-1180px)/2))] lg:pr-[12vw] lg:will-change-transform"
         >
           {journeySteps.map((step) => (
             <article
@@ -245,7 +147,7 @@ export function Journey() {
               className="journey-panel relative w-full shrink-0 lg:h-[min(78svh,720px)] lg:w-[min(78vw,980px)]"
             >
               <div className="journey-frame relative h-[56vh] overflow-hidden lg:h-full">
-                <div className="journey-image absolute inset-0 will-change-transform">
+                <div className="journey-image absolute inset-0 lg:will-change-transform">
                   <Image
                     src={step.image}
                     alt={step.imageAlt}
@@ -257,7 +159,7 @@ export function Journey() {
                 <div className="absolute inset-0 bg-gradient-to-t from-deep-charcoal/78 via-deep-charcoal/28 to-transparent" />
                 <div className="grain" />
 
-                <div className="journey-copy absolute inset-x-0 bottom-0 p-8 will-change-transform md:p-12 lg:p-14">
+                <div className="absolute inset-x-0 bottom-0 p-8 md:p-12 lg:p-14">
                   <p className="text-[0.68rem] uppercase tracking-[0.35em] text-sand-beige">
                     {step.step}
                   </p>
