@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Figtree } from "next/font/google";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 
 const display = Cormorant_Garamond({

@@ -42,10 +42,16 @@
 }
 
 html {
-  /* Keep auto — CSS smooth scroll fights GSAP ScrollTrigger pin/scrub */
+  /* Keep auto — CSS smooth scroll fights Lenis + GSAP ScrollTrigger pin/scrub */
   scroll-behavior: auto;
   scroll-padding-top: 5.5rem;
   overflow-x: clip;
+}
+
+/* Lenis owns wheel smoothing; never let native smooth fight it */
+html.lenis,
+html.lenis-smooth {
+  scroll-behavior: auto !important;
 }
 
 /* Offset hash-free scroll targets under the fixed nav */
