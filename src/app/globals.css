@@ -369,7 +369,14 @@ body {
 }
 
 .image-mask-soft {
+  /* Scoop / concave on bottom-right; other corners rounded */
   border-radius: 2.25rem 2.25rem 42% 2.25rem;
+  overflow: hidden;
+}
+
+.image-mask-soft-flip {
+  /* Mirrored: scoop / concave on bottom-left */
+  border-radius: 2.25rem 2.25rem 2.25rem 42%;
   overflow: hidden;
 }
 

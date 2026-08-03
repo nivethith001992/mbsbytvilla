@@ -32,7 +32,16 @@ function CareRow({
     [0, 1],
     skipParallax ? ["0%", "0%"] : ["-3%", "3%"],
   );
-  const reverse = index % 2 === 1;
+  // Even indices (01, 03): text left / image right + scoop BR (screenshot pattern)
+  // Odd indices (02, 04): image left / text right + scoop BL (mirrored)
+  const imageRight = index % 2 === 0;
+  const aspectClass =
+    index % 3 === 0
+      ? "aspect-[16/10]"
+      : index % 3 === 1
+        ? "aspect-[5/4]"
+        : "aspect-[16/11]";
+  const maskClass = imageRight ? "image-mask-soft" : "image-mask-soft-flip";
 
   return (
     <article
@@ -40,20 +49,14 @@ function CareRow({
       className="grid items-center gap-10 border-t border-white/10 py-16 md:py-20 lg:grid-cols-12 lg:gap-12"
     >
       <Reveal
-        className={`relative lg:col-span-7 ${reverse ? "lg:order-2" : ""}`}
-        variant={reverse ? "right" : "left"}
+        className={`relative lg:col-span-7 ${imageRight ? "lg:order-2" : ""}`}
+        variant={imageRight ? "right" : "left"}
         y={20}
         duration={0.55}
         fade={false}
       >
         <div
-          className={`image-reveal relative overflow-hidden bg-deep-charcoal/40 ${
-            index % 3 === 0
-              ? "aspect-[16/10] md:!rounded-[2.5rem_1.25rem_2.5rem_1.25rem]"
-              : index % 3 === 1
-                ? "aspect-[5/4] image-mask-soft"
-                : "aspect-[16/11]"
-          }`}
+          className={`image-reveal relative overflow-hidden bg-deep-charcoal/40 ${aspectClass} ${maskClass}`}
         >
           <motion.div style={{ y: imageY }} className="absolute inset-[-6%]">
             <LuxImage
@@ -72,7 +75,7 @@ function CareRow({
       </Reveal>
 
       <div
-        className={`lg:col-span-5 ${reverse ? "lg:order-1 lg:pr-4" : "lg:pl-2 xl:pl-8"}`}
+        className={`lg:col-span-5 ${imageRight ? "lg:order-1 lg:pr-4" : "lg:pl-2 xl:pl-8"}`}
       >
         <Reveal delay={0.1} variant="up" y={28}>
           <p className="text-[0.7rem] tracking-[0.35em] text-sand-beige/80">
