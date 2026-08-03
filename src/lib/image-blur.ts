@@ -4,7 +4,7 @@ export const blurDataURLs: Record<string, string> = {
   "/images/about/garden-mountain.avif": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAACQAQCdASoQAAkABUB8JQAAWP6Bz+AA9rgmQ/CpH89Eor+hA4M2PHwaYFK5nSR2O0041/p1OICAAA==",
   "/images/about/pavilion-grounds.avif": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACQAQCdASoQAAwABUB8JZgCdAEEpAAAyWzlHXsd1ecYU39p4Fud7dF/03zciBhF+pBnj0AILG3Tby3UH2CzGXbMxY+e2IAA",
   "/images/care/garden-loungers.avif": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAAAQAgCdASoQAAkABUB8JYgCdAEejPS8AQiwAP7cpbF88RCPV+BuirJhwb2aQMmyE4HFs+lIXAM6Ipi6yGuKizQAAAA=",
-  "/images/care/medical-support.avif": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADQAQCdASoQAAsABUB8JZQAApMnfRvRwAD+yZo7clhnZlOIFYSP07iVdbjLQliATssuzYFT3bD3IRzW42OQmEVnFAA=",
+  "/images/care/medical-support.avif": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAABwAQCdASoQAAsABUB8JYwAAUUCwAD3zg0sa950dZnhzUN9mDm8Sh+Xw+Y6gq1i73VsIOfgAkPRVjHk8hZYWZ96AAA=",
   "/images/care/spa-bathroom.avif": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAACQAQCdASoJABAABUB8JQAASV9QSGAA4ZvLHqkMrysMRskOhV5SHC90nDvkAfpKBDxZbXPQrnK6AAAA",
   "/images/gallery/activity-pavilion.avif": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADwAQCdASoQAAwABUB8JYwAApBbQ269sgAA/TYi1tkJ2PW15050G1DBKEDMDrGkwztQZ/3vsLhkkjCu4Mqh2Lbc6tsAAA==",
   "/images/gallery/forest-desk.avif": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAACQAQCdASoQAAwABUB8JagCdACsgxAA98zV53P9ZEZECS+gYBqbvTvuVRdpG0kIlwKEanYql1llCXU61YndJDRBGm7QzuN6p98EBJmaG5Et+AAA",
