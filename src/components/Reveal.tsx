@@ -21,6 +21,8 @@ type RevealProps = {
   variant?: RevealVariant;
   duration?: number;
   amount?: number;
+  /** When false, skip opacity so media inside is never hidden while decoding. */
+  fade?: boolean;
 };
 
 const easings = [0.22, 1, 0.36, 1] as const;
@@ -29,34 +31,40 @@ function initialFor(
   variant: RevealVariant,
   y: number,
   reduce: boolean | null,
+  fade: boolean,
 ) {
   if (reduce) {
-    return { opacity: 0 };
+    return fade ? { opacity: 0 } : {};
   }
 
   // Prefer soft fades + small travel — avoid heavy blur/clip when possible
+  const o = fade ? 0 : 1;
   switch (variant) {
     case "down":
-      return { opacity: 0, y: -Math.min(y, 28) };
+      return { opacity: o, y: -Math.min(y, 28) };
     case "left":
-      return { opacity: 0, x: -20, y: 4 };
+      return { opacity: o, x: -20, y: 4 };
     case "right":
-      return { opacity: 0, x: 20, y: 4 };
+      return { opacity: o, x: 20, y: 4 };
     case "scale":
-      return { opacity: 0, scale: 0.98, y: Math.min(y, 24) * 0.4 };
+      return { opacity: o, scale: 0.98, y: Math.min(y, 24) * 0.4 };
     case "blur":
-      return { opacity: 0, y: Math.min(y, 24) * 0.5 };
+      return { opacity: o, y: Math.min(y, 24) * 0.5 };
     case "clip":
-      return { opacity: 0, y: Math.min(y, 28) * 0.65 };
+      return { opacity: o, y: Math.min(y, 28) * 0.65 };
     case "up":
     default:
-      return { opacity: 0, y: Math.min(y, 32) };
+      return { opacity: o, y: Math.min(y, 32) };
   }
 }
 
-function animateFor(variant: RevealVariant, reduce: boolean | null) {
+function animateFor(
+  variant: RevealVariant,
+  reduce: boolean | null,
+  fade: boolean,
+) {
   if (reduce) {
-    return { opacity: 1 };
+    return fade ? { opacity: 1 } : {};
   }
 
   switch (variant) {
@@ -81,18 +89,21 @@ export function Reveal({
   variant = "up",
   duration = 0.8,
   amount = 0.18,
+  fade = true,
 }: RevealProps) {
   const reduceMotion = useReducedMotion();
 
   return (
     <motion.div
       className={className}
-      initial={initialFor(variant, y, reduceMotion)}
-      whileInView={animateFor(variant, reduceMotion)}
+      initial={initialFor(variant, y, reduceMotion, fade)}
+      whileInView={animateFor(variant, reduceMotion, fade)}
       viewport={{ once, amount, margin: "0px 0px -6% 0px" }}
       transition={{
-        duration: reduceMotion ? 0.25 : Math.min(duration, 0.95),
-        delay: reduceMotion ? Math.min(delay, 0.06) : Math.min(delay, 0.35),
+        duration: reduceMotion ? 0.25 : Math.min(duration, fade ? 0.95 : 0.55),
+        delay: reduceMotion
+          ? Math.min(delay, 0.06)
+          : Math.min(delay, fade ? 0.35 : 0.12),
         ease: easings,
       }}
     >

@@ -78,6 +78,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${display.variable} ${body.variable} h-full`}>
+      <head>
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero/villa-lap-pool.avif"
+          type="image/avif"
+          {...{ fetchPriority: "high" }}
+        />
+      </head>
       <body className="min-h-full antialiased">{children}</body>
     </html>
   );

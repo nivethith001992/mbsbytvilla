@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import {
   motion,
   useReducedMotion,
@@ -17,6 +16,7 @@ import {
   heroSupport,
 } from "@/lib/content";
 import { useLightMotion } from "@/lib/motion";
+import { LuxImage } from "./LuxImage";
 import { ScrollTo } from "./ScrollTo";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -62,7 +62,8 @@ export function Hero() {
     const seen =
       typeof window !== "undefined" &&
       sessionStorage.getItem("mbs-intro-seen") === "1";
-    const delay = reduceMotion ? 0 : seen ? 60 : 1480;
+    // Keep the hero image visible under the intro; only gate text entrance.
+    const delay = reduceMotion ? 0 : seen ? 0 : 420;
     const timer = window.setTimeout(() => setEntered(true), delay);
     return () => window.clearTimeout(timer);
   }, [reduceMotion]);
@@ -85,12 +86,15 @@ export function Hero() {
               reduceMotion || lightMotion ? "" : "ken-burns"
             }`}
           >
-            <Image
+            <LuxImage
               src={heroImage}
               alt="Cinematic view of Mind Body & Soul luxury care villas and gardens in Dambulla"
               fill
               priority
+              fetchPriority="high"
               sizes="100vw"
+              quality={65}
+              decoding="sync"
               className="object-cover object-center"
             />
           </div>
@@ -106,13 +110,13 @@ export function Hero() {
         <div className="grain" />
       </motion.div>
 
-      {/* Cinematic entrance veil */}
+      {/* Brief veil — never holds the hero image off-screen */}
       <motion.div
         aria-hidden
         className="pointer-events-none absolute inset-0 z-[5] bg-deep-charcoal"
-        initial={{ opacity: 1 }}
-        animate={entered || reduceMotion ? { opacity: 0 } : { opacity: 1 }}
-        transition={{ duration: reduceMotion ? 0.2 : 1.35, ease }}
+        initial={{ opacity: 0.35 }}
+        animate={entered || reduceMotion ? { opacity: 0 } : { opacity: 0.35 }}
+        transition={{ duration: reduceMotion ? 0.15 : 0.45, ease }}
       />
 
       <motion.div

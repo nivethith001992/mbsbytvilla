@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import {
   motion,
   useReducedMotion,
@@ -10,6 +9,7 @@ import {
 import { useRef } from "react";
 import { brand, location } from "@/lib/content";
 import { useLightMotion } from "@/lib/motion";
+import { LuxImage } from "./LuxImage";
 import { Reveal } from "./Reveal";
 
 export function Location() {
@@ -34,7 +34,7 @@ export function Location() {
         className="relative min-h-[70svh] overflow-hidden md:min-h-[80svh]"
       >
         <motion.div style={{ y: imageY }} className="absolute inset-[-5%]">
-          <Image
+          <LuxImage
             src={location.image}
             alt={location.imageAlt}
             fill

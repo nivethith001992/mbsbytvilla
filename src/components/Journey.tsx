@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { journeyIntro, journeySteps } from "@/lib/content";
+import { LuxImage } from "./LuxImage";
 import { Reveal } from "./Reveal";
 
 const PIN_MQ = "(min-width: 1024px)";
@@ -111,9 +111,9 @@ export function Journey() {
               key={step.id}
               className="journey-panel relative w-full shrink-0 lg:h-[min(78svh,720px)] lg:w-[min(78vw,980px)]"
             >
-              <div className="journey-frame relative h-[56vh] overflow-hidden lg:h-full">
+              <div className="journey-frame relative h-[56vh] overflow-hidden bg-surface-deep lg:h-full">
                 <div className="absolute inset-0">
-                  <Image
+                  <LuxImage
                     src={step.image}
                     alt={step.imageAlt}
                     fill

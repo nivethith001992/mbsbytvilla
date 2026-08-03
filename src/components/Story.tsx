@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import {
   motion,
   useReducedMotion,
@@ -10,6 +9,7 @@ import {
 import { useRef } from "react";
 import { about } from "@/lib/content";
 import { useLightMotion } from "@/lib/motion";
+import { LuxImage } from "./LuxImage";
 import { Reveal, Stagger, StaggerItem } from "./Reveal";
 
 export function Story() {
@@ -54,13 +54,21 @@ export function Story() {
         </div>
 
         <div className="relative grid items-start gap-12 lg:grid-cols-12 lg:gap-8">
-          <Reveal className="relative lg:col-span-7" variant="up" y={36} duration={0.9}>
-            <div className="image-reveal relative aspect-[4/5] overflow-hidden md:aspect-[5/6] lg:min-h-[44rem]">
+          <Reveal
+            className="relative lg:col-span-7"
+            variant="up"
+            y={24}
+            duration={0.55}
+            fade={false}
+          >
+            <div className="image-reveal relative aspect-[4/5] overflow-hidden bg-surface-deep md:aspect-[5/6] lg:min-h-[44rem]">
               <motion.div style={{ y: slowY }} className="absolute inset-[-5%]">
-                <Image
+                <LuxImage
                   src={about.image}
                   alt={about.imageAlt}
                   fill
+                  priority
+                  fetchPriority="high"
                   sizes="(max-width: 1024px) 100vw, 58vw"
                   className="object-cover"
                 />
@@ -71,17 +79,17 @@ export function Story() {
           <div className="relative z-10 lg:col-span-5 lg:pt-16 xl:pt-24">
             <motion.div
               style={{ y: floatY }}
-              className="image-reveal relative mb-12 aspect-[4/5] w-[80%] overflow-hidden border-[12px] border-warm-white shadow-[0_20px_48px_rgba(41,41,41,0.1)] md:w-[72%] lg:absolute lg:-left-[16%] lg:top-8 lg:mb-0 lg:w-[56%] xl:-left-[20%]"
+              className="image-reveal relative mb-12 aspect-[4/5] w-[80%] overflow-hidden border-[12px] border-warm-white bg-surface-deep shadow-[0_20px_48px_rgba(41,41,41,0.1)] md:w-[72%] lg:absolute lg:-left-[16%] lg:top-8 lg:mb-0 lg:w-[56%] xl:-left-[20%]"
             >
-              <Reveal variant="up" delay={0.1} className="absolute inset-0" y={0}>
-                <Image
+              <div className="absolute inset-0">
+                <LuxImage
                   src={about.secondaryImage}
                   alt={about.secondaryImageAlt}
                   fill
                   sizes="(max-width: 1024px) 70vw, 28vw"
                   className="object-cover"
                 />
-              </Reveal>
+              </div>
             </motion.div>
 
             <Stagger className="space-y-7 lg:mt-72 xl:mt-80" delay={0.08} stagger={0.08}>
@@ -98,13 +106,18 @@ export function Story() {
 
         {/* Philosophy */}
         <div className="mt-28 grid items-stretch gap-6 md:mt-40 md:grid-cols-12 md:gap-8">
-          <Reveal className="relative overflow-hidden md:col-span-5" variant="up" y={28}>
-            <div className="image-reveal relative aspect-[4/5] md:aspect-auto md:h-full md:min-h-[26rem]">
-              <Image
+          <Reveal
+            className="relative overflow-hidden md:col-span-5"
+            variant="up"
+            y={20}
+            fade={false}
+          >
+            <div className="image-reveal relative aspect-[4/5] bg-surface-deep md:aspect-auto md:h-full md:min-h-[26rem]">
+              <LuxImage
                 src={about.tertiaryImage}
                 alt={about.tertiaryImageAlt}
                 fill
-                sizes="40vw"
+                sizes="(max-width: 768px) 100vw, 40vw"
                 className="object-cover"
               />
             </div>

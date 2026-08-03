@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import {
   motion,
   useReducedMotion,
@@ -10,6 +9,7 @@ import {
 import { useRef } from "react";
 import { careIntro, careSpaces } from "@/lib/content";
 import { useLightMotion } from "@/lib/motion";
+import { LuxImage } from "./LuxImage";
 import { Reveal } from "./Reveal";
 
 function CareRow({
@@ -42,11 +42,12 @@ function CareRow({
       <Reveal
         className={`relative lg:col-span-7 ${reverse ? "lg:order-2" : ""}`}
         variant={reverse ? "right" : "left"}
-        y={36}
-        duration={0.9}
+        y={20}
+        duration={0.55}
+        fade={false}
       >
         <div
-          className={`image-reveal relative overflow-hidden ${
+          className={`image-reveal relative overflow-hidden bg-deep-charcoal/40 ${
             index % 3 === 0
               ? "aspect-[16/10] md:!rounded-[2.5rem_1.25rem_2.5rem_1.25rem]"
               : index % 3 === 1
@@ -55,7 +56,7 @@ function CareRow({
           }`}
         >
           <motion.div style={{ y: imageY }} className="absolute inset-[-6%]">
-            <Image
+            <LuxImage
               src={space.image}
               alt={space.imageAlt}
               fill

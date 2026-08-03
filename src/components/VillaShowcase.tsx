@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 import { accommodations, villasIntro } from "@/lib/content";
+import { LuxImage } from "./LuxImage";
 import { Reveal, Stagger, StaggerItem } from "./Reveal";
 import { ScrollTo } from "./ScrollTo";
 
@@ -45,40 +45,43 @@ export function VillaShowcase() {
       </div>
 
       <div className="relative px-[max(1.25rem,calc((100%-1180px)/2))] pb-16 md:pb-24">
-        <Reveal variant="up" y={24} duration={0.85}>
-          <div className="media-frame relative min-h-[82svh] overflow-hidden shadow-[0_18px_48px_rgba(41,41,41,0.06)] md:min-h-[88svh] md:!rounded-[2.6rem]">
+        <Reveal variant="up" y={16} duration={0.5} fade={false}>
+          <div className="media-frame relative min-h-[82svh] overflow-hidden bg-surface-deep shadow-[0_18px_48px_rgba(41,41,41,0.06)] md:min-h-[88svh] md:!rounded-[2.6rem]">
+            {/* Image layer stays opaque — only copy animates on tab change */}
+            <div className="absolute inset-0">
+              <LuxImage
+                key={chalet.id}
+                src={chalet.image}
+                alt={chalet.imageAlt}
+                fill
+                priority={active === 0}
+                fetchPriority={active === 0 ? "high" : "auto"}
+                sizes="100vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-deep-charcoal/82 via-deep-charcoal/48 to-deep-charcoal/22" />
+              <div className="absolute inset-0 bg-gradient-to-t from-deep-charcoal/72 via-transparent to-deep-charcoal/25" />
+              <div className="grain" />
+            </div>
+
             <AnimatePresence mode="wait">
               <motion.article
                 key={chalet.id}
                 id={chalet.id}
-                initial={reduceMotion ? false : { opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={reduceMotion ? undefined : { opacity: 0 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
+                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                 className="relative min-h-[82svh] md:min-h-[88svh]"
               >
-                <div className="absolute inset-0">
-                  <Image
-                    src={chalet.image}
-                    alt={chalet.imageAlt}
-                    fill
-                    priority={active === 0}
-                    sizes="100vw"
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-r from-deep-charcoal/82 via-deep-charcoal/48 to-deep-charcoal/22" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-deep-charcoal/72 via-transparent to-deep-charcoal/25" />
-                  <div className="grain" />
-                </div>
-
                 <div className="relative z-10 flex min-h-[82svh] items-end md:min-h-[88svh]">
                   <div className="w-full px-7 pb-14 pt-28 md:px-12 md:pb-20 md:pt-36 lg:px-16">
                     <div className="grid gap-12 lg:grid-cols-12 lg:items-end">
                       <motion.div
                         className="lg:col-span-7"
-                        initial={reduceMotion ? false : { opacity: 0, y: 40, x: -16 }}
-                        animate={{ opacity: 1, y: 0, x: 0 }}
-                        transition={{ duration: 0.95, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                        initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.45, delay: 0.04, ease: [0.22, 1, 0.36, 1] }}
                       >
                         <p className="text-[0.68rem] uppercase tracking-[0.32em] text-sand-beige">
                           {String(active + 1).padStart(2, "0")} — {chalet.chakra}
@@ -96,29 +99,22 @@ export function VillaShowcase() {
 
                       <motion.div
                         className="lg:col-span-5"
-                        initial={reduceMotion ? false : { opacity: 0, y: 36, x: 16 }}
-                        animate={{ opacity: 1, y: 0, x: 0 }}
-                        transition={{ duration: 0.95, delay: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                        initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.45, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
                       >
                         <p className="text-[0.65rem] uppercase tracking-[0.28em] text-sand-beige/70">
                           {chalet.accent}
                         </p>
                         <ul className="mt-7 grid gap-3 border-t border-white/15 pt-7 sm:grid-cols-2">
-                          {chalet.features.map((feature, i) => (
-                            <motion.li
+                          {chalet.features.map((feature) => (
+                            <li
                               key={feature}
                               className="flex items-baseline gap-3 text-sm text-warm-white/80"
-                              initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{
-                                duration: 0.55,
-                                delay: reduceMotion ? 0 : 0.4 + i * 0.045,
-                                ease: [0.22, 1, 0.36, 1],
-                              }}
                             >
                               <span aria-hidden className="h-px w-3 shrink-0 bg-sand-beige/70" />
                               {feature}
-                            </motion.li>
+                            </li>
                           ))}
                         </ul>
                         <div className="mt-11 flex flex-wrap items-end justify-between gap-6">

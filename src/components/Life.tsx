@@ -1,12 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import {
   community,
   excursions,
   lifeIntro,
   wellness,
 } from "@/lib/content";
+import { LuxImage } from "./LuxImage";
 import { Reveal, Stagger, StaggerItem } from "./Reveal";
 
 export function Life() {
@@ -31,9 +31,14 @@ export function Life() {
 
         {/* Wellness & Activities */}
         <div className="mt-16 grid items-start gap-12 md:mt-24 lg:grid-cols-12 lg:gap-14">
-          <Reveal className="relative lg:col-span-6" variant="up" y={36}>
-            <div className="image-reveal relative aspect-[4/5] overflow-hidden md:aspect-[5/6]">
-              <Image
+          <Reveal
+            className="relative lg:col-span-6"
+            variant="up"
+            y={20}
+            fade={false}
+          >
+            <div className="image-reveal relative aspect-[4/5] overflow-hidden bg-surface-deep md:aspect-[5/6]">
+              <LuxImage
                 src={wellness.image}
                 alt={wellness.imageAlt}
                 fill

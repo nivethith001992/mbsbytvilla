@@ -374,91 +374,106 @@ export const journeySteps = [
   },
 ];
 
+function galleryItem(
+  src: string,
+  alt: string,
+  caption: string,
+  span: "tall" | "wide" | "normal",
+) {
+  return {
+    src,
+    thumb: `/images/thumbs${src.replace(/^\/images/, "")}`,
+    alt,
+    caption,
+    span,
+  };
+}
+
 export const gallery = [
-  {
-    src: "/images/gallery/grounds-canopy.avif",
-    alt: "Trees framing pavilions and brick buildings on the grounds",
-    caption: "28 acres of gardens, forests, and lakes",
-    span: "tall" as const,
-  },
-  {
-    src: "/images/hero/villa-lap-pool.avif",
-    alt: "Private villa lap pool with sun loungers",
-    caption: "Private villa pools",
-    span: "wide" as const,
-  },
-  {
-    src: "/images/gallery/poolside-garden.avif",
-    alt: "Poolside garden seating under tropical shade",
-    caption: "Shaded garden living",
-    span: "normal" as const,
-  },
-  {
-    src: "/images/location/lake-sunset.avif",
-    alt: "Golden light over water and distant hills",
-    caption: "Breathtaking mountain views",
-    span: "normal" as const,
-  },
-  {
-    src: "/images/villas/bedroom-daybed.avif",
-    alt: "Villa bedroom with daybed and four-poster bed",
-    caption: "Private villas designed for comfort",
-    span: "tall" as const,
-  },
-  {
-    src: "/images/villas/villa-evening.avif",
-    alt: "Villa porch glowing with lantern light at dusk",
-    caption: "Warm evenings on the veranda",
-    span: "wide" as const,
-  },
-  {
-    src: "/images/villas/indoor-outdoor-bath.avif",
-    alt: "Indoor-outdoor villa bathroom with blue tile floors",
-    caption: "Spa-inspired bathrooms",
-    span: "normal" as const,
-  },
-  {
-    src: "/images/villas/patio-lounge.avif",
-    alt: "Covered villa patio with blue lounge seating",
-    caption: "Garden and forest views",
-    span: "normal" as const,
-  },
-  {
-    src: "/images/life/blue-loungers.avif",
-    alt: "Blue outdoor loungers among the trees",
-    caption: "Quiet corners for rest",
-    span: "normal" as const,
-  },
-  {
-    src: "/images/villas/canopy-bed.avif",
-    alt: "Canopied villa bed with soft natural light",
-    caption: "Luxury living with compassionate care",
-    span: "wide" as const,
-  },
-  {
-    src: "/images/gallery/forest-desk.avif",
-    alt: "Outdoor writing desk overlooking the forest",
-    caption: "Space to think and be",
-    span: "tall" as const,
-  },
-  {
-    src: "/images/care/garden-loungers.avif",
-    alt: "Red cushion loungers in a shaded garden",
-    caption: "Rest among the trees",
-    span: "normal" as const,
-  },
-  {
-    src: "/images/life/garden-jeep.avif",
-    alt: "Off-road vehicle ready for local excursions",
-    caption: "Organised outings nearby",
-    span: "normal" as const,
-  },
-  {
-    src: "/images/gallery/activity-pavilion.avif",
-    alt: "Open activity pavilion for wellness and gatherings",
-    caption: "Spaces to gather and move",
-    span: "wide" as const,
-  },
+  galleryItem(
+    "/images/gallery/grounds-canopy.avif",
+    "Trees framing pavilions and brick buildings on the grounds",
+    "28 acres of gardens, forests, and lakes",
+    "tall",
+  ),
+  galleryItem(
+    "/images/hero/villa-lap-pool.avif",
+    "Private villa lap pool with sun loungers",
+    "Private villa pools",
+    "wide",
+  ),
+  galleryItem(
+    "/images/gallery/poolside-garden.avif",
+    "Poolside garden seating under tropical shade",
+    "Shaded garden living",
+    "normal",
+  ),
+  galleryItem(
+    "/images/location/lake-sunset.avif",
+    "Golden light over water and distant hills",
+    "Breathtaking mountain views",
+    "normal",
+  ),
+  galleryItem(
+    "/images/villas/bedroom-daybed.avif",
+    "Villa bedroom with daybed and four-poster bed",
+    "Private villas designed for comfort",
+    "tall",
+  ),
+  galleryItem(
+    "/images/villas/villa-evening.avif",
+    "Villa porch glowing with lantern light at dusk",
+    "Warm evenings on the veranda",
+    "wide",
+  ),
+  galleryItem(
+    "/images/villas/indoor-outdoor-bath.avif",
+    "Indoor-outdoor villa bathroom with blue tile floors",
+    "Spa-inspired bathrooms",
+    "normal",
+  ),
+  galleryItem(
+    "/images/villas/patio-lounge.avif",
+    "Covered villa patio with blue lounge seating",
+    "Garden and forest views",
+    "normal",
+  ),
+  galleryItem(
+    "/images/life/blue-loungers.avif",
+    "Blue outdoor loungers among the trees",
+    "Quiet corners for rest",
+    "normal",
+  ),
+  galleryItem(
+    "/images/villas/canopy-bed.avif",
+    "Canopied villa bed with soft natural light",
+    "Luxury living with compassionate care",
+    "wide",
+  ),
+  galleryItem(
+    "/images/gallery/forest-desk.avif",
+    "Outdoor writing desk overlooking the forest",
+    "Space to think and be",
+    "tall",
+  ),
+  galleryItem(
+    "/images/care/garden-loungers.avif",
+    "Red cushion loungers in a shaded garden",
+    "Rest among the trees",
+    "normal",
+  ),
+  galleryItem(
+    "/images/life/garden-jeep.avif",
+    "Off-road vehicle ready for local excursions",
+    "Organised outings nearby",
+    "normal",
+  ),
+  galleryItem(
+    "/images/gallery/activity-pavilion.avif",
+    "Open activity pavilion for wellness and gatherings",
+    "Spaces to gather and move",
+    "wide",
+  ),
 ];
 
 export const location = {

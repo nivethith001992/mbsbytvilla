@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useId, useRef, useState } from "react";
 import { gallery, galleryIntro } from "@/lib/content";
 import { lockBodyScroll, unlockBodyScroll } from "@/lib/scroll";
+import { LuxImage } from "./LuxImage";
 import { Reveal } from "./Reveal";
 
 export function Gallery() {
@@ -88,6 +88,17 @@ export function Gallery() {
     };
   }, []);
 
+  // Warm the next/prev full-size images while lightbox is open
+  useEffect(() => {
+    if (active === null) return;
+    const warm = [active, (active + 1) % gallery.length, (active - 1 + gallery.length) % gallery.length];
+    for (const i of warm) {
+      const img = new window.Image();
+      img.decoding = "async";
+      img.src = gallery[i].src;
+    }
+  }, [active]);
+
   return (
     <section id="gallery" className="section-pad-lg section-atmosphere relative overflow-hidden">
       <div className="container-lux">
@@ -108,16 +119,17 @@ export function Gallery() {
           {gallery.map((item, index) => (
             <Reveal
               key={`${item.src}-${index}`}
-              delay={(index % 3) * 0.06}
+              delay={0}
               variant="up"
-              y={28}
-              duration={0.75}
+              y={16}
+              duration={0.45}
+              fade={false}
               className="gallery-item"
             >
               <button
                 type="button"
                 onClick={() => setActive(index)}
-                className={`gallery-thumb image-reveal group relative block w-full text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-earth-brown ${
+                className={`gallery-thumb image-reveal group relative block w-full bg-surface-deep text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-earth-brown ${
                   index % 5 === 2
                     ? "!rounded-[2.25rem_2.25rem_42%_2.25rem]"
                     : index % 5 === 4
@@ -135,12 +147,13 @@ export function Gallery() {
                         : "aspect-[4/3]"
                   }`}
                 >
-                  <Image
-                    src={item.src}
+                  <LuxImage
+                    src={item.thumb}
                     alt={item.alt}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw"
-                    className="object-cover transition duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
+                    quality={50}
+                    className="object-cover transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
                   />
                   <span className="absolute inset-0 bg-deep-charcoal/0 transition duration-500 group-hover:bg-deep-charcoal/28" />
                   <span className="absolute inset-x-0 bottom-0 translate-y-3 p-6 opacity-0 transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0 group-hover:opacity-100">
@@ -166,6 +179,7 @@ export function Gallery() {
             initial={reduceMotion ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
@@ -196,29 +210,23 @@ export function Gallery() {
 
             <motion.div
               key={active}
-              initial={
-                reduceMotion
-                  ? false
-                  : { opacity: 0, scale: 0.98, y: 12 }
-              }
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={
-                reduceMotion
-                  ? undefined
-                  : { opacity: 0, scale: 0.99, y: -8 }
-              }
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              initial={reduceMotion ? false : { opacity: 0.01 }}
+              animate={{ opacity: 1 }}
+              exit={reduceMotion ? undefined : { opacity: 0 }}
+              transition={{ duration: 0.15, ease: [0.22, 1, 0.36, 1] }}
               className="relative flex w-full max-w-5xl flex-col items-center"
               onClick={(event) => event.stopPropagation()}
             >
-              <div className="relative h-[62vh] w-full overflow-hidden rounded-[1.75rem] md:h-[72vh] md:rounded-[2.25rem]">
-                <Image
+              <div className="relative h-[62vh] w-full overflow-hidden rounded-[1.75rem] bg-deep-charcoal md:h-[72vh] md:rounded-[2.25rem]">
+                <LuxImage
                   src={gallery[active].src}
                   alt={gallery[active].alt}
                   fill
-                  sizes="100vw"
-                  className="object-contain"
+                  sizes="(max-width: 1024px) 100vw, 1024px"
+                  quality={65}
                   priority
+                  fetchPriority="high"
+                  className="object-contain"
                 />
               </div>
               <p

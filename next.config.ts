@@ -7,6 +7,11 @@ const nextConfig: NextConfig = {
   },
   images: {
     formats: ["image/avif", "image/webp"],
+    // Prefer sizes that match our layouts (full-bleed, 50/58vw, gallery cols)
+    deviceSizes: [640, 750, 828, 1080, 1200, 1400, 1920],
+    imageSizes: [96, 128, 256, 384, 640, 750],
+    qualities: [50, 65, 75],
+    minimumCacheTTL: 60 * 60 * 24 * 30,
   },
 };
 
