@@ -219,9 +219,6 @@ export function Hero() {
             >
               {heroCtas[0].label}
             </ScrollTo>
-            <ScrollTo to={heroCtas[1].to} className="btn-secondary">
-              {heroCtas[1].label}
-            </ScrollTo>
           </motion.div>
         </div>
       </motion.div>

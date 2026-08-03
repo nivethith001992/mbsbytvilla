@@ -52,7 +52,6 @@ export const heroSupport =
   "Experience a peaceful retirement in the heart of Sri Lanka, where luxury living meets compassionate care. Nestled within 28 acres of lush gardens, lakes, and forest, Mind Body & Soul offers a unique lifestyle that combines independence, wellness, and professional support in a serene environment.";
 
 export const heroCtas = [
-  { label: "Schedule a Visit", to: "booking" },
   { label: "Enquire Today", to: "booking" },
 ] as const;
 
