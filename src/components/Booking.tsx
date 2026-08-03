@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { bookingIntro, brand } from "@/lib/content";
+import { bookingIntro } from "@/lib/content";
 import { Reveal } from "./Reveal";
 
 type FormState = {
@@ -51,7 +51,6 @@ export function Booking() {
         return next;
       });
     }
-    if (status === "sent") setStatus("idle");
   };
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -60,20 +59,13 @@ export function Booking() {
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
-    const subject = encodeURIComponent(
-      `Private tour enquiry — ${form.name.trim()}`,
-    );
-    const body = encodeURIComponent(
-      [
-        `Name: ${form.name.trim()}`,
-        `Email: ${form.email.trim()}`,
-        "",
-        "Message:",
-        form.message.trim(),
-      ].join("\n"),
-    );
-
-    window.location.href = `mailto:${brand.email}?subject=${subject}&body=${body}`;
+    console.log("Enquiry received (demo):", {
+      name: form.name.trim(),
+      email: form.email.trim(),
+      message: form.message.trim(),
+    });
+    setForm(initialState);
+    setErrors({});
     setStatus("sent");
   };
 
@@ -104,86 +96,106 @@ export function Booking() {
           </Reveal>
 
           <Reveal delay={0.12} variant="up" y={36}>
-            <form
-              id="booking-form"
-              onSubmit={onSubmit}
-              className="form-shell"
-              noValidate
-            >
-              <div className="grid gap-7 sm:grid-cols-2">
-                <label className="block">
-                  <span className="field-label">Name</span>
-                  <input
-                    required
-                    className={`input-lux ${errors.name ? "input-lux-error" : ""}`}
-                    name="name"
-                    autoComplete="name"
-                    aria-invalid={Boolean(errors.name)}
-                    aria-describedby={errors.name ? "error-name" : undefined}
-                    value={form.name}
-                    onChange={(event) => update("name", event.target.value)}
-                  />
-                  {errors.name ? (
-                    <span id="error-name" className="field-error" role="alert">
-                      {errors.name}
-                    </span>
-                  ) : null}
-                </label>
-                <label className="block">
-                  <span className="field-label">Email</span>
-                  <input
-                    required
-                    type="email"
-                    className={`input-lux ${errors.email ? "input-lux-error" : ""}`}
-                    name="email"
-                    autoComplete="email"
-                    aria-invalid={Boolean(errors.email)}
-                    aria-describedby={errors.email ? "error-email" : undefined}
-                    value={form.email}
-                    onChange={(event) => update("email", event.target.value)}
-                  />
-                  {errors.email ? (
-                    <span id="error-email" className="field-error" role="alert">
-                      {errors.email}
-                    </span>
-                  ) : null}
-                </label>
-                <label className="block sm:col-span-2">
-                  <span className="field-label">Message</span>
-                  <textarea
-                    required
-                    rows={6}
-                    className={`input-lux min-h-[10rem] ${errors.message ? "input-lux-error" : ""}`}
-                    name="message"
-                    placeholder={bookingIntro.placeholder}
-                    aria-invalid={Boolean(errors.message)}
-                    aria-describedby={errors.message ? "error-message" : undefined}
-                    value={form.message}
-                    onChange={(event) => update("message", event.target.value)}
-                  />
-                  {errors.message ? (
-                    <span id="error-message" className="field-error" role="alert">
-                      {errors.message}
-                    </span>
-                  ) : null}
-                </label>
-              </div>
-
-              <div className="mt-10 flex flex-wrap items-center gap-5">
-                <button type="submit" className="btn-primary">
-                  {bookingIntro.cta}
+            {status === "sent" ? (
+              <div className="form-shell" role="status" aria-live="polite">
+                <p className="eyebrow">Thank you</p>
+                <h3 className="mt-4 font-serif text-3xl leading-tight text-deep-charcoal md:text-4xl">
+                  Your enquiry has been received
+                </h3>
+                <p className="mt-5 max-w-md text-base font-light leading-relaxed text-soft-grey">
+                  We appreciate you reaching out. Our team will be in touch
+                  shortly — usually within one business day.
+                </p>
+                <button
+                  type="button"
+                  className="btn-primary mt-10"
+                  onClick={() => setStatus("idle")}
+                >
+                  Send another enquiry
                 </button>
-                {status === "sent" ? (
-                  <p className="text-sm text-earth-brown" role="status">
-                    Opening your email client to send the enquiry…
-                  </p>
-                ) : (
+              </div>
+            ) : (
+              <form
+                id="booking-form"
+                onSubmit={onSubmit}
+                className="form-shell"
+                noValidate
+              >
+                <div className="grid gap-7 sm:grid-cols-2">
+                  <label className="block">
+                    <span className="field-label">Name</span>
+                    <input
+                      required
+                      className={`input-lux ${errors.name ? "input-lux-error" : ""}`}
+                      name="name"
+                      autoComplete="name"
+                      aria-invalid={Boolean(errors.name)}
+                      aria-describedby={errors.name ? "error-name" : undefined}
+                      value={form.name}
+                      onChange={(event) => update("name", event.target.value)}
+                    />
+                    {errors.name ? (
+                      <span id="error-name" className="field-error" role="alert">
+                        {errors.name}
+                      </span>
+                    ) : null}
+                  </label>
+                  <label className="block">
+                    <span className="field-label">Email</span>
+                    <input
+                      required
+                      type="email"
+                      className={`input-lux ${errors.email ? "input-lux-error" : ""}`}
+                      name="email"
+                      autoComplete="email"
+                      aria-invalid={Boolean(errors.email)}
+                      aria-describedby={errors.email ? "error-email" : undefined}
+                      value={form.email}
+                      onChange={(event) => update("email", event.target.value)}
+                    />
+                    {errors.email ? (
+                      <span id="error-email" className="field-error" role="alert">
+                        {errors.email}
+                      </span>
+                    ) : null}
+                  </label>
+                  <label className="block sm:col-span-2">
+                    <span className="field-label">Message</span>
+                    <textarea
+                      required
+                      rows={6}
+                      className={`input-lux min-h-[10rem] ${errors.message ? "input-lux-error" : ""}`}
+                      name="message"
+                      placeholder={bookingIntro.placeholder}
+                      aria-invalid={Boolean(errors.message)}
+                      aria-describedby={
+                        errors.message ? "error-message" : undefined
+                      }
+                      value={form.message}
+                      onChange={(event) => update("message", event.target.value)}
+                    />
+                    {errors.message ? (
+                      <span
+                        id="error-message"
+                        className="field-error"
+                        role="alert"
+                      >
+                        {errors.message}
+                      </span>
+                    ) : null}
+                  </label>
+                </div>
+
+                <div className="mt-10 flex flex-wrap items-center gap-5">
+                  <button type="submit" className="btn-primary">
+                    {bookingIntro.cta}
+                  </button>
                   <p className="max-w-xs text-sm font-light text-soft-grey">
                     {bookingIntro.formNote}
                   </p>
-                )}
-              </div>
-            </form>
+                </div>
+              </form>
+            )}
           </Reveal>
         </div>
       </div>

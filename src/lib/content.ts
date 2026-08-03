@@ -13,7 +13,6 @@ export const brand = {
     {
       label: "Dr. Naren",
       number: "+94 77777777",
-      href: "tel:+9477777777",
     },
   ],
   address: {

@@ -94,28 +94,20 @@ export function Footer() {
 
             <ul className="mt-5 space-y-2">
               {brand.phones.map((phone) => (
-                <li key={phone.number}>
-                  <a
-                    href={phone.href}
-                    className="group flex flex-col gap-0.5 transition"
-                  >
-                    <span className="text-[0.78rem] font-light text-warm-white/45 group-hover:text-warm-white/70">
-                      {phone.label}
-                    </span>
-                    <span className="text-[0.92rem] font-light text-warm-white/80 group-hover:text-warm-white">
-                      {phone.number}
-                    </span>
-                  </a>
+                <li key={phone.number} className="flex flex-col gap-0.5">
+                  <span className="text-[0.78rem] font-light text-warm-white/45">
+                    {phone.label}
+                  </span>
+                  <span className="text-[0.92rem] font-light text-warm-white/80 select-all">
+                    {phone.number}
+                  </span>
                 </li>
               ))}
             </ul>
 
-            <a
-              href={`mailto:${brand.email}`}
-              className="mt-4 inline-block text-[0.92rem] font-light text-warm-white/70 transition hover:text-warm-white"
-            >
+            <p className="mt-4 text-[0.92rem] font-light text-warm-white/70 select-all">
               {brand.email}
-            </a>
+            </p>
           </div>
         </div>
 
