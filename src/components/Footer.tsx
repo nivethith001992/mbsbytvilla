@@ -41,7 +41,7 @@ export function Footer() {
           </div>
 
           {/* Map — between brand and Explore */}
-          <div className="sm:col-span-2 lg:col-span-3">
+          <div className="sm:col-span-2 lg:col-span-4">
             <div className="media-frame relative h-44 w-full overflow-hidden bg-surface-deep shadow-[0_12px_32px_rgba(0,0,0,0.25)] md:h-48 md:!rounded-[1.6rem_1.25rem_1.9rem_1.25rem]">
               <iframe
                 title="Mind Body & Soul location map"
@@ -53,7 +53,7 @@ export function Footer() {
               />
             </div>
             <a
-              href={brand.social.maps}
+              href={brand.mapsUrl}
               target="_blank"
               rel="noreferrer"
               className="mt-3 inline-block text-[0.78rem] font-light text-warm-white/50 transition hover:text-sand-beige"
@@ -82,7 +82,7 @@ export function Footer() {
           </nav>
 
           {/* Contact */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-3">
             <p className="text-[0.64rem] font-medium uppercase tracking-[0.26em] text-sand-beige/85">
               Contact
             </p>
@@ -116,35 +116,6 @@ export function Footer() {
             >
               {brand.email}
             </a>
-          </div>
-
-          {/* Connect */}
-          <div className="lg:col-span-2">
-            <p className="text-[0.64rem] font-medium uppercase tracking-[0.26em] text-sand-beige/85">
-              Connect
-            </p>
-            <ul className="mt-4 flex flex-col gap-2.5">
-              <li>
-                <a
-                  href={brand.whatsapp.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-[0.92rem] font-light text-warm-white/65 transition hover:text-warm-white"
-                >
-                  WhatsApp
-                </a>
-              </li>
-              <li>
-                <a
-                  href={brand.social.instagram}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-[0.92rem] font-light text-warm-white/65 transition hover:text-warm-white"
-                >
-                  Instagram
-                </a>
-              </li>
-            </ul>
           </div>
         </div>
 

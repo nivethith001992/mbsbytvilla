@@ -10,12 +10,12 @@ export const brand = {
   languages: "English and Sinhala",
   email: "info@mbsbytvilla.com",
   phones: [
-    { label: "Dr.Naren", number: "+94 77 774 4025"},
+    {
+      label: "Dr. Naren",
+      number: "+94 77777777",
+      href: "tel:+9477777777",
+    },
   ],
-  whatsapp: {
-    number: "",
-    href: "",
-  },
   address: {
     line: "Kandeboddayaya, Rathmalgaha Ela",
     city: "Dambulla 21100",
@@ -24,9 +24,8 @@ export const brand = {
     documentLine: "bordering by bindunu wewa-Rathmalgaha- Ela",
     full: "Kandeboddayaya, Rathmalgaha Ela, Dambulla 21100, Sri Lanka",
   },
-  social: {
-    maps: "https://www.google.com/maps/place/Mind+Body+%26+Soul,+Kandeboddayaya,+Rathmalgaha+Ella,+Dambulla+21100/@7.8445328,80.6738738,17z",
-  },
+  mapsUrl:
+    "https://www.google.com/maps/place/Mind+Body+%26+Soul,+Kandeboddayaya,+Rathmalgaha+Ella,+Dambulla+21100/@7.8445328,80.6738738,17z",
   mapEmbed:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.2!2d80.6738738!3d7.8445328!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3afcaf652ef18c33%3A0xc90ec139683167d7!2sMind%20Body%20%26%20Soul!5e0!3m2!1sen!2slk!4v1700000000000!5m2!1sen!2slk",
 };
@@ -358,15 +357,6 @@ export const journeySteps = [
       "Freedom to enjoy life while receiving professional care whenever needed.",
     image: "/images/about/forest-balcony.avif",
     imageAlt: "Private balcony overlooking the forest canopy",
-  },
-  {
-    id: "experienced-team",
-    step: "06",
-    title: "Experienced Team",
-    description:
-      "A compassionate team dedicated to exceptional care and hospitality.",
-    image: "/images/life/communal-dining.avif",
-    imageAlt: "Shared pavilion dining among the gardens",
   },
 ];
 
