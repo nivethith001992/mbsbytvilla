@@ -478,8 +478,6 @@ export const bookingIntro = {
   title: ["Begin Your", "Next Chapter"] as [string, string],
   support:
     "Whether you're exploring retirement living for yourself or a loved one, we're here to help. Discover a place where luxury, nature, and compassionate care come together to create an exceptional quality of life.",
-  primaryCta: "Book a Private Tour",
-  secondaryCta: "Contact Our Team",
   cta: "Book a Private Tour",
   formNote: "We respond personally — usually within one business day.",
   placeholder:

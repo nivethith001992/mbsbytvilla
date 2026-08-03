@@ -2,7 +2,6 @@
 
 import { FormEvent, useState } from "react";
 import { bookingIntro, brand } from "@/lib/content";
-import { getLenis } from "@/lib/scroll";
 import { Reveal } from "./Reveal";
 
 type FormState = {
@@ -78,20 +77,6 @@ export function Booking() {
     setStatus("sent");
   };
 
-  const focusBookingForm = () => {
-    const formEl = document.getElementById("booking-form");
-    if (!formEl) return;
-    const lenis = getLenis();
-    if (lenis) {
-      lenis.scrollTo(formEl, { offset: -88 });
-    } else {
-      formEl.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-    document
-      .querySelector<HTMLInputElement>("#booking-form input[name='name']")
-      ?.focus({ preventScroll: true });
-  };
-
   return (
     <section id="booking" className="section-pad-lg section-atmosphere relative overflow-hidden">
       <div
@@ -116,22 +101,6 @@ export function Booking() {
             <p className="mt-7 max-w-md text-base font-light leading-relaxed text-soft-grey md:text-lg">
               {bookingIntro.support}
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <button
-                type="button"
-                className="btn-primary"
-                onClick={focusBookingForm}
-              >
-                {bookingIntro.primaryCta}
-              </button>
-              <button
-                type="button"
-                onClick={focusBookingForm}
-                className="btn-secondary !text-deep-charcoal !border-earth-brown/35"
-              >
-                {bookingIntro.secondaryCta}
-              </button>
-            </div>
           </Reveal>
 
           <Reveal delay={0.12} variant="up" y={36}>
