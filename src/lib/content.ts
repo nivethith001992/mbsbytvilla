@@ -92,7 +92,7 @@ export const about = {
   tertiaryImageAlt: "Gardens and distant hills across the enclosed grounds",
 };
 
-/** Care section — Independent Living, Healthcare, Medical Support */
+/** Care section — Independent Living, Healthcare, Medical Support, Our Staff */
 export const careIntro = {
   eyebrow: "Care",
   title: ["Freedom with", "Peace of Mind"] as [string, string],
@@ -147,6 +147,17 @@ export const careSpaces = [
       "Hemas Hospitals",
       "Nawaloka Hospital",
     ],
+  },
+  {
+    id: "our-staff",
+    label: "04",
+    title: "Our Staff",
+    subtitle: "Our Staff",
+    description:
+      "Our staff are predominantly local Village people. This is an area of exceptionally strong family values and a conservative tradition. These people have a natural respect for the elderly as part of their culture; they expect to care for them, and this forms the basis for an exceptional care ethic. It is not always easy to undertake the duties of caring for the elderly whilst remaining cheerful and friendly, but, in the main, they seem to achieve it.",
+    image: "/images/life/communal-dining.avif",
+    imageAlt: "Warm communal dining space shared by the village community",
+    features: [] as string[],
   },
 ];
 
