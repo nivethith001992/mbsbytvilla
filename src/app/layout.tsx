@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1200&q=80",
+        url: "/images/og.jpg",
         width: 1200,
         height: 630,
         alt: "Mind Body & Soul luxury retirement living villas and gardens in Dambulla",
@@ -63,9 +63,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteTitle,
     description: siteDescription,
-    images: [
-      "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1200&q=80",
-    ],
+    images: ["/images/og.jpg"],
   },
   robots: {
     index: true,

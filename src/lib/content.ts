@@ -43,8 +43,7 @@ export const navLinks = [
   { label: "Location", id: "location" },
 ];
 
-export const heroImage =
-  "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=2400&q=80";
+export const heroImage = "/images/hero/villa-lap-pool.avif";
 
 export const heroEyebrow = "Dambulla, Sri Lanka";
 export const heroHeadline =
@@ -92,15 +91,12 @@ export const about = {
       "Every aspect of our community reflects that vision: personalised care, respect for individuality, and a genuine commitment to helping every guest feel valued, comfortable, and at home.",
     ],
   },
-  image:
-    "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1600&q=80",
-  imageAlt: "Lush tropical gardens at Mind Body & Soul in Dambulla",
-  secondaryImage:
-    "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1200&q=80",
-  secondaryImageAlt: "Plunge pool among greenery at the resort",
-  tertiaryImage:
-    "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1000&q=80",
-  tertiaryImageAlt: "Gardens and trees across the enclosed grounds",
+  image: "/images/about/pavilion-grounds.avif",
+  imageAlt: "Open-air pavilion and gardens at Mind Body & Soul in Dambulla",
+  secondaryImage: "/images/about/forest-balcony.avif",
+  secondaryImageAlt: "Wooden balcony overlooking lush tropical forest",
+  tertiaryImage: "/images/about/garden-mountain.avif",
+  tertiaryImageAlt: "Gardens and distant hills across the enclosed grounds",
 };
 
 /** Care section — Independent Living, Healthcare, Medical Support */
@@ -119,9 +115,8 @@ export const careSpaces = [
     subtitle: "Independent Living with Care",
     description:
       'Many of our residents wish to maintain their independence while having access to professional support whenever necessary. Our "Independent Living with Care" philosophy allows guests to enjoy their own routines, social activities, and personal freedom while benefiting from 24-hour care assistance. Unlike traditional nursing homes, our community encourages an active lifestyle with flexible meal times, engaging activities, and opportunities to connect with others in a welcoming environment. We provide the perfect balance between independence and compassionate care.',
-    image:
-      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1800&q=80",
-    imageAlt: "Private villa terrace among gardens",
+    image: "/images/hero/villa-lap-pool.avif",
+    imageAlt: "Private villa terrace and lap pool among gardens",
     features: [] as string[],
   },
   {
@@ -131,9 +126,8 @@ export const careSpaces = [
     subtitle: "Healthcare",
     description:
       "Our dedicated care team provides personalised assistance tailored to every resident's individual needs. Our goal is to help residents maintain their independence while ensuring their health, safety, and wellbeing.",
-    image:
-      "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1800&q=80",
-    imageAlt: "Quiet professional care setting",
+    image: "/images/villas/window-seat.avif",
+    imageAlt: "Quiet window seat looking onto the gardens",
     features: [
       "24-Hour Care Support",
       "Medication Management",
@@ -151,9 +145,8 @@ export const careSpaces = [
     subtitle: "Medical Support",
     description:
       "When specialist medical attention is required, guests have access to some of Sri Lanka's leading hospitals, including Lanka Hospitals, Durdans Hospital, Asiri Hospital, Hemas Hospitals, and Nawaloka Hospital. Our staff are available to assist with appointments and accompany guests during hospital visits when required.",
-    image:
-      "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1800&q=80",
-    imageAlt: "Calm wellness atmosphere",
+    image: "/images/care/spa-bathroom.avif",
+    imageAlt: "Calm spa-style bathroom with garden views",
     features: [
       "Lanka Hospitals",
       "Durdans Hospital",
@@ -185,9 +178,8 @@ export const accommodations = [
     ],
     capacity: "Independent living with care nearby",
     accent: "Privacy, comfort, and relaxation in nature",
-    image:
-      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1800&q=80",
-    imageAlt: "Private luxury villa terrace with plunge pool in tropical gardens",
+    image: "/images/villas/veranda-dining.avif",
+    imageAlt: "Private villa veranda with dining and lounge seating in tropical gardens",
   },
   {
     id: "dining",
@@ -206,9 +198,8 @@ export const accommodations = [
     ],
     capacity: "Flexible meal times, your schedule",
     accent: "Organic produce from our own gardens",
-    image:
-      "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1800&q=80",
-    imageAlt: "Garden produce and hospitality dining",
+    image: "/images/villas/outdoor-dining-terrace.avif",
+    imageAlt: "Outdoor dining terrace set among the trees",
   },
   {
     id: "accessibility",
@@ -229,9 +220,8 @@ export const accommodations = [
     ],
     capacity: "Comfort, independence, and ease of movement",
     accent: "Accessible and welcoming for all guests",
-    image:
-      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1800&q=80",
-    imageAlt: "Accessible boutique villa nestled in calm natural grounds",
+    image: "/images/villas/wellness-pavilion.avif",
+    imageAlt: "Open pavilion with step-friendly access among calm natural grounds",
   },
   {
     id: "family",
@@ -250,9 +240,8 @@ export const accommodations = [
     ],
     capacity: "Loved ones welcome anytime",
     accent: "A peaceful place to be together",
-    image:
-      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1800&q=80",
-    imageAlt: "Open-air villa living with private pool for couples and family",
+    image: "/images/villas/bamboo-lounge.avif",
+    imageAlt: "Open-air lounge for couples and family amid bamboo gardens",
   },
 ];
 
@@ -292,9 +281,8 @@ export const wellness = {
   ],
   relaxation:
     "For additional relaxation, guests may also enjoy our Ayurveda treatments, Panchakarma therapies, and sauna facilities.",
-  image:
-    "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1600&q=80",
-  imageAlt: "Restorative wellness atmosphere at Mind Body & Soul",
+  image: "/images/life/blue-loungers.avif",
+  imageAlt: "Restorative garden loungers at Mind Body & Soul",
 };
 
 export const community = {
@@ -338,9 +326,8 @@ export const journeySteps = [
     title: "Luxury Villa Living",
     description:
       "Private villas surrounded by nature with modern amenities.",
-    image:
-      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Private villa terrace and plunge pool",
+    image: "/images/hero/villa-lap-pool.avif",
+    imageAlt: "Private villa terrace and lap pool",
   },
   {
     id: "personalised-care",
@@ -348,18 +335,16 @@ export const journeySteps = [
     title: "Personalised Care",
     description:
       "Care plans tailored to every individual's unique needs.",
-    image:
-      "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Compassionate care setting",
+    image: "/images/villas/window-seat.avif",
+    imageAlt: "Quiet private corner for restful living",
   },
   {
     id: "wellness-lifestyle",
     step: "03",
     title: "Wellness Lifestyle",
     description: "Yoga, meditation, Ayurveda, and healthy living.",
-    image:
-      "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Wellness and Ayurveda atmosphere",
+    image: "/images/life/blue-loungers.avif",
+    imageAlt: "Garden loungers for wellness and rest",
   },
   {
     id: "natural-environment",
@@ -367,9 +352,8 @@ export const journeySteps = [
     title: "Beautiful Natural Environment",
     description:
       "28 acres of gardens, forests, lakes, and mountain views.",
-    image:
-      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Sunlight through trees at Mind Body & Soul",
+    image: "/images/about/garden-mountain.avif",
+    imageAlt: "Gardens and mountain views at Mind Body & Soul",
   },
   {
     id: "independence-support",
@@ -377,9 +361,8 @@ export const journeySteps = [
     title: "Independence with Support",
     description:
       "Freedom to enjoy life while receiving professional care whenever needed.",
-    image:
-      "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Calm outdoor living space at the resort",
+    image: "/images/about/forest-balcony.avif",
+    imageAlt: "Private balcony overlooking the forest canopy",
   },
   {
     id: "experienced-team",
@@ -387,78 +370,95 @@ export const journeySteps = [
     title: "Experienced Team",
     description:
       "A compassionate team dedicated to exceptional care and hospitality.",
-    image:
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Peaceful luxury accommodation among trees",
+    image: "/images/life/communal-dining.avif",
+    imageAlt: "Shared pavilion dining among the gardens",
   },
 ];
 
 export const gallery = [
   {
-    src: "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1600&q=80",
-    alt: "Tropical garden path at Mind Body & Soul",
+    src: "/images/gallery/grounds-canopy.avif",
+    alt: "Trees framing pavilions and brick buildings on the grounds",
     caption: "28 acres of gardens, forests, and lakes",
     span: "tall" as const,
   },
   {
-    src: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1600&q=80",
-    alt: "Plunge pool overlooking lush greenery",
-    caption: "Private plunge pool",
+    src: "/images/hero/villa-lap-pool.avif",
+    alt: "Private villa lap pool with sun loungers",
+    caption: "Private villa pools",
     span: "wide" as const,
   },
   {
-    src: "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1400&q=80",
-    alt: "Morning light over a quiet pool",
-    caption: "Accessible swimming facilities",
+    src: "/images/gallery/poolside-garden.avif",
+    alt: "Poolside garden seating under tropical shade",
+    caption: "Shaded garden living",
     span: "normal" as const,
   },
   {
-    src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1400&q=80",
-    alt: "Sri Lankan highland mist and mountains",
+    src: "/images/location/lake-sunset.avif",
+    alt: "Golden light over water and distant hills",
     caption: "Breathtaking mountain views",
     span: "normal" as const,
   },
   {
-    src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1400&q=80",
-    alt: "Sunlight filtering through forest canopy",
-    caption: "Over 4,500 trees",
+    src: "/images/villas/bedroom-daybed.avif",
+    alt: "Villa bedroom with daybed and four-poster bed",
+    caption: "Private villas designed for comfort",
     span: "tall" as const,
   },
   {
-    src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80",
-    alt: "Luxury tropical villa accommodation exterior",
-    caption: "Private villas designed for comfort",
+    src: "/images/villas/villa-evening.avif",
+    alt: "Villa porch glowing with lantern light at dusk",
+    caption: "Warm evenings on the veranda",
     span: "wide" as const,
   },
   {
-    src: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1400&q=80",
-    alt: "Boutique villa nestled in nature",
-    caption: "Wheelchair-accessible villas",
+    src: "/images/villas/indoor-outdoor-bath.avif",
+    alt: "Indoor-outdoor villa bathroom with blue tile floors",
+    caption: "Spa-inspired bathrooms",
     span: "normal" as const,
   },
   {
-    src: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1400&q=80",
-    alt: "Modern open-air villa with private pool",
-    caption: "Garden and lake views",
+    src: "/images/villas/patio-lounge.avif",
+    alt: "Covered villa patio with blue lounge seating",
+    caption: "Garden and forest views",
     span: "normal" as const,
   },
   {
-    src: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1400&q=80",
-    alt: "Restorative wellness atmosphere",
-    caption: "Ayurveda, Panchakarma & sauna",
+    src: "/images/life/blue-loungers.avif",
+    alt: "Blue outdoor loungers among the trees",
+    caption: "Quiet corners for rest",
     span: "normal" as const,
   },
   {
-    src: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=1400&q=80",
-    alt: "Warm villa interior with natural materials",
+    src: "/images/villas/canopy-bed.avif",
+    alt: "Canopied villa bed with soft natural light",
     caption: "Luxury living with compassionate care",
     span: "wide" as const,
   },
   {
-    src: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1400&q=80",
-    alt: "Garden produce and outdoor living",
-    caption: "Chemical-free organic vegetables",
+    src: "/images/gallery/forest-desk.avif",
+    alt: "Outdoor writing desk overlooking the forest",
+    caption: "Space to think and be",
     span: "tall" as const,
+  },
+  {
+    src: "/images/care/garden-loungers.avif",
+    alt: "Red cushion loungers in a shaded garden",
+    caption: "Rest among the trees",
+    span: "normal" as const,
+  },
+  {
+    src: "/images/life/garden-jeep.avif",
+    alt: "Off-road vehicle ready for local excursions",
+    caption: "Organised outings nearby",
+    span: "normal" as const,
+  },
+  {
+    src: "/images/gallery/activity-pavilion.avif",
+    alt: "Open activity pavilion for wellness and gatherings",
+    caption: "Spaces to gather and move",
+    span: "wide" as const,
   },
 ];
 
@@ -469,9 +469,8 @@ export const location = {
     "Mind Body & Soul by T-Villa is a luxury retirement and wellness resort located in the peaceful surroundings of Dambulla, Sri Lanka.",
   atmosphere:
     "Surrounded by over 4,500 trees, tranquil lakes, landscaped gardens, and breathtaking mountain views — a safe and relaxing retreat away from the stress of city life.",
-  image:
-    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=2000&q=80",
-  imageAlt: "Misty hills near Dambulla in central Sri Lanka",
+  image: "/images/location/lake-meadow.avif",
+  imageAlt: "Lake and meadow landscape near Dambulla in central Sri Lanka",
   attractions: [
     {
       name: "Sigiriya Lion Rock",
