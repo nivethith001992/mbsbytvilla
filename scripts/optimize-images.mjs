@@ -71,8 +71,8 @@ async function makeThumb(relPath) {
   fs.mkdirSync(path.dirname(dest), { recursive: true });
   await sharp(src)
     .rotate()
-    .resize({ width: 720, withoutEnlargement: true })
-    .avif({ quality: 48, effort: 6, chromaSubsampling: "4:2:0" })
+    .resize({ width: 1200, withoutEnlargement: true })
+    .avif({ quality: 58, effort: 6, chromaSubsampling: "4:2:0" })
     .toFile(dest);
   const after = fs.statSync(dest).size;
   return {

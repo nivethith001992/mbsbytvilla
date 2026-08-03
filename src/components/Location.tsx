@@ -38,7 +38,9 @@ export function Location() {
             src={location.image}
             alt={location.imageAlt}
             fill
+            loading="eager"
             sizes="100vw"
+            quality={75}
             className="object-cover"
           />
         </motion.div>

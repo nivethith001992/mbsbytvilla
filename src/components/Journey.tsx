@@ -117,7 +117,9 @@ export function Journey() {
                     src={step.image}
                     alt={step.imageAlt}
                     fill
+                    loading="eager"
                     sizes="(max-width: 1024px) 100vw, 78vw"
+                    quality={75}
                     className="object-cover"
                   />
                 </div>

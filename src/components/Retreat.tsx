@@ -60,7 +60,10 @@ function CareRow({
               src={space.image}
               alt={space.imageAlt}
               fill
+              priority={index === 0}
+              loading="eager"
               sizes="(max-width: 1024px) 100vw, 58vw"
+              quality={75}
               className="object-cover"
             />
           </motion.div>

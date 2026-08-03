@@ -93,7 +93,7 @@ export function Hero() {
               priority
               fetchPriority="high"
               sizes="100vw"
-              quality={65}
+              quality={75}
               decoding="sync"
               className="object-cover object-center"
             />

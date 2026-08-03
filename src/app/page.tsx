@@ -2,6 +2,7 @@ import { Booking } from "@/components/Booking";
 import { Footer } from "@/components/Footer";
 import { Gallery } from "@/components/Gallery";
 import { Hero } from "@/components/Hero";
+import { ImageWarmup } from "@/components/ImageWarmup";
 import { Journey } from "@/components/Journey";
 import { Life } from "@/components/Life";
 import { Location } from "@/components/Location";
@@ -16,6 +17,7 @@ export default function Home() {
   return (
     <>
       <SiteChrome />
+      <ImageWarmup />
       <Navbar />
       <main>
         <Hero />

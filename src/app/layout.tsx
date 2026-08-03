@@ -86,6 +86,25 @@ export default function RootLayout({
           type="image/avif"
           {...{ fetchPriority: "high" }}
         />
+        {/* Next-section heroes — warm early so fast scroll stays sharp */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/about/pavilion-grounds.avif"
+          type="image/avif"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/images/about/forest-balcony.avif"
+          type="image/avif"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/images/villas/veranda-dining.avif"
+          type="image/avif"
+        />
       </head>
       <body className="min-h-full antialiased">{children}</body>
     </html>

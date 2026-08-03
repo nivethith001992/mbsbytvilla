@@ -148,11 +148,13 @@ export function Gallery() {
                   }`}
                 >
                   <LuxImage
-                    src={item.thumb}
+                    src={item.src}
                     alt={item.alt}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw"
-                    quality={50}
+                    quality={75}
+                    loading={index < 6 ? "eager" : undefined}
+                    preloadMargin={1000}
                     className="object-cover transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
                   />
                   <span className="absolute inset-0 bg-deep-charcoal/0 transition duration-500 group-hover:bg-deep-charcoal/28" />
@@ -223,7 +225,7 @@ export function Gallery() {
                   alt={gallery[active].alt}
                   fill
                   sizes="(max-width: 1024px) 100vw, 1024px"
-                  quality={65}
+                  quality={75}
                   priority
                   fetchPriority="high"
                   className="object-contain"

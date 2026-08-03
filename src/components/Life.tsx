@@ -42,7 +42,9 @@ export function Life() {
                 src={wellness.image}
                 alt={wellness.imageAlt}
                 fill
+                loading="eager"
                 sizes="(max-width: 1024px) 100vw, 50vw"
+                quality={75}
                 className="object-cover"
               />
             </div>
