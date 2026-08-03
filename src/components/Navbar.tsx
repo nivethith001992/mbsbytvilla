@@ -15,8 +15,9 @@ import { ScrollTo } from "./ScrollTo";
 
 const SECTION_IDS = [
   "about",
-  "retreat",
   "villas",
+  "care",
+  "life",
   "gallery",
   "location",
   "booking",
@@ -307,10 +308,10 @@ export function Navbar() {
                       className="btn-primary w-full !min-h-[3.25rem] !rounded-[1.05rem]"
                       onNavigate={closeMenu}
                     >
-                      Enquire About Care
+                      Enquire Today
                     </ScrollTo>
                     <p className="text-center text-[0.72rem] font-light tracking-[0.04em] text-soft-grey">
-                      Independence with care · Dambulla
+                      Luxury retirement living · Dambulla
                     </p>
                   </motion.div>
                 </nav>

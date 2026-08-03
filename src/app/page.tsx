@@ -3,6 +3,7 @@ import { Footer } from "@/components/Footer";
 import { Gallery } from "@/components/Gallery";
 import { Hero } from "@/components/Hero";
 import { Journey } from "@/components/Journey";
+import { Life } from "@/components/Life";
 import { Location } from "@/components/Location";
 import { Navbar } from "@/components/Navbar";
 import { OrganicSeparator } from "@/components/OrganicSeparator";
@@ -20,10 +21,12 @@ export default function Home() {
         <Hero />
         <OrganicSeparator from="transparent" to="var(--warm-white)" variant="soft" />
         <Story />
+        <OrganicSeparator from="var(--warm-white)" to="var(--warm-white)" variant="soft" />
+        <VillaShowcase />
         <OrganicSeparator from="var(--warm-white)" to="var(--deep-charcoal)" variant="deep" />
         <Retreat />
         <OrganicSeparator from="var(--deep-charcoal)" to="var(--warm-white)" variant="wave" />
-        <VillaShowcase />
+        <Life />
         <Journey />
         <OrganicSeparator from="var(--surface)" to="var(--warm-white)" variant="soft" />
         <Gallery />

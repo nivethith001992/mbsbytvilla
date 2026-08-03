@@ -2,10 +2,11 @@ export const brand = {
   name: "Mind Body & Soul",
   legalName: "Mind Body & Soul by T-Villa",
   shortName: "MBS",
-  tagline: "live your life that you still deserve with nature",
-  mission: "Providing sufficient 'care' whilst maintaining individual dignity is our main philosophy.",
+  tagline: "Live the Life You Still Deserve, Surrounded by Nature",
+  mission:
+    "To help every guest live life with comfort, confidence, and dignity.",
   description:
-    "Mind Body & Soul is a luxury adult care retirement facility in Dambulla ,Sri Lanka. The resort provides both 'independent living with care' and 'close care' with on-site nursing and care support. The main languages spoken in the seniors care facility are English and Sinhala",
+    "Mind Body & Soul by T-Villa is a luxury retirement and wellness resort located in the peaceful surroundings of Dambulla, Sri Lanka. Designed for older adults who value both independence and professional care, our resort provides an environment where residents can enjoy a fulfilling lifestyle while receiving personalised support whenever needed.",
   languages: "English and Sinhala",
   email: "info@mindbodyandsoul.lk",
   phones: [
@@ -31,14 +32,13 @@ export const brand = {
   },
   mapEmbed:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.2!2d80.6738738!3d7.8445328!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3afcaf652ef18c33%3A0xc90ec139683167d7!2sMind%20Body%20%26%20Soul!5e0!3m2!1sen!2slk!4v1700000000000!5m2!1sen!2slk",
-  numerologyNote:
-    "Numerology 9 — Compassion, generosity and universal love define your name vibration. You are destined to serve humanity in meaningful ways.",
 };
 
 export const navLinks = [
   { label: "About", id: "about" },
-  { label: "Care", id: "retreat" },
   { label: "Stay", id: "villas" },
+  { label: "Care", id: "care" },
+  { label: "Life", id: "life" },
   { label: "Gallery", id: "gallery" },
   { label: "Location", id: "location" },
 ];
@@ -46,33 +46,51 @@ export const navLinks = [
 export const heroImage =
   "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=2400&q=80";
 
-export const heroEyebrow = "Dambulla ,Sri Lanka";
-export const heroHeadline = "live your life that you still deserve with nature";
+export const heroEyebrow = "Dambulla, Sri Lanka";
+export const heroHeadline =
+  "Live the Life You Still Deserve, Surrounded by Nature";
 export const heroSupport =
-  "Mind Body & Soul is a luxury adult care retirement facility in Dambulla ,Sri Lanka. The resort provides both 'independent living with care' and 'close care' with on-site nursing and care support. The main languages spoken in the seniors care facility are English and Sinhala";
+  "Experience a peaceful retirement in the heart of Sri Lanka, where luxury living meets compassionate care. Nestled within 28 acres of lush gardens, lakes, and forest, Mind Body & Soul offers a unique lifestyle that combines independence, wellness, and professional support in a serene environment.";
 
-/** Single About editorial — place, philosophy, Why We Are Here, Staff (once each). */
+export const heroCtas = [
+  { label: "Schedule a Visit", to: "booking" },
+  { label: "Enquire Today", to: "booking" },
+] as const;
+
+/** About Us + Philosophy + Our Story */
 export const about = {
-  eyebrow: "About us",
-  title: "About us",
-  displayTitle: ["About us", ""],
-  pullQuote: "live your life that you still deserve with nature",
-  placeIntro:
-    "Mind Body & Soul by T-Villa is set in the beautiful and tranquil Dambulla bordering by bindunu wewa-Rathmalgaha- Ela. Just 5 kilometers from Dambulla town and 22km from Sigiriya Lion Rock, in the central of Sri Lanka . The retirement facility is an enclosed 4-star facility built on 28 acres’ man made (by Mr &Mrs Christopher Amrit) forest of land with mountain & Lake views. The resort is incredibly beautiful and spacious, hosting more than 4500 trees, home for 60 varieties of birds, gardens, a lake and fishponds. The wellness facility provides a safe environment away from the traffic and pollution but still only 10 minutes from the city. The resort is relaxing, quiet and secure. Accommodation is provided in beautiful villas sited throughout the gardens, each with their own bathroom facilities, air-conditioning, terrace and plunge pool. There are different designs of villas to suit your needs",
-  paragraphs: [
-    "The provision of retirement care in Sri Lanka may be more affordable than you think (but it is not cheap); in a country renowned for its high class, cost-effective medical services. We have opened this resort is to provide a level of comfort that people deserve but may not be able to obtain in their home country. We believe in care, it helps health, it helps self-confidence it allows guests to enjoy life. Quality of life should not end because of some incapacity. The resort has a Villa type luxury accommodation with three plunge pool and going to implement   memory care facility for serious Alzheimer's and other dementia. Our facility caters for both short and long-term stays. Our staffing levels are high, comparison with Western countries is significant to an extreme. People make care work; people allow guests to enjoy their life",
-    "Our philosophy is based upon people's individuality; our services can be tailored to meet your requirements in terms of both accommodation and care. Independent accommodation is in beautiful villas set throughout the gardens, Lake view each with alarms to our central office staff. We provide looking to implement disabled-accessible villas and facilities as well as operating transport with a hydraulic wheelchair lift and because we provide short and long stay solutions we provide an excellent venue for disabled vacations. We work hard not to become a 'boarding school for the elderly'; there are no fixed mealtimes and we offer wide food choices from Local traditional cook and in addition German experienced chef for expats",
-    "The beautiful retirement facility has been established to fulfill the needs of the elderly community who require more care as they reach that later stage in life. We very much subscribe to the belief that even in the latter part of life people should be able to enjoy a quality in life, retain as much independence as possible and retain their dignity. 'Dignity' is an important word here! We have meal-periods, not meal- times, and a huge choice of dishes to choose from.",
+  eyebrow: "About Us",
+  title: "Where Comfort, Care & Nature Come Together",
+  displayTitle: ["Where Comfort, Care", "& Nature Come Together"] as [
+    string,
+    string,
   ],
-  whyWeAreHere: {
-    eyebrow: "Why We Are Here",
-    lead: "This is a privately-owned and operated business. I have tried to focus the resort as the type of environment that I would wish to live in myself.",
-    body: "I came out with this idea, I have experienced with my father and father in law and my grandparents, who had an idea to have like this kind of life in their retired age, which wasn’t provided by me when they suffering by dementia and Alzheimer, until passed. They were my inspiration for what we do here. I pay close attention to the running of the retired village and the care and happiness of our guests.",
+  pullQuote:
+    "To help every guest live life with comfort, confidence, and dignity.",
+  paragraphs: [
+    "Mind Body & Soul by T-Villa is a luxury retirement and wellness resort located in the peaceful surroundings of Dambulla, Sri Lanka. Designed for older adults who value both independence and professional care, our resort provides an environment where residents can enjoy a fulfilling lifestyle while receiving personalised support whenever needed.",
+    "Surrounded by over 4,500 trees, tranquil lakes, landscaped gardens, and breathtaking mountain views, our community offers a safe and relaxing retreat away from the stress of city life. Every detail has been carefully designed to promote comfort, dignity, and wellbeing.",
+    "Whether you're looking for a short wellness stay or a long-term retirement solution, Mind Body & Soul provides a lifestyle where every guest can truly feel at home.",
+  ],
+  philosophy: {
+    eyebrow: "Our Philosophy",
+    title: "Everybody Is an Individual",
+    paragraphs: [
+      "We believe that exceptional care begins with understanding every individual. No two people are the same, and neither are their needs. Our approach is centred around personalised care plans that respect each guest's lifestyle, independence, and personal preferences.",
+      "Rather than following rigid schedules, we create an environment that encourages freedom, dignity, and meaningful living. Guests enjoy the privacy of their own villa while knowing that professional support is available whenever required.",
+    ],
+    missionLead: "At Mind Body & Soul, our mission is simple:",
+    mission:
+      "To help every guest live life with comfort, confidence, and dignity.",
   },
-  staff: {
-    eyebrow: "Our Staff",
-    title: "Local people, exceptional care ethic",
-    body: "Our staff are predominantly local Village people. This is an area a exceptionally strong family values and a conservative tradition. These people have a natural respect for the elderly as part of their culture; they expect to care for the elderly and this provides the basis for an exceptional care ethic. It is not always easy to undertake the duties of caring for the elderly whilst remaining cheerful and friendly but, in the main, they are seem to achieve it.",
+  ourStory: {
+    eyebrow: "Our Story",
+    title: "Inspired by Love. Built with Purpose.",
+    paragraphs: [
+      "Mind Body & Soul was created from a deeply personal vision—to provide older adults with the quality of life, dignity, and compassionate care they deserve.",
+      "Inspired by personal experiences caring for loved ones affected by Alzheimer's disease and dementia, our founder envisioned a place that feels less like a traditional nursing home and more like a luxury resort where residents can continue to live meaningful, fulfilling lives.",
+      "Every aspect of our community reflects that vision: personalised care, respect for individuality, and a genuine commitment to helping every guest feel valued, comfortable, and at home.",
+    ],
   },
   image:
     "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1600&q=80",
@@ -85,224 +103,293 @@ export const about = {
   tertiaryImageAlt: "Gardens and trees across the enclosed grounds",
 };
 
-export const retreatSpaces = [
+/** Care section — Independent Living, Healthcare, Medical Support */
+export const careIntro = {
+  eyebrow: "Care",
+  title: ["Freedom with", "Peace of Mind"] as [string, string],
+  support:
+    "We provide the perfect balance between independence and compassionate care.",
+};
+
+export const careSpaces = [
   {
-    id: "independence",
+    id: "independent-living",
     label: "01",
-    title: '"Independence with Care"',
-    subtitle: "Long-stays are stays that last 6 months or more. No longer contract is required.",
+    title: "Freedom with Peace of Mind",
+    subtitle: "Independent Living with Care",
     description:
-      "Most long-stay guests still wish to retain as much independence in their life as possible, even as they reach their later years, however their health situation may require them to have more care available. Preserving the 'dignity' of the guest is one of our key goals. We try hard so that our facility is not like a traditional 'nursing home' which often can be compared to a 'boarding school for the elderly'. Our service 'independence with care' is designed to allow a level of independence, opportunities for social gatherings, activities and stimulation; whilst providing a 24 hour care support. Long-stays are stays that last 6 months or more. No longer contract is required.",
+      'Many of our residents wish to maintain their independence while having access to professional support whenever necessary. Our "Independent Living with Care" philosophy allows guests to enjoy their own routines, social activities, and personal freedom while benefiting from 24-hour care assistance. Unlike traditional nursing homes, our community encourages an active lifestyle with flexible meal times, engaging activities, and opportunities to connect with others in a welcoming environment. We provide the perfect balance between independence and compassionate care.',
     image:
       "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1800&q=80",
     imageAlt: "Private villa terrace among gardens",
+    features: [] as string[],
   },
   {
-    id: "meals",
+    id: "healthcare",
     label: "02",
-    title: "Meals",
-    subtitle:
-      "We do not have set 'mealtimes' guests can eat at a time of their choosing in broad time bands",
+    title: "Compassionate Care Around the Clock",
+    subtitle: "Healthcare",
     description:
-      "Meals are cooked in our own professional kitchens by local traditional cook ,in addition we have German experienced chef for expats  and provided in our guest restaurants or delivered to the room or if they wish can have it in our dining area We do not have set 'mealtimes' guests can eat at a time of their choosing in broad time bands Meals include breakfast, lunch, and dinner and can provide a social gathering alongside the meal but because of the flexible meal times there is no compulsion to eat as a group . The menu choice is a mixture of Western, Thai, Asian and vegetarian cuisines with a handpicked chemical free ,Organic vegetable from own garden to focus on healthy eating but we have an extensive menu from which the guest can choose. We also try to meet guest's ethnic cooking, favorites or dietary requirements on request.",
+      "Our dedicated care team provides personalised assistance tailored to every resident's individual needs. Our goal is to help residents maintain their independence while ensuring their health, safety, and wellbeing.",
+    image:
+      "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1800&q=80",
+    imageAlt: "Quiet professional care setting",
+    features: [
+      "24-Hour Care Support",
+      "Medication Management",
+      "Routine Health Monitoring",
+      "Assistance with Daily Living",
+      "Personal Care",
+      "Mobility Assistance",
+      "Specialist Medical Referrals",
+    ],
+  },
+  {
+    id: "medical-support",
+    label: "03",
+    title: "Access to World-Class Healthcare",
+    subtitle: "Medical Support",
+    description:
+      "When specialist medical attention is required, guests have access to some of Sri Lanka's leading hospitals, including Lanka Hospitals, Durdans Hospital, Asiri Hospital, Hemas Hospitals, and Nawaloka Hospital. Our staff are available to assist with appointments and accompany guests during hospital visits when required.",
+    image:
+      "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1800&q=80",
+    imageAlt: "Calm wellness atmosphere",
+    features: [
+      "Lanka Hospitals",
+      "Durdans Hospital",
+      "Asiri Hospital",
+      "Hemas Hospitals",
+      "Nawaloka Hospital",
+    ],
+  },
+];
+
+/** Stay — Accommodation, Dining, Accessibility, Family */
+export const accommodations = [
+  {
+    id: "accommodation",
+    name: "Private Villas",
+    chakra: "Luxury Accommodation",
+    meaning: "Private Villas Designed for Comfort",
+    description:
+      "Our beautifully designed villa accommodations offer privacy, comfort, and relaxation in the heart of nature. Our villas allow residents to enjoy independent living while knowing professional care is always close by.",
+    features: [
+      "Spacious bedroom and living area",
+      "Private plunge pool",
+      "Air conditioning",
+      "Modern bathroom",
+      "Outdoor terrace",
+      "Coffee and tea facilities",
+      "Beautiful garden and lake views",
+      "Emergency assistance system",
+    ],
+    capacity: "Independent living with care nearby",
+    accent: "Privacy, comfort, and relaxation in nature",
+    image:
+      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1800&q=80",
+    imageAlt: "Private luxury villa terrace with plunge pool in tropical gardens",
+  },
+  {
+    id: "dining",
+    name: "Dining",
+    chakra: "Dining Experience",
+    meaning: "Fresh, Healthy & Flexible Dining",
+    description:
+      "Meals are prepared daily by experienced chefs using fresh ingredients, including chemical-free organic vegetables grown within our own gardens. Guests can enjoy breakfast, lunch, and dinner at times that suit their personal schedule, either in our restaurant, dining area, or within the privacy of their villa. We also accommodate favourite family recipes and special dietary needs whenever possible.",
+    features: [
+      "Sri Lankan Cuisine",
+      "Western Cuisine",
+      "Asian Specialities",
+      "Thai Dishes",
+      "Vegetarian Options",
+      "Custom Dietary Requirements",
+    ],
+    capacity: "Flexible meal times, your schedule",
+    accent: "Organic produce from our own gardens",
     image:
       "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1800&q=80",
     imageAlt: "Garden produce and hospitality dining",
   },
   {
-    id: "the-care",
-    label: "03",
-    title: "The Care",
-    subtitle:
-      "Providing sufficient 'care' whilst maintaining individual dignity is our main philosophy.",
+    id: "accessibility",
+    name: "Accessibility",
+    chakra: "Designed for Everyone",
+    meaning: "Designed for Everyone",
     description:
-      "This actual journey was a dream of Dr.Naren , Youngest experienced ,Qualified Clinical psychologist, who wanted to step into host and look after only few retired senior guests under his close Monitoring. Adequate provision of care levels can achieve excellent improvement in both health and lifestyle. We believe that good care works. Good care requires people numbers. We cater for all levels of required care whilst giving as much independence to the individual as their condition allows. We do not represent the view of an institutionalized nursing home; life with us is like living in a star class resort but with the required care on-hand.",
-    image:
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1800&q=80",
-    imageAlt: "Peaceful luxury accommodation among trees",
-  },
-  {
-    id: "health-checks",
-    label: "04",
-    title: "Health Checks and Care",
-    subtitle:
-      "The level of care provided is something that we take pride in. We do not limit care but tailor the care to the guest's needs.",
-    description:
-      "We want to ensure guests welfare as much as possible. other health checks if necessary. We are able to manage guest medication, including injection regimes, if required.",
-    image:
-      "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1800&q=80",
-    imageAlt: "Quiet professional care setting",
-  },
-  {
-    id: "external-medical",
-    label: "05",
-    title: "External Medical Services",
-    subtitle:
-      "Hospital visits will normally be accompanied by our staff.",
-    description:
-      "Sri Lanka  does not operate a 'general practitioner service but works direct to specialists in the wealth of good world-class hospitals that Colombo has such as Lanka Hospitals, Durdens, Asiri ,Hemas and Nawaloka . Hospital visits will normally be accompanied by our staff.",
-    image:
-      "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1800&q=80",
-    imageAlt: "Calm wellness atmosphere",
-  },
-];
-
-export const retreatIntro = {
-  eyebrow: "The Care",
-  title: ["Care,", "with dignity"],
-  support:
-    "We cater for all levels of required care whilst giving as much independence to the individual as their condition allows — short and long-term stays, with nursing and care support on hand.",
-};
-
-/** Villa / stay types — section text from owner document */
-export const accommodations = [
-  {
-    id: "accommodation",
-    name: "Accommodation",
-    chakra: "Villa type luxury accommodation",
-    meaning:
-      "The villa units are beautiful, all provided with spacious room so that privacy and independence is available but care is at the touch of a button.",
-    description:
-      "Each villa gifted plunge pool which are all garden situated those who enjoy walking will love the variety of trees and plant and birds. Guests who wish to travel outside the resort independently are encouraged to do so ,has a terrace with furniture for outside relaxation. Inside is air-conditioned. coffee making facilities are provided.",
+      "We are committed to making our resort accessible and welcoming for all guests. Our goal is to ensure every resident enjoys comfort, independence, and ease of movement throughout the resort.",
     features: [
-      "Each villa gifted plunge pool which are all garden situated",
-      "variety of trees and plant and birds",
-      "terrace with furniture for outside relaxation",
-      "Inside is air-conditioned",
-      "coffee making facilities are provided",
-      "care is at the touch of a button",
+      "Wheelchair-Accessible Villas",
+      "Step-Free Access",
+      "Wider Doorways",
+      "Accessible Bathrooms",
+      "Ramp Access Throughout the Property",
+      "Accessible Swimming Pool Facilities",
+      "Hydraulic Wheelchair Lift Transport",
+      "Dedicated Care Assistance",
     ],
-    capacity: "short and long-term stays",
-    fromPrice: "Enquire",
-    image:
-      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1800&q=80",
-    imageAlt: "Private luxury villa terrace with plunge pool in tropical gardens",
-    accent: "Villa type luxury accommodation with three plunge pool",
-  },
-  {
-    id: "disabled-guests",
-    name: "Disabled Guests",
-    chakra: "disabled-accessible villas and facilities",
-    meaning:
-      "We must admit the resort with its tiny slopes within garden such as elevated cottage ,pool from ground and lake water level  is not ideal for disabled guests so we have made adaptations to give disabled access.",
-    description:
-      "Only the 2 'suites' require access by steps. We have purpose-built villas designed for disabled usage and also adapted villas. All are all free from and steps as well as having wider doors to assist disabled access. There is disabled ramp access to the entire Property.The larger of our two swimming pools has ramp access and we are planning to have a disabled lift into the pool; additionally, we have added hydraulic disabled access to our luxury transport Van so that all guests are able to make excursions. Our carer assist disabled guests where necessary.",
-    features: [
-      "Only the 2 'suites' require access by steps",
-      "purpose-built villas designed for disabled usage",
-      "adapted villas",
-      "wider doors to assist disabled access",
-      "disabled ramp access to the entire Property",
-      "hydraulic disabled access to our luxury transport Van",
-    ],
-    capacity: "excellent venue for disabled vacations",
-    fromPrice: "Enquire",
+    capacity: "Comfort, independence, and ease of movement",
+    accent: "Accessible and welcoming for all guests",
     image:
       "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1800&q=80",
     imageAlt: "Accessible boutique villa nestled in calm natural grounds",
-    accent: "operating transport with a hydraulic wheelchair lift",
   },
   {
-    id: "couples-friends-relatives",
-    name: "Couples, Friends and relatives",
-    chakra: "We welcome friends or partners",
-    meaning:
-      "We welcome friends or partners that wish to stay together even if only one member requires care.",
+    id: "family",
+    name: "Family & Visitors",
+    chakra: "Stay Together",
+    meaning: "Stay Together",
     description:
-      "Our wide variety of room options means that there should be a set-up suitable for all also We encourage friends and relatives to visit and spend time with our guests. In the event that relatives wish to stay over we have free Meals and accommodation for them; those traveling from abroad can enjoy a vacation during their unlimited stay.",
+      "Friends, partners, and family members are always welcome. Couples can stay together even if only one partner requires additional care. Visiting family members may also stay with us, allowing loved ones to spend meaningful time together in a peaceful holiday setting.",
     features: [
-      "wish to stay together even if only one member requires care",
-      "wide variety of room options",
-      "We encourage friends and relatives to visit",
-      "free Meals and accommodation for them",
-      "those traveling from abroad can enjoy a vacation",
-      "during their unlimited stay",
+      "Friends, partners, and family welcome",
+      "Couples can stay together",
+      "Care for one partner when needed",
+      "Visiting family may stay with us",
+      "Meaningful time together",
+      "Peaceful holiday setting",
     ],
-    capacity: "Couples, Friends and relatives",
-    fromPrice: "Enquire",
+    capacity: "Loved ones welcome anytime",
+    accent: "A peaceful place to be together",
     image:
       "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1800&q=80",
     imageAlt: "Open-air villa living with private pool for couples and family",
-    accent: "free Meals and accommodation for them",
-  },
-  {
-    id: "close-care",
-    name: "independent living with care",
-    chakra: "close care",
-    meaning:
-      "The resort provides both 'independent living with care' and 'close care' with on-site nursing and care support.",
-    description:
-      "We do not limit care but tailor the care to the guest's needs. We want to ensure guests welfare as much as possible. other health checks if necessary. We are able to manage guest medication, including injection regimes, if required.",
-    features: [
-      "on-site nursing and care support",
-      "tailor the care to the guest's needs",
-      "manage guest medication",
-      "including injection regimes, if required",
-      "short and long-term stays",
-      "24 hour care support",
-    ],
-    capacity: "short and long-term stays",
-    fromPrice: "Enquire",
-    image:
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1800&q=80",
-    imageAlt: "Peaceful luxury accommodation exterior among trees",
-    accent: "on-site nursing and care support",
   },
 ];
 
 export const villasIntro = {
-  eyebrow: "Accommodation",
-  title: ["Accommodation", ""],
+  eyebrow: "Stay",
+  title: ["Private Villas", "Designed for Comfort"] as [string, string],
   support:
-    "The villa units are beautiful, all provided with spacious room so that privacy and independence is available but care is at the touch of a button. Each villa gifted plunge pool which are all garden situated those who enjoy walking will love the variety of trees and plant and birds.",
+    "Our beautifully designed villa accommodations offer privacy, comfort, and relaxation in the heart of nature.",
 };
 
-/** Visual grounds journey — short atmosphere captions only (no About / Why / Staff repeats). */
+/** Life — Wellness, Community, Excursions */
+export const lifeIntro = {
+  eyebrow: "Life",
+  title: ["Enrich", "Every Day"] as [string, string],
+  support:
+    "An active lifestyle plays an essential role in healthy ageing. We provide a wide variety of recreational, social, and wellness activities designed to keep both the body and mind engaged.",
+};
+
+export const wellness = {
+  eyebrow: "Wellness & Activities",
+  title: "Enrich Every Day",
+  intro:
+    "An active lifestyle plays an essential role in healthy ageing. We provide a wide variety of recreational, social, and wellness activities designed to keep both the body and mind engaged.",
+  activities: [
+    "Yoga & Meditation",
+    "Arts & Crafts",
+    "Gardening",
+    "Photography",
+    "Fishing",
+    "Card & Board Games",
+    "Music & Singing",
+    "Cooking Sessions",
+    "Swimming",
+    "Nature Walks",
+    "Birthday Celebrations",
+    "Seasonal Events",
+  ],
+  relaxation:
+    "For additional relaxation, guests may also enjoy our Ayurveda treatments, Panchakarma therapies, and sauna facilities.",
+  image:
+    "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1600&q=80",
+  imageAlt: "Restorative wellness atmosphere at Mind Body & Soul",
+};
+
+export const community = {
+  eyebrow: "Community & Social Life",
+  title: "A Vibrant Community",
+  paragraphs: [
+    "Retirement is about more than receiving care—it's about belonging to a community.",
+    "At Mind Body & Soul, residents build meaningful friendships while enjoying shared experiences, social gatherings, celebrations, and cultural activities. Our peaceful environment encourages both personal reflection and social interaction, helping every guest maintain a fulfilling lifestyle.",
+  ],
+};
+
+export const excursions = {
+  eyebrow: "Excursions",
+  title: "Explore the Beauty of Sri Lanka",
+  intro:
+    "Guests are encouraged to experience the rich culture and natural beauty surrounding the resort.",
+  listIntro: "Regular excursions include visits to:",
+  destinations: [
+    "Sigiriya Lion Rock",
+    "Dambulla Cave Temple",
+    "Kandy",
+    "Polonnaruwa",
+    "Local Villages",
+    "Weekly Shopping Trips",
+    "Scenic Nature Trails",
+  ],
+  closing:
+    "Every outing is carefully organised to ensure comfort, safety, and enjoyment.",
+};
+
+/** Why Choose Us — used in Journey horizontal panels */
 export const journeyIntro = {
-  eyebrow: "On the grounds",
-  title: ["Quiet acres", "Lake & mountain"],
+  eyebrow: "Why Choose Us",
+  title: ["Why Choose", "Mind Body & Soul"] as [string, string],
 };
 
 export const journeySteps = [
   {
-    id: "forest",
+    id: "luxury-villa-living",
     step: "01",
-    title: "4,500 trees",
+    title: "Luxury Villa Living",
     description:
-      "An enclosed forest of land with mountain & Lake views — gardens, a lake and fishponds, home for 60 varieties of birds.",
-    image:
-      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Sunlight through trees at Mind Body & Soul",
-  },
-  {
-    id: "villas-grounds",
-    step: "02",
-    title: "Garden villas",
-    description:
-      "Villas sited throughout the gardens — bathroom facilities, air-conditioning, terrace and plunge pool, different designs to suit your needs.",
+      "Private villas surrounded by nature with modern amenities.",
     image:
       "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Private villa terrace and plunge pool",
   },
   {
-    id: "pools",
-    step: "03",
-    title: "Pools & quiet",
+    id: "personalised-care",
+    step: "02",
+    title: "Personalised Care",
     description:
-      "Three plunge pools among the greenery. Relaxing, quiet and secure — away from traffic and pollution, yet only 10 minutes from the city.",
+      "Care plans tailored to every individual's unique needs.",
+    image:
+      "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Compassionate care setting",
+  },
+  {
+    id: "wellness-lifestyle",
+    step: "03",
+    title: "Wellness Lifestyle",
+    description: "Yoga, meditation, Ayurveda, and healthy living.",
+    image:
+      "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Wellness and Ayurveda atmosphere",
+  },
+  {
+    id: "natural-environment",
+    step: "04",
+    title: "Beautiful Natural Environment",
+    description:
+      "28 acres of gardens, forests, lakes, and mountain views.",
+    image:
+      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Sunlight through trees at Mind Body & Soul",
+  },
+  {
+    id: "independence-support",
+    step: "05",
+    title: "Independence with Support",
+    description:
+      "Freedom to enjoy life while receiving professional care whenever needed.",
     image:
       "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Calm outdoor living space at the resort",
   },
   {
-    id: "horizons",
-    step: "04",
-    title: "Central Sri Lanka",
+    id: "experienced-team",
+    step: "06",
+    title: "Experienced Team",
     description:
-      "Five kilometres from Dambulla town, 22km from Sigiriya Lion Rock — excellent for walking for those who feel more active.",
+      "A compassionate team dedicated to exceptional care and hospitality.",
     image:
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Open landscape around Dambulla",
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Peaceful luxury accommodation among trees",
   },
 ];
 
@@ -310,117 +397,137 @@ export const gallery = [
   {
     src: "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1600&q=80",
     alt: "Tropical garden path at Mind Body & Soul",
-    caption: "28 acres’ man made forest of land",
+    caption: "28 acres of gardens, forests, and lakes",
     span: "tall" as const,
   },
   {
     src: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1600&q=80",
     alt: "Plunge pool overlooking lush greenery",
-    caption: "Each villa gifted plunge pool",
+    caption: "Private plunge pool",
     span: "wide" as const,
   },
   {
     src: "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1400&q=80",
     alt: "Morning light over a quiet pool",
-    caption: "swimming in our 3 pools",
+    caption: "Accessible swimming facilities",
     span: "normal" as const,
   },
   {
     src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1400&q=80",
     alt: "Sri Lankan highland mist and mountains",
-    caption: "mountain & Lake views",
+    caption: "Breathtaking mountain views",
     span: "normal" as const,
   },
   {
     src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1400&q=80",
     alt: "Sunlight filtering through forest canopy",
-    caption: "hosting more than 4500 trees",
+    caption: "Over 4,500 trees",
     span: "tall" as const,
   },
   {
     src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80",
     alt: "Luxury tropical villa accommodation exterior",
-    caption: "beautiful villas sited throughout the gardens",
+    caption: "Private villas designed for comfort",
     span: "wide" as const,
   },
   {
     src: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1400&q=80",
     alt: "Boutique villa nestled in nature",
-    caption: "purpose-built villas designed for disabled usage",
+    caption: "Wheelchair-accessible villas",
     span: "normal" as const,
   },
   {
     src: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1400&q=80",
     alt: "Modern open-air villa with private pool",
-    caption: "Lake view",
+    caption: "Garden and lake views",
     span: "normal" as const,
   },
   {
     src: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1400&q=80",
     alt: "Restorative wellness atmosphere",
-    caption: "Panchakarma ,Ayurveda oil treatment unit and sauna",
+    caption: "Ayurveda, Panchakarma & sauna",
     span: "normal" as const,
   },
   {
     src: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=1400&q=80",
     alt: "Warm villa interior with natural materials",
-    caption: "star class resort but with the required care on-hand",
+    caption: "Luxury living with compassionate care",
     span: "wide" as const,
   },
   {
     src: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1400&q=80",
     alt: "Garden produce and outdoor living",
-    caption: "Organic vegetable from own garden",
+    caption: "Chemical-free organic vegetables",
     span: "tall" as const,
   },
 ];
 
 export const location = {
   title: "Dambulla",
-  displayTitle: ["Find us", "Dambulla"],
+  displayTitle: ["Find us", "Dambulla"] as [string, string],
   description:
-    "Just 5 kilometers from Dambulla town and 22km from Sigiriya Lion Rock, in the central of Sri Lanka — bordering by bindunu wewa-Rathmalgaha- Ela.",
+    "Mind Body & Soul by T-Villa is a luxury retirement and wellness resort located in the peaceful surroundings of Dambulla, Sri Lanka.",
   atmosphere:
-    "A safe environment away from the traffic and pollution but still only 10 minutes from the city. The area around the resort is excellent for walking for those who feel more active.",
+    "Surrounded by over 4,500 trees, tranquil lakes, landscaped gardens, and breathtaking mountain views — a safe and relaxing retreat away from the stress of city life.",
   image:
     "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=2000&q=80",
   imageAlt: "Misty hills near Dambulla in central Sri Lanka",
   attractions: [
     {
-      name: "Dambulla town",
-      detail: "Just 5 kilometers from Dambulla town",
-    },
-    {
       name: "Sigiriya Lion Rock",
-      detail: "22km from Sigiriya Lion Rock, in the central of Sri Lanka",
+      detail: "Regular organised excursion",
     },
     {
-      name: "Kandy and Polonnaruwa",
-      detail:
-        "monthly trips take place to see sights in Kandy and Polonnaruwa, enjoy activities and gain knowledge of Sri Lankan country side life",
+      name: "Dambulla Cave Temple",
+      detail: "Regular organised excursion",
     },
     {
-      name: "walking",
-      detail:
-        "The area around the resort is excellent for walking for those who feel more active.",
+      name: "Kandy",
+      detail: "Regular organised excursion",
+    },
+    {
+      name: "Polonnaruwa",
+      detail: "Regular organised excursion",
+    },
+    {
+      name: "Local Villages",
+      detail: "Regular organised excursion",
+    },
+    {
+      name: "Weekly Shopping Trips",
+      detail: "Regular organised outing",
+    },
+    {
+      name: "Scenic Nature Trails",
+      detail: "Organised for comfort, safety, and enjoyment",
     },
   ],
 };
 
 export const bookingIntro = {
-  eyebrow: "Begin the Conversation",
-  title: ["Tell us about", "the care you need"],
+  eyebrow: "Begin Your Next Chapter",
+  title: ["Begin Your", "Next Chapter"] as [string, string],
   support:
-    "Our facility caters for both short and long-term stays. The main languages spoken in the seniors care facility are English and Sinhala",
-  cta: "Enquire about a stay",
+    "Whether you're exploring retirement living for yourself or a loved one, we're here to help. Discover a place where luxury, nature, and compassionate care come together to create an exceptional quality of life.",
+  primaryCta: "Book a Private Tour",
+  secondaryCta: "Contact Our Team",
+  cta: "Book a Private Tour",
   formNote: "We respond personally — usually within one business day.",
   placeholder:
-    "independent living with care or close care? Disabled Guests, Couples, Friends and relatives, dietary requirements…",
+    "Tell us about a short wellness stay, long-term retirement living, or visiting with family…",
 };
 
 export const galleryIntro = {
   eyebrow: "Gallery",
-  title: ["Gardens,", "villas & light"],
+  title: ["Gardens,", "villas & light"] as [string, string],
   support:
-    "A quiet look at the grounds — trees, pools, and villas set through the gardens.",
+    "A quiet look at the grounds — private villas, gardens, lakes, and the natural setting that surrounds Mind Body & Soul.",
+};
+
+/** SEO */
+export const seo = {
+  title:
+    "Luxury Retirement Living in Dambulla, Sri Lanka | Mind Body & Soul by T-Villa",
+  description:
+    "Experience luxury retirement living in Dambulla, Sri Lanka. Mind Body & Soul by T-Villa offers private villas, personalised elderly care, wellness programmes, independent living with support, and peaceful surroundings designed for comfort, dignity, and wellbeing.",
 };

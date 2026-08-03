@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { bookingIntro, brand } from "@/lib/content";
+import { getLenis } from "@/lib/scroll";
 import { Reveal } from "./Reveal";
 
 type FormState = {
@@ -29,7 +30,7 @@ function validate(form: FormState): FormErrors {
   }
 
   if (!form.message.trim()) {
-    errors.message = "Tell us a little about the care you need.";
+    errors.message = "Tell us a little about how we can help.";
   } else if (form.message.trim().length < 8) {
     errors.message = "A few more details help us prepare for you.";
   }
@@ -61,7 +62,7 @@ export function Booking() {
     if (Object.keys(nextErrors).length > 0) return;
 
     const subject = encodeURIComponent(
-      `Care enquiry — ${form.name.trim()}`,
+      `Private tour enquiry — ${form.name.trim()}`,
     );
     const body = encodeURIComponent(
       [
@@ -75,6 +76,20 @@ export function Booking() {
 
     window.location.href = `mailto:${brand.email}?subject=${subject}&body=${body}`;
     setStatus("sent");
+  };
+
+  const focusBookingForm = () => {
+    const formEl = document.getElementById("booking-form");
+    if (!formEl) return;
+    const lenis = getLenis();
+    if (lenis) {
+      lenis.scrollTo(formEl, { offset: -88 });
+    } else {
+      formEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    document
+      .querySelector<HTMLInputElement>("#booking-form input[name='name']")
+      ?.focus({ preventScroll: true });
   };
 
   return (
@@ -101,10 +116,31 @@ export function Booking() {
             <p className="mt-7 max-w-md text-base font-light leading-relaxed text-soft-grey md:text-lg">
               {bookingIntro.support}
             </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <button
+                type="button"
+                className="btn-primary"
+                onClick={focusBookingForm}
+              >
+                {bookingIntro.primaryCta}
+              </button>
+              <button
+                type="button"
+                onClick={focusBookingForm}
+                className="btn-secondary !text-deep-charcoal !border-earth-brown/35"
+              >
+                {bookingIntro.secondaryCta}
+              </button>
+            </div>
           </Reveal>
 
           <Reveal delay={0.12} variant="up" y={36}>
-            <form onSubmit={onSubmit} className="form-shell" noValidate>
+            <form
+              id="booking-form"
+              onSubmit={onSubmit}
+              className="form-shell"
+              noValidate
+            >
               <div className="grid gap-7 sm:grid-cols-2">
                 <label className="block">
                   <span className="field-label">Name</span>

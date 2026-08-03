@@ -122,16 +122,11 @@ export function VillaShowcase() {
                           ))}
                         </ul>
                         <div className="mt-11 flex flex-wrap items-end justify-between gap-6">
-                          <div>
-                            <p className="font-serif text-2xl text-warm-white md:text-3xl">
-                              {chalet.capacity}
-                            </p>
-                            <p className="mt-2 text-[0.68rem] uppercase tracking-[0.22em] text-sand-beige">
-                              {chalet.fromPrice}
-                            </p>
-                          </div>
+                          <p className="max-w-xs font-serif text-xl text-warm-white md:text-2xl">
+                            {chalet.capacity}
+                          </p>
                           <ScrollTo to="booking" className="btn-secondary">
-                            Enquire
+                            Enquire Today
                           </ScrollTo>
                         </div>
                       </motion.div>

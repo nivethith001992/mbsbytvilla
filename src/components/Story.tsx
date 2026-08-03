@@ -21,7 +21,6 @@ export function Story() {
     target: ref,
     offset: ["start end", "end start"],
   });
-  // Mild translate-only parallax — no scale (scale + large images = paint jank)
   const slowY = useTransform(
     scrollYProgress,
     [0, 1],
@@ -47,6 +46,9 @@ export function Story() {
           <Reveal delay={0.08} variant="up" y={32}>
             <h2 className="display-lg mt-6 max-w-4xl text-deep-charcoal">
               <span className="block">{about.displayTitle[0]}</span>
+              <span className="mt-1 block italic text-earth-brown/90">
+                {about.displayTitle[1]}
+              </span>
             </h2>
           </Reveal>
         </div>
@@ -83,12 +85,7 @@ export function Story() {
             </motion.div>
 
             <Stagger className="space-y-7 lg:mt-72 xl:mt-80" delay={0.08} stagger={0.08}>
-              <StaggerItem y={24}>
-                <p className="text-base font-light leading-[1.95] text-soft-grey md:text-[1.08rem]">
-                  {about.placeIntro}
-                </p>
-              </StaggerItem>
-              {about.paragraphs.slice(0, 2).map((paragraph) => (
+              {about.paragraphs.map((paragraph) => (
                 <StaggerItem key={paragraph.slice(0, 48)} y={24}>
                   <p className="text-base font-light leading-[1.95] text-soft-grey md:text-[1.08rem]">
                     {paragraph}
@@ -96,15 +93,10 @@ export function Story() {
                 </StaggerItem>
               ))}
             </Stagger>
-
-            <Reveal delay={0.12} variant="up" className="mt-14 border-l border-sand-beige pl-7">
-              <p className="font-serif text-2xl italic leading-snug text-deep-charcoal md:text-[1.9rem]">
-                “{about.pullQuote}”
-              </p>
-            </Reveal>
           </div>
         </div>
 
+        {/* Philosophy */}
         <div className="mt-28 grid items-stretch gap-6 md:mt-40 md:grid-cols-12 md:gap-8">
           <Reveal className="relative overflow-hidden md:col-span-5" variant="up" y={28}>
             <div className="image-reveal relative aspect-[4/5] md:aspect-auto md:h-full md:min-h-[26rem]">
@@ -123,28 +115,46 @@ export function Story() {
             className="panel-lux relative p-9 md:col-span-7 md:p-12 lg:p-14"
           >
             <div className="grain opacity-[0.06]" />
-            <p className="eyebrow eyebrow-light">{about.whyWeAreHere.eyebrow}</p>
-            <p className="mt-6 font-serif text-2xl leading-snug text-warm-white xl:text-[1.95rem]">
-              {about.whyWeAreHere.lead}
+            <p className="eyebrow eyebrow-light">{about.philosophy.eyebrow}</p>
+            <h3 className="mt-5 font-serif text-3xl text-warm-white md:text-4xl">
+              {about.philosophy.title}
+            </h3>
+            <div className="mt-6 space-y-5">
+              {about.philosophy.paragraphs.map((paragraph) => (
+                <p
+                  key={paragraph.slice(0, 40)}
+                  className="text-sm font-light leading-relaxed text-warm-white/65 md:text-base"
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+            <p className="mt-8 text-sm font-light text-warm-white/55">
+              {about.philosophy.missionLead}
             </p>
-            <p className="mt-6 text-sm font-light leading-relaxed text-warm-white/65 md:text-base">
-              {about.whyWeAreHere.body}
-            </p>
-            <p className="mt-8 text-sm font-light leading-relaxed text-warm-white/55">
-              {about.paragraphs[2]}
+            <p className="mt-3 font-serif text-2xl italic leading-snug text-sand-beige md:text-[1.9rem]">
+              {about.philosophy.mission}
             </p>
           </Reveal>
         </div>
 
+        {/* Our Story */}
         <div className="mt-20 border-t border-[color:var(--line)] pt-16 md:mt-28 md:pt-20">
           <Reveal variant="up" y={28}>
-            <p className="eyebrow">{about.staff.eyebrow}</p>
+            <p className="eyebrow">{about.ourStory.eyebrow}</p>
             <h3 className="mt-5 max-w-2xl font-serif text-3xl text-deep-charcoal md:text-4xl">
-              {about.staff.title}
+              {about.ourStory.title}
             </h3>
-            <p className="mt-7 max-w-3xl text-base font-light leading-[1.95] text-soft-grey md:text-[1.08rem]">
-              {about.staff.body}
-            </p>
+            <div className="mt-7 max-w-3xl space-y-5">
+              {about.ourStory.paragraphs.map((paragraph) => (
+                <p
+                  key={paragraph.slice(0, 40)}
+                  className="text-base font-light leading-[1.95] text-soft-grey md:text-[1.08rem]"
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
           </Reveal>
         </div>
       </div>

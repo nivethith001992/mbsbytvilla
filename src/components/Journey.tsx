@@ -81,10 +81,10 @@ export function Journey() {
 
   return (
     <section
-      id="journey"
+      id="why"
       ref={sectionRef}
       className="relative overflow-x-clip bg-surface"
-      aria-label="On the grounds"
+      aria-label="Why Choose Mind Body & Soul"
     >
       <div className="container-lux relative z-10 pt-24 md:pt-32 lg:pb-4">
         <Reveal variant="up" y={32}>

@@ -8,15 +8,15 @@ import {
   useTransform,
 } from "framer-motion";
 import { useRef } from "react";
-import { retreatIntro, retreatSpaces } from "@/lib/content";
+import { careIntro, careSpaces } from "@/lib/content";
 import { useLightMotion } from "@/lib/motion";
 import { Reveal } from "./Reveal";
 
-function RetreatRow({
+function CareRow({
   space,
   index,
 }: {
-  space: (typeof retreatSpaces)[number];
+  space: (typeof careSpaces)[number];
   index: number;
 }) {
   const rowRef = useRef<HTMLElement>(null);
@@ -27,7 +27,6 @@ function RetreatRow({
     target: rowRef,
     offset: ["start end", "end start"],
   });
-  // Single mild Y parallax — no scale, no copy drift (those stacked badly)
   const imageY = useTransform(
     scrollYProgress,
     [0, 1],
@@ -75,15 +74,31 @@ function RetreatRow({
           <p className="text-[0.7rem] tracking-[0.35em] text-sand-beige/80">
             {space.label}
           </p>
-          <h3 className="mt-5 font-serif text-4xl text-warm-white md:text-5xl">
-            {space.title}
-          </h3>
-          <p className="mt-4 font-serif text-xl italic text-sand-beige/85 md:text-2xl">
+          <p className="mt-4 text-[0.72rem] uppercase tracking-[0.28em] text-sand-beige/70">
             {space.subtitle}
           </p>
+          <h3 className="mt-3 font-serif text-4xl text-warm-white md:text-5xl">
+            {space.title}
+          </h3>
           <p className="mt-7 max-w-md text-base font-light leading-[1.9] text-warm-white/68">
             {space.description}
           </p>
+          {space.features.length > 0 ? (
+            <ul className="mt-8 grid gap-2.5 sm:grid-cols-1">
+              {space.features.map((feature) => (
+                <li
+                  key={feature}
+                  className="flex items-baseline gap-3 text-sm text-warm-white/78"
+                >
+                  <span
+                    aria-hidden
+                    className="h-px w-3 shrink-0 bg-sand-beige/70"
+                  />
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </Reveal>
       </div>
     </article>
@@ -93,7 +108,7 @@ function RetreatRow({
 export function Retreat() {
   return (
     <section
-      id="retreat"
+      id="care"
       className="section-pad-lg relative overflow-hidden bg-deep-charcoal text-warm-white"
     >
       <div
@@ -108,21 +123,21 @@ export function Retreat() {
 
       <div className="container-lux relative">
         <Reveal variant="up" y={36}>
-          <p className="eyebrow eyebrow-light">{retreatIntro.eyebrow}</p>
+          <p className="eyebrow eyebrow-light">{careIntro.eyebrow}</p>
           <h2 className="display-lg mt-6 max-w-4xl text-warm-white">
-            <span className="block">{retreatIntro.title[0]}</span>
+            <span className="block">{careIntro.title[0]}</span>
             <span className="mt-1 block italic text-sand-beige/90">
-              {retreatIntro.title[1]}
+              {careIntro.title[1]}
             </span>
           </h2>
           <p className="mt-7 max-w-xl text-base font-light leading-relaxed text-warm-white/68 md:text-lg">
-            {retreatIntro.support}
+            {careIntro.support}
           </p>
         </Reveal>
 
         <div className="mt-16 space-y-0 md:mt-24">
-          {retreatSpaces.map((space, index) => (
-            <RetreatRow key={space.id} space={space} index={index} />
+          {careSpaces.map((space, index) => (
+            <CareRow key={space.id} space={space} index={index} />
           ))}
         </div>
       </div>

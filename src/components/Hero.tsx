@@ -10,6 +10,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import {
   brand,
+  heroCtas,
   heroEyebrow,
   heroHeadline,
   heroImage,
@@ -213,13 +214,13 @@ export function Hero() {
             }}
           >
             <ScrollTo
-              to="booking"
+              to={heroCtas[0].to}
               className="btn-primary !border-warm-white !bg-warm-white !text-deep-charcoal !shadow-[0_14px_36px_rgba(41,41,41,0.22)]"
             >
-              Enquire About Care
+              {heroCtas[0].label}
             </ScrollTo>
-            <ScrollTo to="villas" className="btn-secondary">
-              Explore Villas
+            <ScrollTo to={heroCtas[1].to} className="btn-secondary">
+              {heroCtas[1].label}
             </ScrollTo>
           </motion.div>
         </div>
