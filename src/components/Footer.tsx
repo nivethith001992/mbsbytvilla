@@ -23,9 +23,9 @@ export function Footer() {
       />
 
       <div className="container-lux relative py-14 md:py-16">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-10">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:items-start lg:gap-8">
           {/* Brand */}
-          <div className="sm:col-span-2 lg:col-span-4">
+          <div className="sm:col-span-2 lg:col-span-3">
             <ScrollTo
               to="top"
               className="font-serif text-[1.85rem] leading-none tracking-[-0.02em] text-warm-white transition hover:text-sand-beige md:text-[2.1rem]"
@@ -38,6 +38,28 @@ export function Footer() {
             <p className="mt-4 max-w-xs font-serif text-[1.05rem] italic leading-snug text-warm-white/55">
               {brand.tagline}
             </p>
+          </div>
+
+          {/* Map — between brand and Explore */}
+          <div className="sm:col-span-2 lg:col-span-3">
+            <div className="media-frame relative h-44 w-full overflow-hidden bg-surface-deep shadow-[0_12px_32px_rgba(0,0,0,0.25)] md:h-48 md:!rounded-[1.6rem_1.25rem_1.9rem_1.25rem]">
+              <iframe
+                title="Mind Body & Soul location map"
+                src={brand.mapEmbed}
+                className="absolute inset-0 h-full w-full border-0 contrast-[1.03] saturate-[0.85]"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
+            </div>
+            <a
+              href={brand.social.maps}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-3 inline-block text-[0.78rem] font-light text-warm-white/50 transition hover:text-sand-beige"
+            >
+              Open in Google Maps
+            </a>
           </div>
 
           {/* Explore */}
@@ -60,9 +82,9 @@ export function Footer() {
           </nav>
 
           {/* Contact */}
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-2">
             <p className="text-[0.64rem] font-medium uppercase tracking-[0.26em] text-sand-beige/85">
-              Address
+              Contact
             </p>
             <p className="mt-4 text-[0.92rem] font-light leading-relaxed text-warm-white/65">
               {brand.address.line}
@@ -70,20 +92,17 @@ export function Footer() {
               {brand.address.city}, {brand.address.country}
             </p>
 
-            <p className="mt-7 text-[0.64rem] font-medium uppercase tracking-[0.26em] text-sand-beige/85">
-              Speak with us
-            </p>
-            <ul className="mt-3 space-y-2">
+            <ul className="mt-5 space-y-2">
               {brand.phones.map((phone) => (
                 <li key={phone.number}>
                   <a
                     href={phone.href}
-                    className="group flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5 transition"
+                    className="group flex flex-col gap-0.5 transition"
                   >
-                    <span className="text-[0.88rem] font-light text-warm-white/45 group-hover:text-warm-white/70">
+                    <span className="text-[0.78rem] font-light text-warm-white/45 group-hover:text-warm-white/70">
                       {phone.label}
                     </span>
-                    <span className="text-[0.95rem] font-light text-warm-white/80 group-hover:text-warm-white">
+                    <span className="text-[0.92rem] font-light text-warm-white/80 group-hover:text-warm-white">
                       {phone.number}
                     </span>
                   </a>
@@ -93,7 +112,7 @@ export function Footer() {
 
             <a
               href={`mailto:${brand.email}`}
-              className="mt-5 inline-block text-[0.95rem] font-light text-warm-white/70 transition hover:text-warm-white"
+              className="mt-4 inline-block text-[0.92rem] font-light text-warm-white/70 transition hover:text-warm-white"
             >
               {brand.email}
             </a>

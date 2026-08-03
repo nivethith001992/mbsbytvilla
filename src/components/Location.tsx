@@ -10,7 +10,7 @@ import {
 import { useRef } from "react";
 import { brand, location } from "@/lib/content";
 import { useLightMotion } from "@/lib/motion";
-import { Reveal, Stagger, StaggerItem } from "./Reveal";
+import { Reveal } from "./Reveal";
 
 export function Location() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -57,61 +57,14 @@ export function Location() {
               <p className="mt-7 max-w-xl text-base font-light leading-relaxed text-warm-white/72 md:text-lg">
                 {location.atmosphere}
               </p>
-            </Reveal>
-          </div>
-        </div>
-      </div>
-
-      <div className="section-pad bg-warm-white">
-        <div className="container-lux">
-          <div className="grid gap-12 lg:grid-cols-12 lg:gap-14">
-            <Reveal className="relative lg:col-span-7" variant="up" y={32} duration={0.9}>
-              <div className="media-frame relative aspect-[16/11] w-full bg-surface-deep shadow-[0_16px_40px_rgba(41,41,41,0.05)] md:!rounded-[2.1rem_1.6rem_2.6rem_1.6rem]">
-                <iframe
-                  title="Mind Body & Soul location map"
-                  src={brand.mapEmbed}
-                  className="absolute inset-0 h-full w-full contrast-[1.03] saturate-[0.85]"
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  allowFullScreen
-                />
-              </div>
-              <p className="mt-7 font-serif text-xl leading-snug text-deep-charcoal md:text-2xl">
+              <p className="mt-8 max-w-xl font-serif text-lg leading-snug text-warm-white/90 md:text-xl">
                 {brand.address.line}
-                <span className="text-soft-grey"> · </span>
-                <span className="font-sans text-base font-light tracking-normal text-soft-grey md:text-lg">
+                <span className="text-warm-white/40"> · </span>
+                <span className="font-sans text-base font-light tracking-normal text-warm-white/65 md:text-lg">
                   {brand.address.city}, {brand.address.country}
                 </span>
               </p>
             </Reveal>
-
-            <div className="lg:col-span-5">
-              <Reveal variant="right">
-                <p className="eyebrow">Nearby</p>
-              </Reveal>
-              <Stagger className="mt-7 space-y-0" delay={0.08} stagger={0.1}>
-                {location.attractions.map((item, index) => (
-                  <StaggerItem key={item.name} y={28}>
-                    <div className="grid grid-cols-[auto_1fr] gap-4 border-b border-[color:var(--line)] py-5">
-                      <span className="pt-1 text-[0.65rem] tracking-[0.22em] text-sand-beige">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                      <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-3">
-                        <h3 className="shrink-0 font-serif text-xl text-deep-charcoal md:text-2xl">
-                          {item.name}
-                        </h3>
-                        <p className="text-sm font-light leading-relaxed text-soft-grey">
-                          <span className="hidden text-sand-beige sm:inline" aria-hidden>
-                            ·{" "}
-                          </span>
-                          {item.detail}
-                        </p>
-                      </div>
-                    </div>
-                  </StaggerItem>
-                ))}
-              </Stagger>
-            </div>
           </div>
         </div>
       </div>

@@ -471,36 +471,6 @@ export const location = {
     "Surrounded by over 4,500 trees, tranquil lakes, landscaped gardens, and breathtaking mountain views — a safe and relaxing retreat away from the stress of city life.",
   image: "/images/location/lake-meadow.avif",
   imageAlt: "Lake and meadow landscape near Dambulla in central Sri Lanka",
-  attractions: [
-    {
-      name: "Sigiriya Lion Rock",
-      detail: "Regular organised excursion",
-    },
-    {
-      name: "Dambulla Cave Temple",
-      detail: "Regular organised excursion",
-    },
-    {
-      name: "Kandy",
-      detail: "Regular organised excursion",
-    },
-    {
-      name: "Polonnaruwa",
-      detail: "Regular organised excursion",
-    },
-    {
-      name: "Local Villages",
-      detail: "Regular organised excursion",
-    },
-    {
-      name: "Weekly Shopping Trips",
-      detail: "Regular organised outing",
-    },
-    {
-      name: "Scenic Nature Trails",
-      detail: "Organised for comfort, safety, and enjoyment",
-    },
-  ],
 };
 
 export const bookingIntro = {
