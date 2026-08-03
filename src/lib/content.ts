@@ -145,8 +145,8 @@ export const careSpaces = [
     subtitle: "Medical Support",
     description:
       "When specialist medical attention is required, guests have access to some of Sri Lanka's leading hospitals, including Lanka Hospitals, Durdans Hospital, Asiri Hospital, Hemas Hospitals, and Nawaloka Hospital. Our staff are available to assist with appointments and accompany guests during hospital visits when required.",
-    image: "/images/care/spa-bathroom.avif",
-    imageAlt: "Calm spa-style bathroom with garden views",
+    image: "/images/care/ayurveda-wellness.avif",
+    imageAlt: "Ayurvedic Shirodhara oil treatment in a calm spa setting",
     features: [
       "Lanka Hospitals",
       "Durdans Hospital",
