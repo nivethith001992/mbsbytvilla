@@ -180,7 +180,7 @@ export const accommodations = [
     chakra: "Dining Experience",
     meaning: "Fresh, Healthy & Flexible Dining",
     description:
-      "Meals are prepared daily by experienced chefs using fresh ingredients, including chemical-free organic vegetables grown within our own gardens. Guests can enjoy breakfast, lunch, and dinner at times that suit their personal schedule, either in our restaurant, dining area, or within the privacy of their villa. We also accommodate favourite family recipes and special dietary needs whenever possible.",
+      "Meals are prepared daily by experienced local and German chefs using fresh ingredients, including chemical-free organic vegetables grown within our own gardens. Guests can enjoy breakfast, lunch, and dinner at times that suit their personal schedule, either in our restaurant, dining area, or within the privacy of their villa. We also accommodate favourite family recipes and special dietary needs whenever possible.",
     features: [
       "Sri Lankan Cuisine",
       "Western Cuisine",
