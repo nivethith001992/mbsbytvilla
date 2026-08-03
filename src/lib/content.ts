@@ -8,14 +8,13 @@ export const brand = {
   description:
     "Mind Body & Soul by T-Villa is a luxury retirement and wellness resort located in the peaceful surroundings of Dambulla, Sri Lanka. Designed for older adults who value both independence and professional care, our resort provides an environment where residents can enjoy a fulfilling lifestyle while receiving personalised support whenever needed.",
   languages: "English and Sinhala",
-  email: "info@mindbodyandsoul.lk",
+  email: "info@mbsbytvilla.com",
   phones: [
-    { label: "Amrit CanagaRetna", number: "+94 77 774 4025", href: "tel:+94777744025" },
-    { label: "Janaki Kuruppu", number: "+94 70 255 6451", href: "tel:+94702556451" },
+    { label: "Dr.Naren", number: "+94 77 774 4025"},
   ],
   whatsapp: {
-    number: "+94777744025",
-    href: "https://wa.me/94777744025",
+    number: "",
+    href: "",
   },
   address: {
     line: "Kandeboddayaya, Rathmalgaha Ela",
@@ -26,8 +25,6 @@ export const brand = {
     full: "Kandeboddayaya, Rathmalgaha Ela, Dambulla 21100, Sri Lanka",
   },
   social: {
-    facebook: "https://www.facebook.com/mindbodyandsoul.lk",
-    instagram: "https://www.instagram.com/p/CWQeegeo1o7/",
     maps: "https://www.google.com/maps/place/Mind+Body+%26+Soul,+Kandeboddayaya,+Rathmalgaha+Ella,+Dambulla+21100/@7.8445328,80.6738738,17z",
   },
   mapEmbed:
@@ -40,7 +37,6 @@ export const navLinks = [
   { label: "Care", id: "care" },
   { label: "Life", id: "life" },
   { label: "Gallery", id: "gallery" },
-  { label: "Location", id: "location" },
 ];
 
 export const heroImage = "/images/hero/villa-lap-pool.avif";
