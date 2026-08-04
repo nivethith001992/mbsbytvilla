@@ -13,6 +13,7 @@ import {
   heroEyebrow,
   heroHeadline,
   heroImage,
+  heroImageAlt,
   heroSupport,
 } from "@/lib/content";
 import { useLightMotion } from "@/lib/motion";
@@ -88,7 +89,7 @@ export function Hero() {
           >
             <LuxImage
               src={heroImage}
-              alt="Cinematic view of Mind Body & Soul luxury care villas and gardens in Dambulla"
+              alt={heroImageAlt}
               fill
               priority
               fetchPriority="high"

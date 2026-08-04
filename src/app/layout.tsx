@@ -55,7 +55,7 @@ export const metadata: Metadata = {
         url: "/images/og.jpg",
         width: 1200,
         height: 630,
-        alt: "Mind Body & Soul luxury retirement living villas and gardens in Dambulla",
+        alt: "Lush garden grounds across 28 acres at Mind Body & Soul in Dambulla",
       },
     ],
   },
@@ -82,7 +82,7 @@ export default function RootLayout({
         <link
           rel="preload"
           as="image"
-          href="/images/hero/villa-lap-pool.avif"
+          href="/images/hero/garden-grounds.avif"
           type="image/avif"
           {...{ fetchPriority: "high" }}
         />

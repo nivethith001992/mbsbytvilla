@@ -37,7 +37,9 @@ export const navLinks = [
   { label: "Gallery", id: "gallery" },
 ];
 
-export const heroImage = "/images/hero/villa-lap-pool.avif";
+export const heroImage = "/images/hero/garden-grounds.avif";
+export const heroImageAlt =
+  "Lush garden grounds and mango orchard across 28 acres of nature at Mind Body & Soul in Dambulla";
 
 export const heroEyebrow = "Dambulla, Sri Lanka";
 export const heroHeadline =

@@ -8,10 +8,11 @@ const root = path.join(__dirname, "..", "public", "images");
 const outBlur = path.join(__dirname, "..", "src", "lib", "image-blur.ts");
 const thumbsRoot = path.join(root, "thumbs");
 
-const HERO = new Set(["hero/villa-lap-pool.avif"]);
+const HERO = new Set(["hero/garden-grounds.avif"]);
 const GALLERY_THUMBS = [
   "gallery/grounds-canopy.avif",
   "hero/villa-lap-pool.avif",
+  "hero/garden-grounds.avif",
   "gallery/poolside-garden.avif",
   "location/lake-sunset.avif",
   "villas/bedroom-daybed.avif",
