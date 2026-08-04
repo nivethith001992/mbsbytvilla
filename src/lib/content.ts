@@ -80,7 +80,7 @@ export const about = {
     title: "Inspired by Love. Built with Purpose.",
     paragraphs: [
       "Mind Body & Soul was created from a deeply personal vision—to provide older adults with the quality of life, dignity, and compassionate care they deserve.",
-      "Inspired by personal experiences caring for loved ones affected by Alzheimer's disease and dementia, Dr. Naren, Clinical psychologist, our founder envisioned a place that feels less like a traditional nursing home and more like a luxury resort where residents can continue to live meaningful, fulfilling lives.",
+      "Inspired by personal experiences caring for loved ones affected by Alzheimer's disease and dementia, Dr. Naren, Clinical psychologist, our founder envisioned a place that feels less like a traditional nursing home and more like a caring resort where residents can continue to live meaningful, fulfilling lives.",
       "Every aspect of our community reflects that vision: personalised care, respect for individuality, and a genuine commitment to helping every guest feel valued, comfortable, and at home.",
     ],
   },
