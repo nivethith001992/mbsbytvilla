@@ -39,7 +39,7 @@ export const navLinks = [
 
 export const heroImage = "/images/hero/garden-grounds.avif";
 export const heroImageAlt =
-  "Lush garden grounds and mango orchard across 28 acres of nature at Mind Body & Soul in Dambulla";
+  "Lush mango orchard, lawn, and garden grounds under blue sky at Mind Body & Soul in Dambulla";
 
 export const heroEyebrow = "Dambulla, Sri Lanka";
 export const heroHeadline =
