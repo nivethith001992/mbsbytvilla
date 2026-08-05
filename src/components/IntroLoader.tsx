@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { useEffect, useSyncExternalStore } from "react";
+import { useEffect, useState } from "react";
 import { brand } from "@/lib/content";
 import {
   lockBodyScroll,
@@ -16,45 +16,26 @@ type IntroLoaderProps = {
   onComplete?: () => void;
 };
 
-function subscribeIntro(onStoreChange: () => void) {
-  const handler = () => onStoreChange();
-  window.addEventListener("mbs-intro-complete", handler);
-  window.addEventListener("storage", handler);
-  return () => {
-    window.removeEventListener("mbs-intro-complete", handler);
-    window.removeEventListener("storage", handler);
-  };
-}
-
-function getIntroSeen() {
-  try {
-    return sessionStorage.getItem(INTRO_KEY) === "1";
-  } catch {
-    return false;
-  }
-}
-
 function markIntroSeen() {
   try {
     sessionStorage.setItem(INTRO_KEY, "1");
   } catch {
     // private mode / blocked storage
   }
-  window.dispatchEvent(new Event("mbs-intro-complete"));
 }
 
 export function IntroLoader({ onComplete }: IntroLoaderProps) {
   const reduceMotion = useReducedMotion();
-  const seen = useSyncExternalStore(subscribeIntro, getIntroSeen, () => false);
+  const [finished, setFinished] = useState(false);
   const decided = reduceMotion !== null;
-  const skip = decided && (Boolean(reduceMotion) || seen);
+  // Every full load — including a browser refresh — opens like a first visit
+  const skip = decided && Boolean(reduceMotion);
 
   useEffect(() => {
     if (!decided) return;
 
     if (skip) {
-      if (!getIntroSeen()) markIntroSeen();
-      // Refresh with intro already seen: still land at hero top
+      markIntroSeen();
       scrollToTopImmediate();
       onComplete?.();
       return;
@@ -77,6 +58,7 @@ export function IntroLoader({ onComplete }: IntroLoaderProps) {
         locked = false;
       }
       scrollToTopImmediate();
+      setFinished(true);
       onComplete?.();
     };
 
@@ -94,7 +76,7 @@ export function IntroLoader({ onComplete }: IntroLoaderProps) {
     };
   }, [decided, skip, onComplete]);
 
-  const showIntro = decided && !skip;
+  const showIntro = decided && !skip && !finished;
   const showVeil = !decided;
 
   if (showVeil) {

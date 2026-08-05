@@ -60,11 +60,8 @@ export function Hero() {
   );
 
   useEffect(() => {
-    const seen =
-      typeof window !== "undefined" &&
-      sessionStorage.getItem("mbs-intro-seen") === "1";
     // Keep the hero image visible under the intro; only gate text entrance.
-    const delay = reduceMotion ? 0 : seen ? 0 : 420;
+    const delay = reduceMotion ? 0 : 420;
     const timer = window.setTimeout(() => setEntered(true), delay);
     return () => window.clearTimeout(timer);
   }, [reduceMotion]);
