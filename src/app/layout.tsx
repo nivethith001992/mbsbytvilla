@@ -80,6 +80,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${display.variable} ${body.variable} h-full`}>
       <head>
+        {/* Before paint: no restored scroll / hash jump on refresh */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{if("scrollRestoration"in history)history.scrollRestoration="manual";if(location.hash)history.replaceState(null,"","/");scrollTo(0,0);}catch(e){}})();`,
+          }}
+        />
         <link
           rel="preload"
           as="image"

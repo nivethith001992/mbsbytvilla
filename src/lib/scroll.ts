@@ -10,6 +10,8 @@ let previousOverflow = "";
 let previousPaddingRight = "";
 let previousHtmlOverflow = "";
 let lenisInstance: Lenis | null = null;
+/** Set when load bootstrap wants top before Lenis is registered. */
+let pendingScrollToTop = false;
 
 function prefersReducedMotion() {
   if (typeof window === "undefined") return false;
@@ -23,12 +25,31 @@ export function navScrollOffset() {
   return Number.isFinite(parsed) ? parsed : 88;
 }
 
+/** Instant jump to document top (native + Lenis when available). */
+export function scrollToTopImmediate() {
+  if (typeof window === "undefined") return;
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+  if (lenisInstance) {
+    lenisInstance.scrollTo(0, { immediate: true, force: true });
+    pendingScrollToTop = false;
+  } else {
+    pendingScrollToTop = true;
+  }
+}
+
 /** Register / clear the active Lenis instance (from SmoothScroll). */
 export function registerLenis(instance: Lenis | null) {
   lenisInstance = instance;
   // Keep stopped if intro / menu / lightbox already locked the body
   if (instance && lockCount > 0) {
     instance.stop();
+  }
+  // Finish home-top bootstrap once Lenis mounts after refresh
+  if (instance && pendingScrollToTop) {
+    instance.scrollTo(0, { immediate: true, force: true });
+    pendingScrollToTop = false;
   }
 }
 
@@ -158,13 +179,44 @@ export function getActiveSectionId(
   return current;
 }
 
-/** Strip any #fragment from the URL on load / hashchange. */
+/**
+ * On full page load / refresh: land on home top (`/`), never mid-page or #section.
+ * Does not interfere with later in-page ScrollTo navigation.
+ */
 export function keepCleanUrl() {
   if (typeof window === "undefined") return () => {};
 
-  stripHash();
+  if ("scrollRestoration" in window.history) {
+    window.history.scrollRestoration = "manual";
+  }
+
+  // Hash deep-links / leftover fragments → clean home URL
+  if (window.location.hash) {
+    window.history.replaceState(null, "", "/");
+  } else {
+    stripHash();
+  }
+
+  scrollToTopImmediate();
+  const raf1 = requestAnimationFrame(() => {
+    scrollToTopImmediate();
+    requestAnimationFrame(scrollToTopImmediate);
+  });
+  // Lenis / layout may settle a beat after first paint
+  const timeoutId = window.setTimeout(scrollToTopImmediate, 50);
+  // Drop pending flag so a later Lenis remount won't jump home mid-session
+  const clearPendingId = window.setTimeout(() => {
+    pendingScrollToTop = false;
+  }, 300);
+
+  // Keep URL hash-free if anything writes a fragment later; do not force scroll
   window.addEventListener("hashchange", stripHash);
-  return () => window.removeEventListener("hashchange", stripHash);
+  return () => {
+    cancelAnimationFrame(raf1);
+    window.clearTimeout(timeoutId);
+    window.clearTimeout(clearPendingId);
+    window.removeEventListener("hashchange", stripHash);
+  };
 }
 
 export { EASE, SCROLL_TO_DURATION };
