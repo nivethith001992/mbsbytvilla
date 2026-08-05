@@ -9,9 +9,15 @@ let lockCount = 0;
 let previousOverflow = "";
 let previousPaddingRight = "";
 let previousHtmlOverflow = "";
+let previousBodyPosition = "";
+let previousBodyTop = "";
+let previousBodyWidth = "";
+let lockedScrollY = 0;
 let lenisInstance: Lenis | null = null;
 /** Set when load wants top before Lenis is registered. */
 let pendingScrollToTop = false;
+/** Queued section id to scroll after body unlock (menu / lightbox). */
+let pendingScrollId: string | null = null;
 
 function prefersReducedMotion() {
   if (typeof window === "undefined") return false;
@@ -26,24 +32,15 @@ export function navScrollOffset() {
 }
 
 /**
- * Browsers persist the scroll position captured at unload.
- * Force 0 here so the next load restores to the top — not mid-page.
+ * Keep manual restoration only — never scroll the live page here.
+ * Scrolling to top on beforeunload flashes the hero before the reload.
+ * The next load lands at top via the early head script + scrollToTopImmediate.
  */
 function resetScrollBeforeUnload() {
   if (typeof window === "undefined") return;
   if ("scrollRestoration" in window.history) {
     window.history.scrollRestoration = "manual";
   }
-  if (lenisInstance) {
-    try {
-      lenisInstance.scrollTo(0, { immediate: true, force: true });
-    } catch {
-      // Lenis mid-destroy
-    }
-  }
-  window.scrollTo(0, 0);
-  document.documentElement.scrollTop = 0;
-  document.body.scrollTop = 0;
 }
 
 /** Instant jump to document top (native + Lenis when available). */
@@ -105,14 +102,26 @@ export function getScrollY() {
 export function lockBodyScroll() {
   if (typeof document === "undefined") return;
   if (lockCount === 0) {
+    lockedScrollY = getScrollY();
     previousOverflow = document.body.style.overflow;
     previousPaddingRight = document.body.style.paddingRight;
     previousHtmlOverflow = document.documentElement.style.overflow;
+    previousBodyPosition = document.body.style.position;
+    previousBodyTop = document.body.style.top;
+    previousBodyWidth = document.body.style.width;
     const scrollbar = window.innerWidth - document.documentElement.clientWidth;
     document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
+    // iOS-safe: pin body so background can't scroll under overlays
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${lockedScrollY}px`;
+    document.body.style.width = "100%";
     if (scrollbar > 0) {
       document.body.style.paddingRight = `${scrollbar}px`;
+      document.documentElement.style.setProperty(
+        "--scrollbar-compensation",
+        `${scrollbar}px`,
+      );
     }
     document.documentElement.classList.add("scroll-locked");
     lenisInstance?.stop();
@@ -127,8 +136,27 @@ export function unlockBodyScroll() {
     document.body.style.overflow = previousOverflow;
     document.body.style.paddingRight = previousPaddingRight;
     document.documentElement.style.overflow = previousHtmlOverflow;
+    document.body.style.position = previousBodyPosition;
+    document.body.style.top = previousBodyTop;
+    document.body.style.width = previousBodyWidth;
+    document.documentElement.style.removeProperty("--scrollbar-compensation");
     document.documentElement.classList.remove("scroll-locked");
-    lenisInstance?.start();
+    window.scrollTo(0, lockedScrollY);
+    if (lenisInstance) {
+      try {
+        lenisInstance.scrollTo(lockedScrollY, { immediate: true, force: true });
+        lenisInstance.start();
+      } catch {
+        lenisInstance.start();
+      }
+    }
+    const queued = pendingScrollId;
+    pendingScrollId = null;
+    if (queued) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => runScrollToId(queued));
+      });
+    }
   }
 }
 
@@ -175,11 +203,9 @@ function runScrollToId(id: string) {
 export function scrollToId(id: string) {
   if (typeof document === "undefined") return;
 
-  // After unlockBodyScroll, Lenis.start needs a frame before scrollTo is reliable
+  // Queue until unlock — never force-scroll under an open menu / lightbox
   if (lockCount > 0 || document.documentElement.classList.contains("scroll-locked")) {
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => runScrollToId(id));
-    });
+    pendingScrollId = id;
     return;
   }
 
@@ -214,9 +240,9 @@ export function getActiveSectionId(
 }
 
 /**
- * Normal website refresh: land at hero top, no URL hacks.
- * Manual scroll restoration + unload pin + load scrollTo(0).
- * Soft in-page ScrollTo still works after load.
+ * Normal website refresh: land at hero top after reload, no URL hacks.
+ * Manual scroll restoration + load/pageshow scrollTo(0).
+ * Do not scroll on beforeunload — that flashes the hero before the page dies.
  */
 export function keepCleanUrl() {
   if (typeof window === "undefined") return () => {};
@@ -239,7 +265,7 @@ export function keepCleanUrl() {
     scrollToTopImmediate();
   };
 
-  // Critical: save scrollY=0 so refresh restore lands at top
+  // Critical: keep restoration manual so the next load can land at top
   window.addEventListener("beforeunload", resetScrollBeforeUnload);
   window.addEventListener("pagehide", resetScrollBeforeUnload);
   window.addEventListener("pageshow", onPageShow);

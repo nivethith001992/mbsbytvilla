@@ -7,7 +7,7 @@ import { ScrollProgress } from "./ScrollProgress";
 import { SmoothScroll } from "./SmoothScroll";
 
 export function SiteChrome() {
-  // Normal refresh: scrollRestoration manual + unload/load pin top; soft ScrollTo works
+  // Manual scrollRestoration + load pin to top (never scroll on beforeunload)
   useEffect(() => keepCleanUrl(), []);
 
   return (

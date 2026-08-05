@@ -723,6 +723,21 @@ html.scroll-locked body {
   overflow: hidden !important;
 }
 
+/* Keep fixed chrome from shifting when the scrollbar is compensated */
+html.scroll-locked header.fixed,
+html.scroll-locked [data-scroll-progress] {
+  padding-right: var(--scrollbar-compensation, 0px);
+}
+
+/* Refresh / return visit — never flash charcoal intro */
+html.mbs-skip-intro [data-intro-veil],
+html.mbs-skip-intro [data-intro-splash] {
+  display: none !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
 .section-atmosphere {
   position: relative;
   isolation: isolate;

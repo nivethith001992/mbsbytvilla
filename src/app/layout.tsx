@@ -83,7 +83,7 @@ export default function RootLayout({
         {/* Before paint: normal refresh — manual restore + land at top (no URL hacks) */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{history.scrollRestoration="manual"}catch(e){}try{if(location.hash){history.replaceState(null,"",location.pathname+location.search)}scrollTo(0,0);if(document.documentElement)document.documentElement.scrollTop=0;if(document.body)document.body.scrollTop=0}catch(e){}})();`,
+            __html: `(function(){try{history.scrollRestoration="manual"}catch(e){}try{if(sessionStorage.getItem("mbs-intro-seen")==="1"){document.documentElement.classList.add("mbs-skip-intro")}}catch(e){}try{if(location.hash){history.replaceState(null,"",location.pathname+location.search)}scrollTo(0,0);if(document.documentElement)document.documentElement.scrollTop=0;if(document.body)document.body.scrollTop=0}catch(e){}})();`,
           }}
         />
         <link

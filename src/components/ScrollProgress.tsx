@@ -11,6 +11,7 @@ export function ScrollProgress() {
   // Direct scaleX — springs on every scroll frame add lag behind Lenis
   return (
     <motion.div
+      data-scroll-progress
       className="scroll-progress"
       style={{ scaleX: scrollYProgress }}
       aria-hidden

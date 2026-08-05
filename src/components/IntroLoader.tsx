@@ -16,49 +16,69 @@ type IntroLoaderProps = {
   onComplete?: () => void;
 };
 
+function getIntroSeen() {
+  try {
+    return sessionStorage.getItem(INTRO_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
 function markIntroSeen() {
   try {
     sessionStorage.setItem(INTRO_KEY, "1");
   } catch {
     // private mode / blocked storage
   }
+  try {
+    document.documentElement.classList.add("mbs-skip-intro");
+  } catch {
+    // ignore
+  }
+  window.dispatchEvent(new Event("mbs-intro-complete"));
 }
 
+/**
+ * First visit: charcoal splash, then site.
+ * Refresh / same-tab return: no splash (head script + CSS hide any veil; we skip to done).
+ * Hydration-safe: SSR and first client paint both render the veil shell.
+ */
 export function IntroLoader({ onComplete }: IntroLoaderProps) {
   const reduceMotion = useReducedMotion();
-  const [finished, setFinished] = useState(false);
-  const decided = reduceMotion !== null;
-  // Every full load — including a browser refresh — opens like a first visit
-  const skip = decided && Boolean(reduceMotion);
+  // pending → matches SSR; intro → animated splash; done → unmounted
+  const [phase, setPhase] = useState<"pending" | "intro" | "done">("pending");
 
   useEffect(() => {
-    if (!decided) return;
+    // Always land at hero top on every full load (including refresh)
+    scrollToTopImmediate();
 
-    if (skip) {
+    // Wait for reduced-motion preference when still unknown
+    if (reduceMotion === null) return;
+
+    if (getIntroSeen() || reduceMotion) {
       markIntroSeen();
-      scrollToTopImmediate();
+      setPhase("done");
       onComplete?.();
       return;
     }
 
+    setPhase("intro");
     let cancelled = false;
     let locked = false;
     lockBodyScroll();
     locked = true;
-    // While locked, kill any restored mid-page position under the veil
     scrollToTopImmediate();
 
     const hide = () => {
       if (cancelled) return;
       cancelled = true;
       markIntroSeen();
-      scrollToTopImmediate();
       if (locked) {
         unlockBodyScroll();
         locked = false;
       }
       scrollToTopImmediate();
-      setFinished(true);
+      setPhase("done");
       onComplete?.();
     };
 
@@ -74,76 +94,82 @@ export function IntroLoader({ onComplete }: IntroLoaderProps) {
         locked = false;
       }
     };
-  }, [decided, skip, onComplete]);
+  }, [reduceMotion, onComplete]);
 
-  const showIntro = decided && !skip && !finished;
-  const showVeil = !decided;
+  if (phase === "done") return null;
 
-  if (showVeil) {
+  // pending: stable veil (CSS hides instantly on refresh via .mbs-skip-intro)
+  if (phase === "pending") {
     return (
       <div
+        data-intro-veil
         className="fixed inset-0 z-[100] bg-deep-charcoal"
         aria-hidden
-        suppressHydrationWarning
       />
     );
   }
 
   return (
     <AnimatePresence>
-      {showIntro ? (
-        <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-deep-charcoal"
-          initial={{ opacity: 1 }}
-          exit={
-            reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 1.02 }
-          }
-          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-          aria-hidden
-        >
-          <div className="grain grain-light" />
-          {!reduceMotion ? (
-            <motion.div
-              aria-hidden
-              className="pointer-events-none absolute h-[50vmin] w-[50vmin] rounded-full bg-sand-beige/12 blur-3xl"
-              animate={{ scale: [0.9, 1.15, 1], opacity: [0.2, 0.45, 0.25] }}
-              transition={{ duration: 2.2, ease: "easeInOut" }}
-            />
-          ) : null}
-          <div className="relative px-8 text-center">
-            <motion.p
-              className="text-[0.65rem] uppercase tracking-[0.42em] text-sand-beige/80"
-              initial={{ opacity: 0, y: 14, letterSpacing: "0.55em" }}
-              animate={{ opacity: 1, y: 0, letterSpacing: "0.42em" }}
-              transition={{ duration: 0.75, delay: 0.04, ease: [0.22, 1, 0.36, 1] }}
-            >
-              Caring Retirement Living · Dambulla
-            </motion.p>
-            <motion.p
-              className="mt-6 font-serif text-[clamp(2.4rem,7vw,4.5rem)] leading-none tracking-[-0.02em] text-warm-white"
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
-            >
-              {brand.name}
-            </motion.p>
-            <motion.div
-              className="mx-auto mt-8 h-px w-16 origin-center bg-sand-beige/60"
-              initial={{ scaleX: 0, opacity: 0 }}
-              animate={{ scaleX: 1, opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.42 }}
-            />
-            <motion.p
-              className="mt-6 font-serif text-lg italic text-warm-white/55 md:text-xl"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.55 }}
-            >
-              {brand.mission}
-            </motion.p>
-          </div>
-        </motion.div>
-      ) : null}
+      <motion.div
+        key="intro-splash"
+        data-intro-splash
+        className="fixed inset-0 z-[100] flex items-center justify-center bg-deep-charcoal"
+        initial={{ opacity: 1 }}
+        exit={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 1.02 }}
+        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+        aria-hidden
+      >
+        <div className="grain grain-light" />
+        {!reduceMotion ? (
+          <motion.div
+            aria-hidden
+            className="pointer-events-none absolute h-[50vmin] w-[50vmin] rounded-full bg-sand-beige/12 blur-3xl"
+            animate={{ scale: [0.9, 1.15, 1], opacity: [0.2, 0.45, 0.25] }}
+            transition={{ duration: 2.2, ease: "easeInOut" }}
+          />
+        ) : null}
+        <div className="relative px-8 text-center">
+          <motion.p
+            className="text-[0.65rem] uppercase tracking-[0.42em] text-sand-beige/80"
+            initial={{ opacity: 0, y: 14, letterSpacing: "0.55em" }}
+            animate={{ opacity: 1, y: 0, letterSpacing: "0.42em" }}
+            transition={{
+              duration: 0.75,
+              delay: 0.04,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            Caring Retirement Living · Dambulla
+          </motion.p>
+          <motion.p
+            className="mt-6 font-serif text-[clamp(2.4rem,7vw,4.5rem)] leading-none tracking-[-0.02em] text-warm-white"
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.9,
+              delay: 0.14,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            {brand.name}
+          </motion.p>
+          <motion.div
+            className="mx-auto mt-8 h-px w-16 origin-center bg-sand-beige/60"
+            initial={{ scaleX: 0, opacity: 0 }}
+            animate={{ scaleX: 1, opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.42 }}
+          />
+          <motion.p
+            className="mt-6 font-serif text-lg italic text-warm-white/55 md:text-xl"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.55 }}
+          >
+            {brand.mission}
+          </motion.p>
+        </div>
+      </motion.div>
     </AnimatePresence>
   );
 }

@@ -230,7 +230,7 @@ export function Navbar() {
                   : { opacity: 0, clipPath: "inset(0 0 100% 0)" }
               }
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed inset-0 z-[80] flex flex-col bg-warm-white lg:hidden"
+              className="fixed inset-0 z-[80] flex flex-col overflow-y-auto overscroll-contain bg-warm-white lg:hidden"
             >
                 <div
                   aria-hidden
@@ -242,7 +242,7 @@ export function Navbar() {
                 />
 
                 <nav
-                  className="relative flex h-full flex-col px-[max(1.25rem,calc((100%-1180px)/2))] pb-10 pt-[5.75rem]"
+                  className="relative flex min-h-full flex-col px-[max(1.25rem,calc((100%-1180px)/2))] pb-10 pt-[5.75rem]"
                   aria-label="Mobile"
                 >
                   <div className="flex flex-1 flex-col justify-center gap-1">
