@@ -80,10 +80,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${display.variable} ${body.variable} h-full`}>
       <head>
-        {/* Before paint: no restored scroll / hash jump on refresh */}
+        {/* Before paint: on reload, flag + kill hash / restored scroll (Lenis finishes later) */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{if("scrollRestoration"in history)history.scrollRestoration="manual";if(location.hash)history.replaceState(null,"","/");scrollTo(0,0);}catch(e){}})();`,
+            __html: `(function(){try{if("scrollRestoration"in history)history.scrollRestoration="manual";var nav=performance.getEntriesByType&&performance.getEntriesByType("navigation")[0];var reload=(nav&&nav.type==="reload")||(performance.navigation&&performance.navigation.type===1);var flag=false;try{flag=sessionStorage.getItem("mbs-force-home-top")==="1"}catch(e){}if(reload||flag){try{sessionStorage.setItem("mbs-force-home-top","1")}catch(e){}if(location.hash||(location.pathname!=="/"&&location.pathname!=="")){location.replace(location.origin+"/");return}scrollTo(0,0);if(document.documentElement)document.documentElement.scrollTop=0;if(document.body)document.body.scrollTop=0}else if(location.hash){history.replaceState(null,"",location.pathname+location.search);scrollTo(0,0)}}catch(e){}})();`,
           }}
         />
         <link

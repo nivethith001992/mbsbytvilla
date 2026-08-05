@@ -3,7 +3,11 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useSyncExternalStore } from "react";
 import { brand } from "@/lib/content";
-import { lockBodyScroll, unlockBodyScroll } from "@/lib/scroll";
+import {
+  applyForceHomeTopIfNeeded,
+  lockBodyScroll,
+  unlockBodyScroll,
+} from "@/lib/scroll";
 
 const INTRO_KEY = "mbs-intro-seen";
 const INTRO_MS = 1600;
@@ -50,6 +54,8 @@ export function IntroLoader({ onComplete }: IntroLoaderProps) {
 
     if (skip) {
       if (!getIntroSeen()) markIntroSeen();
+      // Refresh with intro already seen: still land at hero top
+      applyForceHomeTopIfNeeded();
       onComplete?.();
       return;
     }
@@ -58,15 +64,19 @@ export function IntroLoader({ onComplete }: IntroLoaderProps) {
     let locked = false;
     lockBodyScroll();
     locked = true;
+    // While locked, kill any restored mid-page position under the veil
+    applyForceHomeTopIfNeeded();
 
     const hide = () => {
       if (cancelled) return;
       cancelled = true;
       markIntroSeen();
+      applyForceHomeTopIfNeeded();
       if (locked) {
         unlockBodyScroll();
         locked = false;
       }
+      applyForceHomeTopIfNeeded();
       onComplete?.();
     };
 

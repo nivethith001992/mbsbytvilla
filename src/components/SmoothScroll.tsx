@@ -4,7 +4,11 @@ import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
-import { registerLenis } from "@/lib/scroll";
+import {
+  applyForceHomeTopIfNeeded,
+  isForceHomeTopPending,
+  registerLenis,
+} from "@/lib/scroll";
 
 /**
  * Silky smooth scroll via Lenis, synced to GSAP ScrollTrigger.
@@ -51,6 +55,11 @@ export function SmoothScroll() {
       });
 
       registerLenis(lenis);
+      // Reload: Lenis must start at 0 — browser restore / ST refresh can re-scroll later
+      if (isForceHomeTopPending()) {
+        lenis.scrollTo(0, { immediate: true, force: true });
+        applyForceHomeTopIfNeeded();
+      }
       removeScrollListener = lenis.on("scroll", ScrollTrigger.update);
 
       // Drive Lenis from GSAP ticker so ScrollTrigger scrub stays in lockstep
@@ -61,8 +70,12 @@ export function SmoothScroll() {
       // lagSmoothing(0) prevents GSAP from “catching up” after tab stalls (feels like hitch)
       gsap.ticker.lagSmoothing(0);
 
-      // Recalculate pins after Lenis mounts
-      requestAnimationFrame(() => ScrollTrigger.refresh());
+      // Recalculate pins after Lenis mounts; re-pin home top after ST can jump scroll
+      requestAnimationFrame(() => {
+        ScrollTrigger.refresh();
+        applyForceHomeTopIfNeeded();
+        requestAnimationFrame(applyForceHomeTopIfNeeded);
+      });
     };
 
     create();

@@ -7,7 +7,7 @@ import { ScrollProgress } from "./ScrollProgress";
 import { SmoothScroll } from "./SmoothScroll";
 
 export function SiteChrome() {
-  // Refresh / first load → `/` at top; in-page ScrollTo still works after
+  // Reload / bfcache → `/` at top; soft ScrollTo still works after force window
   useEffect(() => keepCleanUrl(), []);
 
   return (
