@@ -7,7 +7,7 @@ import { ScrollProgress } from "./ScrollProgress";
 import { SmoothScroll } from "./SmoothScroll";
 
 export function SiteChrome() {
-  // Reload / bfcache → `/` at top; soft ScrollTo still works after force window
+  // beforeunload saves scrollY=0; load burst pins top ~2s; soft ScrollTo still works
   useEffect(() => keepCleanUrl(), []);
 
   return (

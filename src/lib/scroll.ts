@@ -51,6 +51,42 @@ function clearForceHomeTop() {
   } catch {
     // private mode / blocked storage
   }
+  // Unlock nuclear boot overflow (set by early head script on reload)
+  if (typeof document !== "undefined") {
+    document.documentElement.classList.remove("mbs-scroll-boot");
+    if (
+      document.documentElement.style.overflow === "hidden" &&
+      lockCount === 0
+    ) {
+      document.documentElement.style.overflow = "";
+    }
+  }
+}
+
+/**
+ * Browsers persist the scroll position captured at unload.
+ * Force 0 here so the next load restores to the top — not mid-page.
+ */
+function resetScrollBeforeUnload() {
+  if (typeof window === "undefined") return;
+  if ("scrollRestoration" in window.history) {
+    window.history.scrollRestoration = "manual";
+  }
+  try {
+    sessionStorage.setItem(FORCE_HOME_KEY, "1");
+  } catch {
+    // private mode / blocked storage
+  }
+  if (lenisInstance) {
+    try {
+      lenisInstance.scrollTo(0, { immediate: true, force: true });
+    } catch {
+      // Lenis mid-destroy
+    }
+  }
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
 }
 
 export function isForceHomeTopPending() {
@@ -314,6 +350,7 @@ function runHomeTopBurst() {
 
 /**
  * On full page refresh / bfcache restore: land on home top (`/`).
+ * Primary: beforeunload/pagehide reset scroll to 0 so the browser saves 0.
  * Soft in-page ScrollTo is unaffected after the short force window (and is
  * cancelled immediately if the user clicks a nav ScrollTo).
  */
@@ -326,21 +363,22 @@ export function keepCleanUrl() {
 
   let burstCleanup: (() => void) | undefined;
 
-  const startBurstIfNeeded = (fromBfcache = false) => {
-    const should =
-      fromBfcache ||
-      isReloadNavigation() ||
-      isForceHomeTopPending();
-    if (!should) return;
+  const startBurst = () => {
     burstCleanup?.();
     burstCleanup = runHomeTopBurst();
   };
 
-  startBurstIfNeeded(false);
+  // SPA homepage: every full document load pins top for a short window.
+  // Soft ScrollTo clears the flag immediately and works after ~1–2s.
+  const path = window.location.pathname;
+  const isHome = path === "/" || path === "";
+  if (isHome || isReloadNavigation() || isForceHomeTopPending()) {
+    startBurst();
+  }
 
   const onPageShow = (event: PageTransitionEvent) => {
     if (event.persisted) {
-      startBurstIfNeeded(true);
+      startBurst();
     }
   };
 
@@ -351,6 +389,9 @@ export function keepCleanUrl() {
     }
   };
 
+  // Critical: save scrollY=0 so refresh restore lands at top
+  window.addEventListener("beforeunload", resetScrollBeforeUnload);
+  window.addEventListener("pagehide", resetScrollBeforeUnload);
   window.addEventListener("pageshow", onPageShow);
   window.addEventListener("load", onLoad);
 
@@ -368,6 +409,8 @@ export function keepCleanUrl() {
 
   return () => {
     burstCleanup?.();
+    window.removeEventListener("beforeunload", resetScrollBeforeUnload);
+    window.removeEventListener("pagehide", resetScrollBeforeUnload);
     window.removeEventListener("pageshow", onPageShow);
     window.removeEventListener("load", onLoad);
     window.removeEventListener("hashchange", onHashChange);

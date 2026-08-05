@@ -7,6 +7,7 @@ import Lenis from "lenis";
 import {
   applyForceHomeTopIfNeeded,
   isForceHomeTopPending,
+  isReloadNavigation,
   registerLenis,
 } from "@/lib/scroll";
 
@@ -42,10 +43,13 @@ export function SmoothScroll() {
 
       gsap.registerPlugin(ScrollTrigger);
 
+      // After reload: start at 0 before smooth wheel — never adopt restored scroll
+      const pinTop = isForceHomeTopPending() || isReloadNavigation();
+
       lenis = new Lenis({
         // Keep speed unchanged — smoothness comes from lighter page work
         lerp: 0.085,
-        smoothWheel: true,
+        smoothWheel: !pinTop,
         wheelMultiplier: 0.85,
         // Native touch on phones — avoid laggy syncTouch on iOS
         syncTouch: false,
@@ -55,10 +59,16 @@ export function SmoothScroll() {
       });
 
       registerLenis(lenis);
-      // Reload: Lenis must start at 0 — browser restore / ST refresh can re-scroll later
-      if (isForceHomeTopPending()) {
+      if (pinTop) {
+        // Must land at 0 before enabling smooth wheel — never adopt restored Y
         lenis.scrollTo(0, { immediate: true, force: true });
         applyForceHomeTopIfNeeded();
+        // Enable smooth wheel only after we have pinned top
+        requestAnimationFrame(() => {
+          if (lenis) {
+            lenis.options.smoothWheel = true;
+          }
+        });
       }
       removeScrollListener = lenis.on("scroll", ScrollTrigger.update);
 
