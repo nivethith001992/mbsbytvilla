@@ -723,11 +723,6 @@ html.scroll-locked body {
   overflow: hidden !important;
 }
 
-/* Reload boot: hide overflow until scroll confirmed at 0 */
-html.mbs-scroll-boot {
-  overflow: hidden !important;
-}
-
 .section-atmosphere {
   position: relative;
   isolation: isolate;

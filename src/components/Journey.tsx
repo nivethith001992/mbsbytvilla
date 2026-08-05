@@ -5,7 +5,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { journeyIntro, journeySteps } from "@/lib/content";
-import { applyForceHomeTopIfNeeded } from "@/lib/scroll";
 import { LuxImage } from "./LuxImage";
 import { Reveal } from "./Reveal";
 
@@ -57,7 +56,6 @@ export function Journey() {
         window.clearTimeout(resizeTimer);
         resizeTimer = window.setTimeout(() => {
           ScrollTrigger.refresh();
-          applyForceHomeTopIfNeeded();
         }, 180);
       };
 
@@ -65,7 +63,6 @@ export function Journey() {
       window.addEventListener("orientationchange", onResize);
       const refreshTimer = window.setTimeout(() => {
         ScrollTrigger.refresh();
-        applyForceHomeTopIfNeeded();
       }, 320);
 
       return () => {

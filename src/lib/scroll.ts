@@ -5,24 +5,13 @@ const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 /** Programmatic nav scroll duration (seconds) — silky, a touch quicker. */
 const SCROLL_TO_DURATION = 1.4;
 
-/**
- * Session flag set by early head script after reload → /?r= landing.
- * Lenis / keepCleanUrl pin top briefly, then soft ScrollTo clears it.
- */
-const FORCE_HOME_KEY = "mbs-force-home-top";
-
-/** Short safety window after nuclear home redirect (not a multi-second burst). */
-const FORCE_HOME_WINDOW_MS = 400;
-
 let lockCount = 0;
 let previousOverflow = "";
 let previousPaddingRight = "";
 let previousHtmlOverflow = "";
 let lenisInstance: Lenis | null = null;
-/** Set when load bootstrap wants top before Lenis is registered. */
+/** Set when load wants top before Lenis is registered. */
 let pendingScrollToTop = false;
-/** True while a reload/home-redirect top reset window is active. */
-let forceHomeActive = false;
 
 function prefersReducedMotion() {
   if (typeof window === "undefined") return false;
@@ -36,35 +25,6 @@ export function navScrollOffset() {
   return Number.isFinite(parsed) ? parsed : 88;
 }
 
-function markForceHomeTop() {
-  forceHomeActive = true;
-  pendingScrollToTop = true;
-  try {
-    sessionStorage.setItem(FORCE_HOME_KEY, "1");
-  } catch {
-    // private mode / blocked storage
-  }
-}
-
-function clearForceHomeTop() {
-  forceHomeActive = false;
-  pendingScrollToTop = false;
-  try {
-    sessionStorage.removeItem(FORCE_HOME_KEY);
-  } catch {
-    // private mode / blocked storage
-  }
-  if (typeof document !== "undefined") {
-    document.documentElement.classList.remove("mbs-scroll-boot");
-    if (
-      document.documentElement.style.overflow === "hidden" &&
-      lockCount === 0
-    ) {
-      document.documentElement.style.overflow = "";
-    }
-  }
-}
-
 /**
  * Browsers persist the scroll position captured at unload.
  * Force 0 here so the next load restores to the top — not mid-page.
@@ -73,11 +33,6 @@ function resetScrollBeforeUnload() {
   if (typeof window === "undefined") return;
   if ("scrollRestoration" in window.history) {
     window.history.scrollRestoration = "manual";
-  }
-  try {
-    sessionStorage.setItem(FORCE_HOME_KEY, "1");
-  } catch {
-    // private mode / blocked storage
   }
   if (lenisInstance) {
     try {
@@ -89,35 +44,6 @@ function resetScrollBeforeUnload() {
   window.scrollTo(0, 0);
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
-}
-
-export function isForceHomeTopPending() {
-  if (forceHomeActive) return true;
-  try {
-    return sessionStorage.getItem(FORCE_HOME_KEY) === "1";
-  } catch {
-    return false;
-  }
-}
-
-/** Full document reload (F5 / toolbar refresh), not soft client navigations. */
-export function isReloadNavigation() {
-  if (typeof performance === "undefined") return false;
-  try {
-    const nav = performance.getEntriesByType(
-      "navigation",
-    )[0] as PerformanceNavigationTiming | undefined;
-    if (nav?.type === "reload") return true;
-  } catch {
-    // ignore
-  }
-  // Legacy fallback
-  const legacy = (
-    performance as Performance & {
-      navigation?: { type?: number };
-    }
-  ).navigation;
-  return legacy?.type === 1;
 }
 
 /** Instant jump to document top (native + Lenis when available). */
@@ -137,20 +63,10 @@ export function scrollToTopImmediate() {
     } catch {
       // Lenis mid-destroy
     }
-    if (!isForceHomeTopPending()) {
-      pendingScrollToTop = false;
-    }
+    pendingScrollToTop = false;
   } else {
     pendingScrollToTop = true;
   }
-}
-
-/**
- * Call when Lenis mounts or IntroLoader unlocks — finish a pending reload home reset.
- */
-export function applyForceHomeTopIfNeeded() {
-  if (!isForceHomeTopPending()) return;
-  scrollToTopImmediate();
 }
 
 /** Register / clear the active Lenis instance (from SmoothScroll). */
@@ -160,16 +76,14 @@ export function registerLenis(instance: Lenis | null) {
   if (instance && lockCount > 0) {
     instance.stop();
   }
-  // Finish home-top bootstrap once Lenis mounts after refresh / redirect
-  if (instance && (pendingScrollToTop || isForceHomeTopPending())) {
+  // Finish a pending top pin once Lenis mounts after refresh
+  if (instance && pendingScrollToTop) {
     try {
       instance.scrollTo(0, { immediate: true, force: true });
     } catch {
       // ignore
     }
-    if (!isForceHomeTopPending()) {
-      pendingScrollToTop = false;
-    }
+    pendingScrollToTop = false;
   }
 }
 
@@ -214,14 +128,7 @@ export function unlockBodyScroll() {
     document.body.style.paddingRight = previousPaddingRight;
     document.documentElement.style.overflow = previousHtmlOverflow;
     document.documentElement.classList.remove("scroll-locked");
-    // Re-pin to top before Lenis restarts so unlock doesn't reveal mid-page
-    if (isForceHomeTopPending()) {
-      scrollToTopImmediate();
-    }
     lenisInstance?.start();
-    if (isForceHomeTopPending()) {
-      scrollToTopImmediate();
-    }
   }
 }
 
@@ -238,9 +145,6 @@ function stripHash() {
 function runScrollToId(id: string) {
   const el = document.getElementById(id);
   if (!el) return;
-
-  // Soft in-page nav after load — cancel any leftover reload home window
-  clearForceHomeTop();
 
   const reduce = prefersReducedMotion();
   const offset = id === "top" ? 0 : navScrollOffset();
@@ -310,39 +214,9 @@ export function getActiveSectionId(
 }
 
 /**
- * Brief safety pin after nuclear /?r= redirect (Lenis + ScrollTrigger settle).
- * Soft ScrollTo clears the flag immediately.
- */
-function pinHomeTopBriefly() {
-  markForceHomeTop();
-
-  if ("scrollRestoration" in window.history) {
-    window.history.scrollRestoration = "manual";
-  }
-
-  scrollToTopImmediate();
-
-  const delays = [0, 50, 150, FORCE_HOME_WINDOW_MS];
-  const timers = delays.map((ms) =>
-    window.setTimeout(() => {
-      if (!isForceHomeTopPending()) return;
-      scrollToTopImmediate();
-    }, ms),
-  );
-
-  const clearId = window.setTimeout(() => {
-    clearForceHomeTop();
-  }, FORCE_HOME_WINDOW_MS + 50);
-
-  return () => {
-    timers.forEach((id) => window.clearTimeout(id));
-    window.clearTimeout(clearId);
-  };
-}
-
-/**
- * On full page refresh: early head script does location.replace('/?r=ts').
- * Here: beforeunload saves scrollY=0; short Lenis safety pin; soft ScrollTo works.
+ * Normal website refresh: land at hero top, no URL hacks.
+ * Manual scroll restoration + unload pin + load scrollTo(0).
+ * Soft in-page ScrollTo still works after load.
  */
 export function keepCleanUrl() {
   if (typeof window === "undefined") return () => {};
@@ -351,29 +225,18 @@ export function keepCleanUrl() {
     window.history.scrollRestoration = "manual";
   }
 
-  let pinCleanup: (() => void) | undefined;
-
-  const startPin = () => {
-    pinCleanup?.();
-    pinCleanup = pinHomeTopBriefly();
-  };
-
-  // After nuclear redirect landing (or leftover force flag / rare reload without redirect)
-  if (isForceHomeTopPending() || isReloadNavigation()) {
-    startPin();
-  }
+  stripHash();
+  scrollToTopImmediate();
 
   const onPageShow = (event: PageTransitionEvent) => {
     if (event.persisted) {
-      // bfcache: force a clean home navigation (same nuclear path as reload)
-      window.location.replace(`/?r=${Date.now()}`);
+      // bfcache restore — same as a fresh load: hero at top
+      scrollToTopImmediate();
     }
   };
 
   const onLoad = () => {
-    if (isForceHomeTopPending()) {
-      scrollToTopImmediate();
-    }
+    scrollToTopImmediate();
   };
 
   // Critical: save scrollY=0 so refresh restore lands at top
@@ -383,17 +246,11 @@ export function keepCleanUrl() {
   window.addEventListener("load", onLoad);
 
   const onHashChange = () => {
-    if (isForceHomeTopPending()) {
-      stripHash();
-      scrollToTopImmediate();
-      return;
-    }
     stripHash();
   };
   window.addEventListener("hashchange", onHashChange);
 
   return () => {
-    pinCleanup?.();
     window.removeEventListener("beforeunload", resetScrollBeforeUnload);
     window.removeEventListener("pagehide", resetScrollBeforeUnload);
     window.removeEventListener("pageshow", onPageShow);

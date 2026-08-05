@@ -4,16 +4,12 @@ import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
-import {
-  applyForceHomeTopIfNeeded,
-  isForceHomeTopPending,
-  isReloadNavigation,
-  registerLenis,
-} from "@/lib/scroll";
+import { registerLenis } from "@/lib/scroll";
 
 /**
  * Silky smooth scroll via Lenis, synced to GSAP ScrollTrigger.
  * Disabled when prefers-reduced-motion is set.
+ * Always starts at scroll 0 so refresh never re-applies a mid-page position.
  */
 export function SmoothScroll() {
   useEffect(() => {
@@ -43,13 +39,10 @@ export function SmoothScroll() {
 
       gsap.registerPlugin(ScrollTrigger);
 
-      // After reload: start at 0 before smooth wheel — never adopt restored scroll
-      const pinTop = isForceHomeTopPending() || isReloadNavigation();
-
       lenis = new Lenis({
         // Keep speed unchanged — smoothness comes from lighter page work
         lerp: 0.085,
-        smoothWheel: !pinTop,
+        smoothWheel: true,
         wheelMultiplier: 0.85,
         // Native touch on phones — avoid laggy syncTouch on iOS
         syncTouch: false,
@@ -58,18 +51,10 @@ export function SmoothScroll() {
         anchors: false,
       });
 
+      // Sync to 0 before first raf — never adopt a restored mid-page Y
+      lenis.scrollTo(0, { immediate: true, force: true });
       registerLenis(lenis);
-      if (pinTop) {
-        // Must land at 0 before enabling smooth wheel — never adopt restored Y
-        lenis.scrollTo(0, { immediate: true, force: true });
-        applyForceHomeTopIfNeeded();
-        // Enable smooth wheel only after we have pinned top
-        requestAnimationFrame(() => {
-          if (lenis) {
-            lenis.options.smoothWheel = true;
-          }
-        });
-      }
+
       removeScrollListener = lenis.on("scroll", ScrollTrigger.update);
 
       // Drive Lenis from GSAP ticker so ScrollTrigger scrub stays in lockstep
@@ -80,11 +65,8 @@ export function SmoothScroll() {
       // lagSmoothing(0) prevents GSAP from “catching up” after tab stalls (feels like hitch)
       gsap.ticker.lagSmoothing(0);
 
-      // Recalculate pins after Lenis mounts; re-pin home top after ST can jump scroll
       requestAnimationFrame(() => {
         ScrollTrigger.refresh();
-        applyForceHomeTopIfNeeded();
-        requestAnimationFrame(applyForceHomeTopIfNeeded);
       });
     };
 

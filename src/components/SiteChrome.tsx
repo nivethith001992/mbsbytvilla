@@ -7,7 +7,7 @@ import { ScrollProgress } from "./ScrollProgress";
 import { SmoothScroll } from "./SmoothScroll";
 
 export function SiteChrome() {
-  // Nuclear /?r= redirect on reload; beforeunload + short Lenis pin; soft ScrollTo works
+  // Normal refresh: scrollRestoration manual + unload/load pin top; soft ScrollTo works
   useEffect(() => keepCleanUrl(), []);
 
   return (
