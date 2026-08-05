@@ -31,6 +31,7 @@ export const metadata: Metadata = {
   keywords: [
     "Mind Body & Soul",
     "Mind Body & Soul by T-Villa",
+    "caring retirement living",
     "luxury retirement living",
     "Dambulla Sri Lanka",
     "private villas",

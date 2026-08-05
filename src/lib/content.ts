@@ -6,7 +6,7 @@ export const brand = {
   mission:
     "To help every guest live life with comfort, confidence, and dignity.",
   description:
-    "Mind Body & Soul by T-Villa is a luxury retirement and wellness resort located in the peaceful surroundings of Dambulla, Sri Lanka. Designed for older adults who value both independence and professional care, our resort provides an environment where residents can enjoy a fulfilling lifestyle while receiving personalised support whenever needed.",
+    "Mind Body & Soul by T-Villa is a caring retirement and wellness resort located in the peaceful surroundings of Dambulla, Sri Lanka. Designed for older adults who value both independence and professional care, our resort provides an environment where residents can enjoy a fulfilling lifestyle while receiving personalised support whenever needed.",
   languages: "English and Sinhala",
   email: "info@mbsbytvilla.com",
   phones: [
@@ -45,7 +45,7 @@ export const heroEyebrow = "Dambulla, Sri Lanka";
 export const heroHeadline =
   "Live the Life You Still Deserve, Surrounded by Nature";
 export const heroSupport =
-  "Experience a peaceful retirement in the heart of Sri Lanka, where luxury living meets compassionate care. Nestled within 28 acres of lush gardens, lakes, and forest, Mind Body & Soul offers a unique lifestyle that combines independence, wellness, and professional support in a serene environment.";
+  "Experience a peaceful retirement in the heart of Sri Lanka, where warm, caring living meets professional support. Nestled within 28 acres of lush gardens, lakes, and forest, Mind Body & Soul offers a unique lifestyle that combines independence, wellness, and personalised care in a serene environment.";
 
 export const heroCtas = [
   { label: "Enquire Today", to: "booking" },
@@ -62,7 +62,7 @@ export const about = {
   pullQuote:
     "To help every guest live life with comfort, confidence, and dignity.",
   paragraphs: [
-    "Mind Body & Soul by T-Villa is a luxury retirement and wellness resort located in the peaceful surroundings of Dambulla, Sri Lanka. Designed for older adults who value both independence and professional care, our resort provides an environment where residents can enjoy a fulfilling lifestyle while receiving personalised support whenever needed.",
+    "Mind Body & Soul by T-Villa is a caring retirement and wellness resort located in the peaceful surroundings of Dambulla, Sri Lanka. Designed for older adults who value both independence and professional care, our resort provides an environment where residents can enjoy a fulfilling lifestyle while receiving personalised support whenever needed.",
     "Surrounded by over 4,500 trees, tranquil lakes, landscaped gardens, and breathtaking mountain views, our community offers a safe and relaxing retreat away from the stress of city life. Every detail has been carefully designed to promote comfort, dignity, and wellbeing.",
     "Whether you're looking for a short wellness stay or a long-term retirement solution, Mind Body & Soul provides a lifestyle where every guest can truly feel at home.",
   ],
@@ -168,7 +168,7 @@ export const accommodations = [
   {
     id: "accommodation",
     name: "Private Villas",
-    chakra: "Luxury Accommodation",
+    chakra: "Villa Accommodation",
     meaning: "Private Villas Designed for Comfort",
     description:
       "Our beautifully designed villa accommodations offer privacy, comfort, and relaxation in the heart of nature. Our villas allow residents to enjoy independent living while knowing professional care is always close by.",
@@ -327,9 +327,9 @@ export const journeyIntro = {
 
 export const journeySteps = [
   {
-    id: "luxury-villa-living",
+    id: "caring-villa-living",
     step: "01",
-    title: "Luxury Villa Living",
+    title: "Caring Villa Living",
     description:
       "Private villas surrounded by nature with modern amenities.",
     image: "/images/hero/villa-lap-pool.avif",
@@ -478,7 +478,7 @@ export const location = {
   title: "Dambulla",
   displayTitle: ["Find us", "Dambulla"] as [string, string],
   description:
-    "Mind Body & Soul by T-Villa is a luxury retirement and wellness resort located in the peaceful surroundings of Dambulla, Sri Lanka.",
+    "Mind Body & Soul by T-Villa is a caring retirement and wellness resort located in the peaceful surroundings of Dambulla, Sri Lanka.",
   atmosphere:
     "Surrounded by over 4,500 trees, tranquil lakes, landscaped gardens, and breathtaking mountain views — a safe and relaxing retreat away from the stress of city life.",
   image: "/images/location/lake-meadow.avif",
@@ -489,7 +489,7 @@ export const bookingIntro = {
   eyebrow: "Begin Your Next Chapter",
   title: ["Begin Your", "Next Chapter"] as [string, string],
   support:
-    "Whether you're exploring retirement living for yourself or a loved one, we're here to help. Discover a place where luxury, nature, and compassionate care come together to create an exceptional quality of life.",
+    "Whether you're exploring retirement living for yourself or a loved one, we're here to help. Discover a place where caring, nature, and compassionate support come together to create an exceptional quality of life.",
   cta: "Book a Private Tour",
   formNote: "We respond personally — usually within one business day.",
   placeholder:
@@ -506,7 +506,7 @@ export const galleryIntro = {
 /** SEO */
 export const seo = {
   title:
-    "Luxury Retirement Living in Dambulla, Sri Lanka | Mind Body & Soul by T-Villa",
+    "Caring Retirement Living in Dambulla, Sri Lanka | Mind Body & Soul by T-Villa",
   description:
-    "Experience luxury retirement living in Dambulla, Sri Lanka. Mind Body & Soul by T-Villa offers private villas, personalised elderly care, wellness programmes, independent living with support, and peaceful surroundings designed for comfort, dignity, and wellbeing.",
+    "Experience caring retirement living in Dambulla, Sri Lanka. Mind Body & Soul by T-Villa offers private villas, personalised elderly care, wellness programmes, independent living with support, and a peaceful luxury setting designed for comfort, dignity, and wellbeing.",
 };

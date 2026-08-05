@@ -311,7 +311,7 @@ export function Navbar() {
                       Enquire Today
                     </ScrollTo>
                     <p className="text-center text-[0.72rem] font-light tracking-[0.04em] text-soft-grey">
-                      Luxury retirement living · Dambulla
+                      Caring retirement living · Dambulla
                     </p>
                   </motion.div>
                 </nav>

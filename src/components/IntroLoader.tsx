@@ -125,7 +125,7 @@ export function IntroLoader({ onComplete }: IntroLoaderProps) {
               animate={{ opacity: 1, y: 0, letterSpacing: "0.42em" }}
               transition={{ duration: 0.75, delay: 0.04, ease: [0.22, 1, 0.36, 1] }}
             >
-              Luxury Retirement Living · Dambulla
+              Caring Retirement Living · Dambulla
             </motion.p>
             <motion.p
               className="mt-6 font-serif text-[clamp(2.4rem,7vw,4.5rem)] leading-none tracking-[-0.02em] text-warm-white"
