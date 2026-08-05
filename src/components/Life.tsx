@@ -30,27 +30,27 @@ export function Life() {
         </Reveal>
 
         {/* Wellness & Activities */}
-        <div className="mt-16 grid items-start gap-12 md:mt-24 lg:grid-cols-12 lg:gap-14">
+        <div className="mt-16 grid items-start gap-10 md:mt-24 md:grid-cols-12 md:gap-10 lg:gap-14">
           <Reveal
-            className="relative lg:col-span-6"
+            className="relative md:col-span-5 lg:col-span-6"
             variant="up"
             y={20}
             fade={false}
           >
-            <div className="image-reveal relative aspect-[4/5] overflow-hidden bg-surface-deep md:aspect-[5/6]">
+            <div className="image-reveal relative aspect-[4/5] overflow-hidden bg-surface-deep md:aspect-[5/6] md:min-h-[28rem] lg:min-h-0">
               <LuxImage
                 src={wellness.image}
                 alt={wellness.imageAlt}
                 fill
                 loading="eager"
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 42vw, 50vw"
                 quality={70}
                 className="object-cover"
               />
             </div>
           </Reveal>
 
-          <div className="lg:col-span-6 lg:pt-8">
+          <div className="md:col-span-7 lg:col-span-6 lg:pt-8">
             <Reveal variant="up" delay={0.08}>
               <p className="eyebrow">{wellness.eyebrow}</p>
               <h3 className="mt-5 font-serif text-3xl text-deep-charcoal md:text-4xl">

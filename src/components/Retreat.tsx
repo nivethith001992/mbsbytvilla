@@ -46,7 +46,7 @@ function CareRow({
   return (
     <article
       ref={rowRef}
-      className="grid items-center gap-10 border-t border-white/10 py-16 md:py-20 lg:grid-cols-12 lg:gap-12"
+      className="grid items-center gap-8 border-t border-white/10 py-12 sm:gap-10 sm:py-16 md:py-20 lg:grid-cols-12 lg:gap-12"
     >
       <Reveal
         className={`relative lg:col-span-7 ${imageRight ? "lg:order-2" : ""}`}
@@ -84,10 +84,10 @@ function CareRow({
           <p className="mt-4 text-[0.72rem] uppercase tracking-[0.28em] text-sand-beige/70">
             {space.subtitle}
           </p>
-          <h3 className="mt-3 font-serif text-4xl text-warm-white md:text-5xl">
+          <h3 className="mt-3 font-serif text-[clamp(1.85rem,6vw,3rem)] text-warm-white md:text-5xl">
             {space.title}
           </h3>
-          <p className="mt-7 max-w-md text-base font-light leading-[1.9] text-warm-white/68">
+          <p className="mt-5 max-w-md text-base font-light leading-[1.9] text-warm-white/68 sm:mt-7">
             {space.description}
           </p>
           {space.features.length > 0 ? (

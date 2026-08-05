@@ -28,7 +28,7 @@ export function VillaShowcase() {
           </p>
         </Reveal>
 
-        <Stagger delay={0.12} stagger={0.06} className="mt-12 flex flex-wrap gap-2.5 md:mt-16 md:gap-3">
+        <Stagger delay={0.12} stagger={0.06} className="mt-10 flex flex-wrap gap-2 sm:mt-12 sm:gap-2.5 md:mt-16 md:gap-3">
           {accommodations.map((item, index) => (
             <StaggerItem key={item.id} y={18}>
               <button
@@ -44,9 +44,9 @@ export function VillaShowcase() {
         </Stagger>
       </div>
 
-      <div className="relative px-[max(1.25rem,calc((100%-1180px)/2))] pb-16 md:pb-24">
+      <div className="relative px-[max(1rem,calc((100%-1180px)/2))] pb-14 sm:px-[max(1.25rem,calc((100%-1180px)/2))] md:pb-24">
         <Reveal variant="up" y={16} duration={0.5} fade={false}>
-          <div className="media-frame relative min-h-[82svh] overflow-hidden bg-surface-deep shadow-[0_18px_48px_rgba(41,41,41,0.06)] md:min-h-[88svh] md:!rounded-[2.6rem]">
+          <div className="media-frame relative min-h-[min(92svh,52rem)] overflow-hidden bg-surface-deep shadow-[0_18px_48px_rgba(41,41,41,0.06)] md:min-h-[88svh] md:!rounded-[2.6rem]">
             {/* Image layer stays opaque — only copy animates on tab change */}
             <div className="absolute inset-0">
               <LuxImage
@@ -73,11 +73,11 @@ export function VillaShowcase() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
                 transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                className="relative min-h-[82svh] md:min-h-[88svh]"
+                className="relative min-h-[min(92svh,52rem)] md:min-h-[88svh]"
               >
-                <div className="relative z-10 flex min-h-[82svh] items-end md:min-h-[88svh]">
-                  <div className="w-full px-7 pb-14 pt-28 md:px-12 md:pb-20 md:pt-36 lg:px-16">
-                    <div className="grid gap-12 lg:grid-cols-12 lg:items-end">
+                <div className="relative z-10 flex min-h-[min(92svh,52rem)] items-end md:min-h-[88svh]">
+                  <div className="w-full px-5 pb-12 pt-24 sm:px-7 sm:pb-14 sm:pt-28 md:px-12 md:pb-20 md:pt-36 lg:px-16">
+                    <div className="grid gap-8 sm:gap-10 lg:grid-cols-12 lg:items-end lg:gap-12">
                       <motion.div
                         className="lg:col-span-7"
                         initial={reduceMotion ? false : { opacity: 0, y: 20 }}
@@ -87,13 +87,13 @@ export function VillaShowcase() {
                         <p className="text-[0.68rem] uppercase tracking-[0.32em] text-sand-beige">
                           {String(active + 1).padStart(2, "0")} — {chalet.chakra}
                         </p>
-                        <h3 className="mt-5 font-serif text-[clamp(3rem,8vw,6rem)] leading-[0.92] text-warm-white">
+                        <h3 className="mt-4 font-serif text-[clamp(2.5rem,9vw,6rem)] leading-[0.94] text-warm-white sm:mt-5 sm:leading-[0.92]">
                           {chalet.name}
                         </h3>
-                        <p className="mt-6 max-w-lg font-serif text-xl italic leading-relaxed text-sand-beige/90 md:text-2xl">
+                        <p className="mt-5 max-w-lg font-serif text-lg italic leading-relaxed text-sand-beige/90 sm:mt-6 sm:text-xl md:text-2xl">
                           {chalet.meaning}
                         </p>
-                        <p className="mt-7 max-w-md text-sm font-light leading-relaxed text-warm-white/72 md:text-base">
+                        <p className="mt-5 max-w-md text-sm font-light leading-relaxed text-warm-white/72 sm:mt-7 md:text-base">
                           {chalet.description}
                         </p>
                       </motion.div>
@@ -107,7 +107,7 @@ export function VillaShowcase() {
                         <p className="text-[0.65rem] uppercase tracking-[0.28em] text-sand-beige/70">
                           {chalet.accent}
                         </p>
-                        <ul className="mt-7 grid gap-3 border-t border-white/15 pt-7 sm:grid-cols-2">
+                        <ul className="mt-5 grid gap-3 border-t border-white/15 pt-5 sm:mt-7 sm:grid-cols-2 sm:pt-7">
                           {chalet.features.map((feature) => (
                             <li
                               key={feature}
@@ -118,11 +118,11 @@ export function VillaShowcase() {
                             </li>
                           ))}
                         </ul>
-                        <div className="mt-11 flex flex-wrap items-end justify-between gap-6">
+                        <div className="mt-8 flex flex-col gap-5 sm:mt-11 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between sm:gap-6">
                           <p className="max-w-xs font-serif text-xl text-warm-white md:text-2xl">
                             {chalet.capacity}
                           </p>
-                          <ScrollTo to="booking" className="btn-secondary">
+                          <ScrollTo to="booking" className="btn-secondary w-full !min-h-12 sm:w-auto">
                             Enquire Today
                           </ScrollTo>
                         </div>

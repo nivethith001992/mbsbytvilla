@@ -81,8 +81,8 @@ export function Booking() {
       />
 
       <div className="container-lux relative">
-        <div className="grid items-start gap-12 md:grid-cols-2 md:gap-10 lg:gap-16 xl:gap-20">
-          <Reveal variant="clip" y={44} className="md:sticky md:top-28 md:pt-2">
+        <div className="grid items-start gap-10 sm:gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
+          <Reveal variant="clip" y={44} className="lg:sticky lg:top-28 lg:pt-2">
             <p className="eyebrow">{bookingIntro.eyebrow}</p>
             <h2 className="display-lg mt-6 text-deep-charcoal">
               <span className="block">{bookingIntro.title[0]}</span>
@@ -108,7 +108,7 @@ export function Booking() {
                 </p>
                 <button
                   type="button"
-                  className="btn-primary mt-10"
+                  className="btn-primary mt-10 w-full sm:w-auto"
                   onClick={() => setStatus("idle")}
                 >
                   Send another enquiry
@@ -121,7 +121,7 @@ export function Booking() {
                 className="form-shell"
                 noValidate
               >
-                <div className="grid gap-7 sm:grid-cols-2">
+                <div className="grid gap-6 sm:grid-cols-2 sm:gap-7">
                   <label className="block">
                     <span className="field-label">Name</span>
                     <input
@@ -186,8 +186,8 @@ export function Booking() {
                   </label>
                 </div>
 
-                <div className="mt-10 flex flex-wrap items-center gap-5">
-                  <button type="submit" className="btn-primary">
+                <div className="mt-8 flex flex-col gap-4 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center sm:gap-5">
+                  <button type="submit" className="btn-primary w-full sm:w-auto">
                     {bookingIntro.cta}
                   </button>
                   <p className="max-w-xs text-sm font-light text-soft-grey">

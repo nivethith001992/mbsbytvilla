@@ -242,7 +242,7 @@ export function Navbar() {
                 />
 
                 <nav
-                  className="relative flex min-h-full flex-col px-[max(1.25rem,calc((100%-1180px)/2))] pb-10 pt-[5.75rem]"
+                  className="relative flex min-h-full flex-col px-[max(1rem,calc((100%-1180px)/2))] pb-[max(2.5rem,env(safe-area-inset-bottom))] pt-[calc(5.75rem+env(safe-area-inset-top,0px))] sm:px-[max(1.25rem,calc((100%-1180px)/2))]"
                   aria-label="Mobile"
                 >
                   <div className="flex flex-1 flex-col justify-center gap-1">
@@ -325,7 +325,7 @@ export function Navbar() {
   return (
     <header
       ref={headerRef}
-      className={`fixed inset-x-0 top-0 transition-[background-color,border-color,box-shadow] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+      className={`fixed inset-x-0 top-0 pt-[env(safe-area-inset-top,0px)] transition-[background-color,border-color,box-shadow] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
         open ? "z-[90]" : "z-[60]"
       } ${
         solid
@@ -333,10 +333,10 @@ export function Navbar() {
           : "border-b border-transparent bg-transparent shadow-none"
       }`}
     >
-      <div className="container-lux relative z-[70] flex h-[4.5rem] items-center justify-between md:h-[5rem]">
+      <div className="container-lux relative z-[70] flex h-[4.5rem] items-center justify-between gap-3 md:h-[5rem]">
         <ScrollTo
           to="top"
-          className={`font-serif text-[1.35rem] tracking-[0.01em] transition-colors duration-[400ms] md:text-[1.55rem] ${
+          className={`min-w-0 shrink font-serif text-[1.2rem] tracking-[0.01em] transition-colors duration-[400ms] sm:text-[1.35rem] md:text-[1.55rem] ${
             solid
               ? "text-deep-charcoal"
               : "text-warm-white [text-shadow:0_1px_18px_rgba(41,41,41,0.35)]"
@@ -347,7 +347,7 @@ export function Navbar() {
         </ScrollTo>
 
         <nav
-          className="hidden items-center gap-7 lg:flex xl:gap-9"
+          className="hidden items-center gap-6 lg:flex xl:gap-9"
           aria-label="Primary"
         >
           {navLinks.map((link) => (
@@ -369,37 +369,48 @@ export function Navbar() {
           </ScrollTo>
         </nav>
 
-        <button
-          type="button"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          aria-controls={menuId}
-          className={`relative z-[90] flex h-11 w-11 items-center justify-center rounded-[0.85rem] transition-colors duration-300 lg:hidden ${
-            open || solid
-              ? "text-deep-charcoal hover:bg-surface/80"
-              : "text-warm-white hover:bg-white/10"
-          }`}
-          onClick={() => setMenuOpen(!open)}
-        >
-          <span className="sr-only">Menu</span>
-          <span className="flex w-[1.35rem] flex-col items-center gap-[6px]">
-            <span
-              className={`h-px w-full origin-center bg-current transition-transform duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                open ? "translate-y-[7px] rotate-45" : ""
-              }`}
-            />
-            <span
-              className={`h-px w-full bg-current transition-opacity duration-300 ${
-                open ? "opacity-0" : ""
-              }`}
-            />
-            <span
-              className={`h-px w-full origin-center bg-current transition-transform duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                open ? "-translate-y-[7px] -rotate-45" : ""
-              }`}
-            />
-          </span>
-        </button>
+        <div className="flex items-center gap-2 lg:hidden">
+          <ScrollTo
+            to="booking"
+            onNavigate={closeMenu}
+            className={`nav-book !ml-0 !min-h-11 !px-3.5 sm:!px-4 ${
+              solid ? "nav-book--solid" : "nav-book--ghost"
+            }${bookingActive ? " nav-book--active" : ""}`}
+          >
+            Enquire
+          </ScrollTo>
+          <button
+            type="button"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls={menuId}
+            className={`relative z-[90] flex h-11 w-11 shrink-0 items-center justify-center rounded-[0.85rem] transition-colors duration-300 ${
+              open || solid
+                ? "text-deep-charcoal hover:bg-surface/80"
+                : "text-warm-white hover:bg-white/10"
+            }`}
+            onClick={() => setMenuOpen(!open)}
+          >
+            <span className="sr-only">Menu</span>
+            <span className="flex w-[1.35rem] flex-col items-center gap-[6px]">
+              <span
+                className={`h-px w-full origin-center bg-current transition-transform duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  open ? "translate-y-[7px] rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`h-px w-full bg-current transition-opacity duration-300 ${
+                  open ? "opacity-0" : ""
+                }`}
+              />
+              <span
+                className={`h-px w-full origin-center bg-current transition-transform duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  open ? "-translate-y-[7px] -rotate-45" : ""
+                }`}
+              />
+            </span>
+          </button>
+        </div>
       </div>
 
       {mobileMenu}

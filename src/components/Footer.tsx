@@ -22,13 +22,13 @@ export function Footer() {
         }}
       />
 
-      <div className="container-lux relative py-14 md:py-16">
+      <div className="container-lux relative py-12 pb-[max(3rem,env(safe-area-inset-bottom))] md:py-16">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:items-start lg:gap-8">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-3">
             <ScrollTo
               to="top"
-              className="font-serif text-[1.85rem] leading-none tracking-[-0.02em] text-warm-white transition hover:text-sand-beige md:text-[2.1rem]"
+              className="font-serif text-[1.65rem] leading-none tracking-[-0.02em] text-warm-white transition hover:text-sand-beige sm:text-[1.85rem] md:text-[2.1rem]"
             >
               {brand.name}
             </ScrollTo>
@@ -56,7 +56,7 @@ export function Footer() {
               href={brand.mapsUrl}
               target="_blank"
               rel="noreferrer"
-              className="mt-3 inline-block text-[0.78rem] font-light text-warm-white/50 transition hover:text-sand-beige"
+              className="mt-3 inline-flex min-h-11 items-center text-[0.78rem] font-light text-warm-white/50 transition hover:text-sand-beige"
             >
               Open in Google Maps
             </a>
@@ -67,12 +67,12 @@ export function Footer() {
             <p className="text-[0.64rem] font-medium uppercase tracking-[0.26em] text-sand-beige/85">
               Explore
             </p>
-            <ul className="mt-4 flex flex-col gap-2.5">
+            <ul className="mt-3 flex flex-col gap-0.5 sm:mt-4 sm:gap-1">
               {footerLinks.map((link) => (
                 <li key={link.id}>
                   <ScrollTo
                     to={link.id}
-                    className="text-[0.92rem] font-light text-warm-white/65 transition hover:text-warm-white"
+                    className="inline-flex min-h-11 items-center text-[0.92rem] font-light text-warm-white/65 transition hover:text-warm-white"
                   >
                     {link.label}
                   </ScrollTo>
@@ -92,7 +92,7 @@ export function Footer() {
               {brand.address.city}, {brand.address.country}
             </p>
 
-            <ul className="mt-5 space-y-2">
+            <ul className="mt-5 space-y-3">
               {brand.phones.map((phone) => (
                 <li key={phone.number} className="flex flex-col gap-0.5">
                   <span className="text-[0.78rem] font-light text-warm-white/45">
@@ -111,7 +111,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-2 border-t border-white/10 pt-6 text-[0.72rem] font-light text-warm-white/40 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+        <div className="mt-10 flex flex-col gap-2 border-t border-white/10 pt-6 text-[0.72rem] font-light text-warm-white/40 sm:mt-12 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
           <p suppressHydrationWarning>
             © {year} {brand.legalName}
           </p>

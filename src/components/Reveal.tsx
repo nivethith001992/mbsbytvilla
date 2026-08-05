@@ -43,9 +43,9 @@ function initialFor(
     case "down":
       return { opacity: o, y: -Math.min(y, 28) };
     case "left":
-      return { opacity: o, x: -20, y: 4 };
+      return { opacity: o, x: -12, y: 4 };
     case "right":
-      return { opacity: o, x: 20, y: 4 };
+      return { opacity: o, x: 12, y: 4 };
     case "scale":
       return { opacity: o, scale: 0.98, y: Math.min(y, 24) * 0.4 };
     case "blur":

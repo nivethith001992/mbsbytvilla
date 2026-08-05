@@ -100,50 +100,50 @@ export function Journey() {
         </Reveal>
       </div>
 
-      <div
-        ref={pinRef}
-        className="journey-pin relative mt-12 w-full lg:mt-10 lg:h-[100svh] lg:overflow-hidden"
-      >
         <div
-          ref={trackRef}
-          className="journey-track flex w-full flex-col gap-8 px-[max(1.25rem,calc((100%-1180px)/2))] pb-24 lg:h-full lg:w-max lg:flex-row lg:items-center lg:gap-7 lg:px-0 lg:pb-0 lg:pl-[max(1.25rem,calc((100%-1180px)/2))] lg:pr-[12vw]"
+          ref={pinRef}
+          className="journey-pin relative mt-10 w-full overflow-x-clip md:mt-12 lg:mt-10 lg:h-[100svh] lg:overflow-hidden"
         >
-          {journeySteps.map((step) => (
-            <article
-              key={step.id}
-              className="journey-panel relative w-full shrink-0 lg:h-[min(78svh,720px)] lg:w-[min(78vw,980px)]"
-            >
-              <div className="journey-frame relative h-[56vh] overflow-hidden bg-surface-deep lg:h-full">
-                <div className="absolute inset-0">
-                  <LuxImage
-                    src={step.image}
-                    alt={step.imageAlt}
-                    fill
-                    loading="eager"
-                    sizes="(max-width: 1024px) 100vw, 78vw"
-                    quality={70}
-                    className="object-cover"
-                  />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-deep-charcoal/78 via-deep-charcoal/28 to-transparent" />
-                <div className="grain" />
+          <div
+            ref={trackRef}
+            className="journey-track flex w-full flex-col gap-6 px-[max(1rem,calc((100%-1180px)/2))] pb-20 sm:gap-8 sm:px-[max(1.25rem,calc((100%-1180px)/2))] sm:pb-24 lg:h-full lg:w-max lg:flex-row lg:items-center lg:gap-7 lg:px-0 lg:pb-0 lg:pl-[max(1.25rem,calc((100%-1180px)/2))] lg:pr-[12vw]"
+          >
+            {journeySteps.map((step) => (
+              <article
+                key={step.id}
+                className="journey-panel relative w-full shrink-0 lg:h-[min(78svh,720px)] lg:w-[min(78vw,980px)]"
+              >
+                <div className="journey-frame relative min-h-[22rem] overflow-hidden bg-surface-deep sm:min-h-[26rem] md:min-h-[32rem] lg:h-full lg:min-h-0">
+                  <div className="absolute inset-0">
+                    <LuxImage
+                      src={step.image}
+                      alt={step.imageAlt}
+                      fill
+                      loading="eager"
+                      sizes="(max-width: 1024px) 100vw, 78vw"
+                      quality={70}
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-deep-charcoal/78 via-deep-charcoal/28 to-transparent" />
+                  <div className="grain" />
 
-                <div className="absolute inset-x-0 bottom-0 p-8 md:p-12 lg:p-14">
-                  <p className="text-[0.68rem] uppercase tracking-[0.35em] text-sand-beige">
-                    {step.step}
-                  </p>
-                  <h3 className="mt-4 font-serif text-4xl text-warm-white md:text-5xl lg:text-6xl">
-                    {step.title}
-                  </h3>
-                  <p className="mt-5 max-w-md text-sm font-light leading-relaxed text-warm-white/75 md:text-base">
-                    {step.description}
-                  </p>
+                  <div className="absolute inset-x-0 bottom-0 p-5 sm:p-8 md:p-12 lg:p-14">
+                    <p className="text-[0.68rem] uppercase tracking-[0.35em] text-sand-beige">
+                      {step.step}
+                    </p>
+                    <h3 className="mt-3 font-serif text-[clamp(1.85rem,6vw,3.75rem)] text-warm-white sm:mt-4 md:text-5xl lg:text-6xl">
+                      {step.title}
+                    </h3>
+                    <p className="mt-3 max-w-md text-sm font-light leading-relaxed text-warm-white/75 sm:mt-5 md:text-base">
+                      {step.description}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            ))}
+          </div>
         </div>
-      </div>
     </section>
   );
 }

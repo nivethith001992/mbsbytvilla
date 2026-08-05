@@ -80,7 +80,7 @@ export function Story() {
           <div className="relative z-10 lg:col-span-5 lg:pt-16 xl:pt-24">
             <motion.div
               style={{ y: floatY }}
-              className="image-reveal relative mb-12 aspect-[4/5] w-[80%] overflow-hidden border-[12px] border-warm-white bg-surface-deep shadow-[0_20px_48px_rgba(41,41,41,0.1)] md:w-[72%] lg:absolute lg:-left-[16%] lg:top-8 lg:mb-0 lg:w-[56%] xl:-left-[20%]"
+              className="image-reveal relative mb-10 aspect-[4/5] w-[min(85%,20rem)] overflow-hidden border-[8px] border-warm-white bg-surface-deep shadow-[0_20px_48px_rgba(41,41,41,0.1)] sm:mb-12 sm:w-[80%] sm:border-[12px] md:w-[72%] lg:absolute lg:-left-[16%] lg:top-8 lg:mb-0 lg:w-[56%] xl:-left-[20%]"
             >
               <div className="absolute inset-0">
                 <LuxImage
@@ -131,7 +131,7 @@ export function Story() {
           <Reveal
             delay={0.1}
             variant="up"
-            className="panel-lux relative p-9 md:col-span-7 md:p-12 lg:p-14"
+            className="panel-lux relative p-6 sm:p-9 md:col-span-7 md:p-12 lg:p-14"
           >
             <div className="grain opacity-[0.06]" />
             <p className="eyebrow eyebrow-light">{about.philosophy.eyebrow}</p>

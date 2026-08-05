@@ -157,8 +157,8 @@ export function Gallery() {
                     preloadMargin={1200}
                     className="object-cover transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
                   />
-                  <span className="absolute inset-0 bg-deep-charcoal/0 transition duration-500 group-hover:bg-deep-charcoal/28" />
-                  <span className="absolute inset-x-0 bottom-0 translate-y-3 p-6 opacity-0 transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0 group-hover:opacity-100">
+                  <span className="gallery-caption-veil absolute inset-0 bg-deep-charcoal/0 transition duration-500 group-hover:bg-deep-charcoal/28" />
+                  <span className="gallery-caption absolute inset-x-0 bottom-0 translate-y-3 p-5 opacity-0 transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0 group-hover:opacity-100 sm:p-6">
                     <span className="block font-serif text-xl text-warm-white md:text-2xl">
                       {item.caption}
                     </span>
@@ -177,7 +177,7 @@ export function Gallery() {
         {active !== null ? (
           <motion.div
             id="gallery-lightbox"
-            className="fixed inset-0 z-[80] flex items-center justify-center bg-deep-charcoal/96 p-5"
+            className="fixed inset-0 z-[80] flex items-center justify-center bg-deep-charcoal/96 p-3 sm:p-5"
             initial={reduceMotion ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -190,7 +190,7 @@ export function Gallery() {
             <button
               ref={closeRef}
               type="button"
-              className="absolute right-5 top-5 z-10 rounded-full px-4 py-2 text-[0.68rem] uppercase tracking-[0.24em] text-warm-white/80 transition hover:bg-white/10 hover:text-warm-white"
+              className="absolute right-3 top-[max(0.75rem,env(safe-area-inset-top))] z-10 min-h-11 min-w-11 rounded-full px-4 py-2 text-[0.68rem] uppercase tracking-[0.24em] text-warm-white/80 transition hover:bg-white/10 hover:text-warm-white sm:right-5 sm:top-5"
               onClick={() => setActive(null)}
             >
               Close
@@ -198,7 +198,7 @@ export function Gallery() {
 
             <button
               type="button"
-              className="absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full px-4 py-8 text-warm-white/65 transition hover:bg-white/10 hover:text-warm-white md:left-6"
+              className="absolute left-1 top-1/2 z-10 flex min-h-12 min-w-11 -translate-y-1/2 items-center justify-center rounded-full px-3 py-6 text-warm-white/65 transition hover:bg-white/10 hover:text-warm-white sm:left-2 sm:px-4 sm:py-8 md:left-6"
               aria-label="Previous image"
               onClick={(event) => {
                 event.stopPropagation();
@@ -214,10 +214,10 @@ export function Gallery() {
               key={active}
               initial={false}
               animate={{ opacity: 1 }}
-              className="relative flex w-full max-w-5xl flex-col items-center"
+              className="relative flex w-full max-w-5xl flex-col items-center px-8 sm:px-12"
               onClick={(event) => event.stopPropagation()}
             >
-              <div className="relative h-[62vh] w-full overflow-hidden rounded-[1.75rem] bg-deep-charcoal md:h-[72vh] md:rounded-[2.25rem]">
+              <div className="relative h-[min(58svh,28rem)] w-full overflow-hidden rounded-[1.25rem] bg-deep-charcoal sm:h-[62vh] sm:rounded-[1.75rem] md:h-[72vh] md:rounded-[2.25rem]">
                 <LuxImage
                   src={gallery[active].src}
                   alt={gallery[active].alt}
@@ -231,7 +231,7 @@ export function Gallery() {
               </div>
               <p
                 id={titleId}
-                className="mt-6 text-center font-serif text-2xl text-warm-white md:text-3xl"
+                className="mt-4 px-2 text-center font-serif text-xl text-warm-white sm:mt-6 sm:text-2xl md:text-3xl"
               >
                 {gallery[active].caption}
               </p>
@@ -242,7 +242,7 @@ export function Gallery() {
 
             <button
               type="button"
-              className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full px-4 py-8 text-warm-white/65 transition hover:bg-white/10 hover:text-warm-white md:right-6"
+              className="absolute right-1 top-1/2 z-10 flex min-h-12 min-w-11 -translate-y-1/2 items-center justify-center rounded-full px-3 py-6 text-warm-white/65 transition hover:bg-white/10 hover:text-warm-white sm:right-2 sm:px-4 sm:py-8 md:right-6"
               aria-label="Next image"
               onClick={(event) => {
                 event.stopPropagation();

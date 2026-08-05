@@ -122,11 +122,11 @@ export function Hero() {
 
       <motion.div
         style={{ y: textY, opacity: textOpacity }}
-        className="relative z-10 container-lux w-full pb-28 pt-36 md:pb-40 md:pt-48"
+        className="relative z-10 container-lux w-full pb-[max(6.5rem,calc(5.5rem+env(safe-area-inset-bottom,0px)))] pt-[calc(7.5rem+env(safe-area-inset-top,0px))] sm:pb-28 md:pb-40 md:pt-48"
       >
         <div className="max-w-5xl">
           <motion.p
-            className="overflow-hidden text-[0.68rem] uppercase tracking-[0.42em] text-sand-beige/85"
+            className="overflow-hidden text-[0.62rem] uppercase tracking-[0.36em] text-sand-beige/85 sm:text-[0.68rem] sm:tracking-[0.42em]"
             initial={false}
             animate={
               entered || reduceMotion
@@ -138,7 +138,7 @@ export function Hero() {
             {heroEyebrow}
           </motion.p>
 
-          <h1 className="display-hero mt-6 text-warm-white">
+          <h1 className="display-hero mt-5 text-warm-white sm:mt-6">
             {brandWords.map((word, index) => (
               <span
                 key={`${word}-${index}`}
@@ -165,7 +165,7 @@ export function Hero() {
             ))}
           </h1>
 
-          <p className="mt-9 max-w-xl font-serif text-[1.7rem] font-light leading-[1.28] tracking-wide text-warm-white/95 md:mt-11 md:text-[2.15rem] lg:text-[2.4rem]">
+          <p className="mt-7 max-w-xl font-serif text-[1.45rem] font-light leading-[1.3] tracking-wide text-warm-white/95 sm:mt-9 sm:text-[1.7rem] sm:leading-[1.28] md:mt-11 md:text-[2.15rem] lg:text-[2.4rem]">
             {headlineWords.map((word, index) => (
               <motion.span
                 key={`${word}-${index}`}
@@ -188,7 +188,7 @@ export function Hero() {
           </p>
 
           <motion.p
-            className="mt-5 max-w-md text-sm font-light leading-relaxed text-warm-white/70 md:mt-6 md:text-base"
+            className="mt-4 max-w-md text-sm font-light leading-relaxed text-warm-white/70 sm:mt-5 md:mt-6 md:text-base"
             initial={false}
             animate={
               entered || reduceMotion
@@ -205,7 +205,7 @@ export function Hero() {
           </motion.p>
 
           <motion.div
-            className="mt-11 flex flex-wrap items-center gap-3.5 md:mt-12 md:gap-4"
+            className="mt-9 flex flex-wrap items-center gap-3 sm:mt-11 sm:gap-3.5 md:mt-12 md:gap-4"
             initial={false}
             animate={
               entered || reduceMotion
@@ -220,7 +220,7 @@ export function Hero() {
           >
             <ScrollTo
               to={heroCtas[0].to}
-              className="btn-primary !border-warm-white !bg-warm-white !text-deep-charcoal !shadow-[0_14px_36px_rgba(41,41,41,0.22)]"
+              className="btn-primary w-full !min-h-12 !border-warm-white !bg-warm-white !text-deep-charcoal !shadow-[0_14px_36px_rgba(41,41,41,0.22)] sm:w-auto"
             >
               {heroCtas[0].label}
             </ScrollTo>
@@ -230,7 +230,7 @@ export function Hero() {
 
       <ScrollTo
         to="about"
-        className="scroll-cue absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-warm-white/60 transition hover:text-warm-white"
+        className="scroll-cue absolute bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-1/2 z-10 hidden -translate-x-1/2 text-warm-white/60 transition hover:text-warm-white sm:bottom-8 sm:flex"
         aria-label="Scroll to about"
       >
         <motion.span
