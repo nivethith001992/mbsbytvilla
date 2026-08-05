@@ -40,7 +40,7 @@ export function Location() {
             fill
             loading="eager"
             sizes="100vw"
-            quality={75}
+            quality={70}
             className="object-cover"
           />
         </motion.div>

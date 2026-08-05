@@ -20,18 +20,21 @@ export function LuxImage({
   src,
   alt,
   lqip = false,
-  quality = 75,
+  quality = 70,
   placeholder,
   blurDataURL,
   decoding = "async",
   loading,
   priority,
-  preloadMargin = 900,
+  preload,
+  preloadMargin = 1100,
   sizes,
   ...rest
 }: LuxImageProps) {
   const anchorRef = useRef<HTMLSpanElement>(null);
-  const forceEager = Boolean(priority) || loading === "eager";
+  // Next 16: `priority` is deprecated in favor of `preload`.
+  const shouldPreload = Boolean(preload ?? priority);
+  const forceEager = shouldPreload || loading === "eager";
   const [ready, setReady] = useState(forceEager);
 
   useEffect(() => {
@@ -83,9 +86,9 @@ export function LuxImage({
       alt={alt}
       quality={quality}
       decoding={decoding}
-      priority={priority}
+      preload={shouldPreload || undefined}
       sizes={sizes}
-      loading={priority ? undefined : loading ?? "eager"}
+      loading={shouldPreload ? undefined : (loading ?? "eager")}
       placeholder={useBlur ? "blur" : (placeholder ?? "empty")}
       blurDataURL={useBlur ? blurDataURL : undefined}
       {...rest}

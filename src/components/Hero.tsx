@@ -91,10 +91,10 @@ export function Hero() {
               src={heroImage}
               alt={heroImageAlt}
               fill
-              priority
+              loading="eager"
               fetchPriority="high"
               sizes="100vw"
-              quality={75}
+              quality={70}
               decoding="sync"
               className="object-cover object-center"
             />
@@ -115,9 +115,9 @@ export function Hero() {
       <motion.div
         aria-hidden
         className="pointer-events-none absolute inset-0 z-[5] bg-deep-charcoal"
-        initial={{ opacity: 0.35 }}
-        animate={entered || reduceMotion ? { opacity: 0 } : { opacity: 0.35 }}
-        transition={{ duration: reduceMotion ? 0.15 : 0.45, ease }}
+        initial={{ opacity: 0.18 }}
+        animate={entered || reduceMotion ? { opacity: 0 } : { opacity: 0.18 }}
+        transition={{ duration: reduceMotion ? 0.1 : 0.28, ease }}
       />
 
       <motion.div

@@ -67,10 +67,10 @@ export function Story() {
                   src={about.image}
                   alt={about.imageAlt}
                   fill
-                  priority
+                  loading="eager"
                   fetchPriority="high"
                   sizes="(max-width: 1024px) 100vw, 58vw"
-                  quality={75}
+                  quality={70}
                   className="object-cover"
                 />
               </motion.div>
@@ -87,10 +87,10 @@ export function Story() {
                   src={about.secondaryImage}
                   alt={about.secondaryImageAlt}
                   fill
-                  priority
+                  loading="eager"
                   fetchPriority="high"
                   sizes="(max-width: 1024px) 70vw, 28vw"
-                  quality={75}
+                  quality={70}
                   className="object-cover"
                 />
               </div>
@@ -123,7 +123,7 @@ export function Story() {
                 fill
                 loading="eager"
                 sizes="(max-width: 768px) 100vw, 40vw"
-                quality={75}
+                quality={70}
                 className="object-cover"
               />
             </div>

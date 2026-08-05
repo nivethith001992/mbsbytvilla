@@ -148,13 +148,13 @@ export function Gallery() {
                   }`}
                 >
                   <LuxImage
-                    src={item.src}
+                    src={item.thumb}
                     alt={item.alt}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw"
-                    quality={75}
-                    loading={index < 6 ? "eager" : undefined}
-                    preloadMargin={1000}
+                    quality={70}
+                    loading={index < 8 ? "eager" : undefined}
+                    preloadMargin={1200}
                     className="object-cover transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
                   />
                   <span className="absolute inset-0 bg-deep-charcoal/0 transition duration-500 group-hover:bg-deep-charcoal/28" />
@@ -212,10 +212,8 @@ export function Gallery() {
 
             <motion.div
               key={active}
-              initial={reduceMotion ? false : { opacity: 0.01 }}
+              initial={false}
               animate={{ opacity: 1 }}
-              exit={reduceMotion ? undefined : { opacity: 0 }}
-              transition={{ duration: 0.15, ease: [0.22, 1, 0.36, 1] }}
               className="relative flex w-full max-w-5xl flex-col items-center"
               onClick={(event) => event.stopPropagation()}
             >
@@ -225,8 +223,8 @@ export function Gallery() {
                   alt={gallery[active].alt}
                   fill
                   sizes="(max-width: 1024px) 100vw, 1024px"
-                  quality={75}
-                  priority
+                  quality={70}
+                  loading="eager"
                   fetchPriority="high"
                   className="object-contain"
                 />

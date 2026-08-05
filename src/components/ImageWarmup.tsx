@@ -6,6 +6,7 @@ import {
   accommodations,
   careSpaces,
   gallery,
+  journeySteps,
   wellness,
 } from "@/lib/content";
 
@@ -18,9 +19,8 @@ const WARM_URLS = [
   careSpaces[0]?.image,
   careSpaces[1]?.image,
   wellness.image,
-  gallery[0]?.src,
-  gallery[1]?.src,
-  gallery[2]?.src,
+  ...journeySteps.slice(0, 2).map((s) => s.image),
+  ...gallery.slice(0, 6).map((g) => g.thumb),
 ].filter(Boolean) as string[];
 
 /**
@@ -34,24 +34,31 @@ export function ImageWarmup() {
         const existing = document.head.querySelector(
           `link[data-lux-warmup][href="${href}"]`,
         );
-        if (existing) continue;
-        const link = document.createElement("link");
-        link.rel = "preload";
-        link.as = "image";
-        link.href = href;
-        link.type = "image/avif";
-        link.setAttribute("data-lux-warmup", "1");
-        document.head.appendChild(link);
+        if (!existing) {
+          const link = document.createElement("link");
+          link.rel = "preload";
+          link.as = "image";
+          link.href = href;
+          link.type = "image/avif";
+          link.setAttribute("data-lux-warmup", "1");
+          document.head.appendChild(link);
+        }
+
+        // Force decode into memory so scroll feels instant
+        const img = new window.Image();
+        img.decoding = "async";
+        img.src = href;
+        void img.decode?.().catch(() => {});
       }
     };
 
     const ric = window.requestIdleCallback?.bind(window);
     if (ric) {
-      const id = ric(warm, { timeout: 1200 });
+      const id = ric(warm, { timeout: 800 });
       return () => window.cancelIdleCallback?.(id);
     }
 
-    const timer = window.setTimeout(warm, 280);
+    const timer = window.setTimeout(warm, 180);
     return () => window.clearTimeout(timer);
   }, []);
 

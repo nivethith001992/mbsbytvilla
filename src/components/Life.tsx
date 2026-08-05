@@ -44,7 +44,7 @@ export function Life() {
                 fill
                 loading="eager"
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                quality={75}
+                quality={70}
                 className="object-cover"
               />
             </div>

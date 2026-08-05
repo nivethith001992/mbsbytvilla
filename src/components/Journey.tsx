@@ -119,7 +119,7 @@ export function Journey() {
                     fill
                     loading="eager"
                     sizes="(max-width: 1024px) 100vw, 78vw"
-                    quality={75}
+                    quality={70}
                     className="object-cover"
                   />
                 </div>

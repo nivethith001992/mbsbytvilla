@@ -54,11 +54,10 @@ export function VillaShowcase() {
                 src={chalet.image}
                 alt={chalet.imageAlt}
                 fill
-                priority={active === 0}
                 fetchPriority={active === 0 ? "high" : "auto"}
                 loading="eager"
                 sizes="100vw"
-                quality={75}
+                quality={70}
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-deep-charcoal/82 via-deep-charcoal/48 to-deep-charcoal/22" />
