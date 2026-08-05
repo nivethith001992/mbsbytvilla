@@ -20,7 +20,7 @@ export function LuxImage({
   src,
   alt,
   lqip = false,
-  quality = 70,
+  quality = 75,
   placeholder,
   blurDataURL,
   decoding = "async",

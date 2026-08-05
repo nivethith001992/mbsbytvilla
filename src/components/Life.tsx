@@ -37,15 +37,16 @@ export function Life() {
             y={20}
             fade={false}
           >
-            <div className="image-reveal relative aspect-[4/5] overflow-hidden bg-surface-deep md:aspect-[5/6] md:min-h-[28rem] lg:min-h-0">
+            <div className="image-reveal relative aspect-[5/4] overflow-hidden bg-surface-deep sm:aspect-[4/5] md:aspect-[5/6] md:min-h-[28rem] lg:min-h-0">
               <LuxImage
                 src={wellness.image}
                 alt={wellness.imageAlt}
                 fill
                 loading="eager"
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 42vw, 50vw"
-                quality={70}
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 42vw, 50vw"
+                quality={75}
                 className="object-cover"
+                style={{ objectPosition: wellness.objectPosition }}
               />
             </div>
           </Reveal>

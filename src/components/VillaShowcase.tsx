@@ -46,7 +46,7 @@ export function VillaShowcase() {
 
       <div className="relative px-[max(1rem,calc((100%-1180px)/2))] pb-14 sm:px-[max(1.25rem,calc((100%-1180px)/2))] md:pb-24">
         <Reveal variant="up" y={16} duration={0.5} fade={false}>
-          <div className="media-frame relative min-h-[min(92svh,52rem)] overflow-hidden bg-surface-deep shadow-[0_18px_48px_rgba(41,41,41,0.06)] md:min-h-[88svh] md:!rounded-[2.6rem]">
+          <div className="media-frame relative min-h-[min(68svh,34rem)] overflow-hidden bg-surface-deep shadow-[0_18px_48px_rgba(41,41,41,0.06)] sm:min-h-[min(78svh,42rem)] md:min-h-[88svh] md:!rounded-[2.6rem]">
             {/* Image layer stays opaque — only copy animates on tab change */}
             <div className="absolute inset-0">
               <LuxImage
@@ -56,9 +56,10 @@ export function VillaShowcase() {
                 fill
                 fetchPriority={active === 0 ? "high" : "auto"}
                 loading="eager"
-                sizes="100vw"
-                quality={70}
+                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 100vw, 1180px"
+                quality={75}
                 className="object-cover"
+                style={{ objectPosition: chalet.objectPosition }}
               />
               <div className="absolute inset-0 bg-gradient-to-r from-deep-charcoal/82 via-deep-charcoal/48 to-deep-charcoal/22" />
               <div className="absolute inset-0 bg-gradient-to-t from-deep-charcoal/72 via-transparent to-deep-charcoal/25" />
@@ -73,9 +74,9 @@ export function VillaShowcase() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
                 transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                className="relative min-h-[min(92svh,52rem)] md:min-h-[88svh]"
+                className="relative min-h-[min(68svh,34rem)] sm:min-h-[min(78svh,42rem)] md:min-h-[88svh]"
               >
-                <div className="relative z-10 flex min-h-[min(92svh,52rem)] items-end md:min-h-[88svh]">
+                <div className="relative z-10 flex min-h-[min(68svh,34rem)] items-end sm:min-h-[min(78svh,42rem)] md:min-h-[88svh]">
                   <div className="w-full px-5 pb-12 pt-24 sm:px-7 sm:pb-14 sm:pt-28 md:px-12 md:pb-20 md:pt-36 lg:px-16">
                     <div className="grid gap-8 sm:gap-10 lg:grid-cols-12 lg:items-end lg:gap-12">
                       <motion.div

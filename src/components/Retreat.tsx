@@ -37,9 +37,9 @@ function CareRow({
   const imageRight = index % 2 === 0;
   const aspectClass =
     index % 3 === 0
-      ? "aspect-[16/10]"
+      ? "aspect-[16/11] sm:aspect-[16/10]"
       : index % 3 === 1
-        ? "aspect-[5/4]"
+        ? "aspect-[4/3] sm:aspect-[5/4]"
         : "aspect-[16/11]";
   const maskClass = imageRight ? "image-mask-soft" : "image-mask-soft-flip";
 
@@ -58,16 +58,20 @@ function CareRow({
         <div
           className={`image-reveal relative overflow-hidden bg-deep-charcoal/40 ${aspectClass} ${maskClass}`}
         >
-          <motion.div style={{ y: imageY }} className="absolute inset-[-6%]">
+          <motion.div
+            style={{ y: imageY }}
+            className="absolute inset-[-3%] sm:inset-[-5%] md:inset-[-6%]"
+          >
             <LuxImage
               src={space.image}
               alt={space.imageAlt}
               fill
               loading="eager"
               fetchPriority={index === 0 ? "high" : "auto"}
-              sizes="(max-width: 1024px) 100vw, 58vw"
-              quality={70}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 92vw, 58vw"
+              quality={75}
               className="object-cover"
+              style={{ objectPosition: space.objectPosition }}
             />
           </motion.div>
           <div className="absolute inset-0 bg-gradient-to-t from-deep-charcoal/35 via-transparent to-transparent" />

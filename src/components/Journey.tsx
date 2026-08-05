@@ -113,16 +113,17 @@ export function Journey() {
                 key={step.id}
                 className="journey-panel relative w-full shrink-0 lg:h-[min(78svh,720px)] lg:w-[min(78vw,980px)]"
               >
-                <div className="journey-frame relative min-h-[22rem] overflow-hidden bg-surface-deep sm:min-h-[26rem] md:min-h-[32rem] lg:h-full lg:min-h-0">
+                <div className="journey-frame relative min-h-[20rem] overflow-hidden bg-surface-deep sm:min-h-[26rem] md:min-h-[32rem] lg:h-full lg:min-h-0">
                   <div className="absolute inset-0">
                     <LuxImage
                       src={step.image}
                       alt={step.imageAlt}
                       fill
                       loading="eager"
-                      sizes="(max-width: 1024px) 100vw, 78vw"
-                      quality={70}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 78vw"
+                      quality={75}
                       className="object-cover"
+                      style={{ objectPosition: step.objectPosition }}
                     />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-deep-charcoal/78 via-deep-charcoal/28 to-transparent" />

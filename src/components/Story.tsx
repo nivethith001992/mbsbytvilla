@@ -61,17 +61,22 @@ export function Story() {
             duration={0.55}
             fade={false}
           >
-            <div className="image-reveal relative aspect-[4/5] overflow-hidden bg-surface-deep md:aspect-[5/6] lg:min-h-[44rem]">
-              <motion.div style={{ y: slowY }} className="absolute inset-[-5%]">
+            {/* Wider on mobile so landscape pavilion isn't crushed into a tall crop */}
+            <div className="image-reveal relative aspect-[5/4] overflow-hidden bg-surface-deep sm:aspect-[4/5] md:aspect-[5/6] lg:min-h-[44rem]">
+              <motion.div
+                style={{ y: slowY }}
+                className="absolute inset-[-2%] sm:inset-[-4%] md:inset-[-5%]"
+              >
                 <LuxImage
                   src={about.image}
                   alt={about.imageAlt}
                   fill
                   loading="eager"
                   fetchPriority="high"
-                  sizes="(max-width: 1024px) 100vw, 58vw"
-                  quality={70}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 92vw, 58vw"
+                  quality={75}
                   className="object-cover"
+                  style={{ objectPosition: about.objectPosition }}
                 />
               </motion.div>
             </div>
@@ -89,9 +94,10 @@ export function Story() {
                   fill
                   loading="eager"
                   fetchPriority="high"
-                  sizes="(max-width: 1024px) 70vw, 28vw"
-                  quality={70}
+                  sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 28vw"
+                  quality={75}
                   className="object-cover"
+                  style={{ objectPosition: about.secondaryObjectPosition }}
                 />
               </div>
             </motion.div>
@@ -116,15 +122,16 @@ export function Story() {
             y={20}
             fade={false}
           >
-            <div className="image-reveal relative aspect-[4/5] bg-surface-deep md:aspect-auto md:h-full md:min-h-[26rem]">
+            <div className="image-reveal relative aspect-[5/4] bg-surface-deep sm:aspect-[4/5] md:aspect-auto md:h-full md:min-h-[26rem]">
               <LuxImage
                 src={about.tertiaryImage}
                 alt={about.tertiaryImageAlt}
                 fill
                 loading="eager"
                 sizes="(max-width: 768px) 100vw, 40vw"
-                quality={70}
+                quality={75}
                 className="object-cover"
+                style={{ objectPosition: about.tertiaryObjectPosition }}
               />
             </div>
           </Reveal>

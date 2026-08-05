@@ -152,14 +152,15 @@ export function Gallery() {
                     alt={item.alt}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw"
-                    quality={70}
+                    quality={75}
                     loading={index < 8 ? "eager" : undefined}
                     preloadMargin={1200}
                     className="object-cover transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
+                    style={{ objectPosition: item.objectPosition }}
                   />
                   <span className="gallery-caption-veil absolute inset-0 bg-deep-charcoal/0 transition duration-500 group-hover:bg-deep-charcoal/28" />
-                  <span className="gallery-caption absolute inset-x-0 bottom-0 translate-y-3 p-5 opacity-0 transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0 group-hover:opacity-100 sm:p-6">
-                    <span className="block font-serif text-xl text-warm-white md:text-2xl">
+                  <span className="gallery-caption absolute inset-x-0 bottom-0 translate-y-3 p-4 opacity-0 transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0 group-hover:opacity-100 sm:p-5 md:p-6">
+                    <span className="block font-serif text-lg text-warm-white sm:text-xl md:text-2xl">
                       {item.caption}
                     </span>
                     <span className="mt-1 block text-[0.65rem] uppercase tracking-[0.24em] text-warm-white/75">
@@ -217,21 +218,22 @@ export function Gallery() {
               className="relative flex w-full max-w-5xl flex-col items-center px-8 sm:px-12"
               onClick={(event) => event.stopPropagation()}
             >
-              <div className="relative h-[min(58svh,28rem)] w-full overflow-hidden rounded-[1.25rem] bg-deep-charcoal sm:h-[62vh] sm:rounded-[1.75rem] md:h-[72vh] md:rounded-[2.25rem]">
+              <div className="relative h-[min(68svh,32rem)] w-full overflow-hidden rounded-[1.25rem] bg-deep-charcoal sm:h-[62vh] sm:rounded-[1.75rem] md:h-[72vh] md:rounded-[2.25rem]">
                 <LuxImage
                   src={gallery[active].src}
                   alt={gallery[active].alt}
                   fill
-                  sizes="(max-width: 1024px) 100vw, 1024px"
-                  quality={70}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1024px"
+                  quality={75}
                   loading="eager"
                   fetchPriority="high"
                   className="object-contain"
+                  style={{ objectPosition: gallery[active].objectPosition }}
                 />
               </div>
               <p
                 id={titleId}
-                className="mt-4 px-2 text-center font-serif text-xl text-warm-white sm:mt-6 sm:text-2xl md:text-3xl"
+                className="mt-3 max-w-prose px-2 text-center font-serif text-lg text-warm-white sm:mt-6 sm:text-2xl md:text-3xl"
               >
                 {gallery[active].caption}
               </p>

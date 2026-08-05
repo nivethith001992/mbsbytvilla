@@ -81,7 +81,11 @@ export function Hero() {
     >
       {/* Transform-only parallax — never fade the full-bleed image (opacity paint is costly) */}
       <motion.div style={{ y }} className="absolute inset-0">
-        <motion.div style={{ scale }} className="absolute inset-[-3%]">
+        {/* Less inset on phones so garden crop stays intentional; desktop keeps parallax bleed */}
+        <motion.div
+          style={{ scale }}
+          className="absolute inset-0 sm:inset-[-2%] md:inset-[-3%]"
+        >
           <div
             className={`absolute inset-0 ${
               reduceMotion || lightMotion ? "" : "ken-burns"
@@ -94,9 +98,9 @@ export function Hero() {
               loading="eager"
               fetchPriority="high"
               sizes="100vw"
-              quality={70}
+              quality={75}
               decoding="sync"
-              className="object-cover object-center"
+              className="object-cover object-[center_42%]"
             />
           </div>
         </motion.div>

@@ -31,22 +31,26 @@ export function Location() {
     <section id="location" className="relative overflow-hidden">
       <div
         ref={heroRef}
-        className="relative min-h-[64svh] overflow-hidden sm:min-h-[70svh] md:min-h-[80svh]"
+        className="relative min-h-[58svh] overflow-hidden sm:min-h-[70svh] md:min-h-[80svh]"
       >
-        <motion.div style={{ y: imageY }} className="absolute inset-[-5%]">
+        <motion.div
+          style={{ y: imageY }}
+          className="absolute inset-[-2%] sm:inset-[-4%] md:inset-[-5%]"
+        >
           <LuxImage
             src={location.image}
             alt={location.imageAlt}
             fill
             loading="eager"
             sizes="100vw"
-            quality={70}
+            quality={75}
             className="object-cover"
+            style={{ objectPosition: location.objectPosition }}
           />
         </motion.div>
         <div className="absolute inset-0 bg-gradient-to-t from-deep-charcoal/85 via-deep-charcoal/42 to-deep-charcoal/30" />
         <div className="grain" />
-        <div className="relative z-10 flex min-h-[64svh] items-end sm:min-h-[70svh] md:min-h-[80svh]">
+        <div className="relative z-10 flex min-h-[58svh] items-end sm:min-h-[70svh] md:min-h-[80svh]">
           <div className="container-lux w-full pb-12 pt-28 sm:pb-16 sm:pt-32 md:pb-24">
             <Reveal variant="up" y={36}>
               <p className="eyebrow eyebrow-light">Location</p>

@@ -88,10 +88,14 @@ export const about = {
   },
   image: "/images/about/pavilion-grounds.avif",
   imageAlt: "Open-air pavilion and gardens at Mind Body & Soul in Dambulla",
+  /** Mobile portrait crop — keep pavilion + steps, not only center trees */
+  objectPosition: "32% 52%",
   secondaryImage: "/images/about/forest-balcony.avif",
   secondaryImageAlt: "Wooden balcony overlooking lush tropical forest",
+  secondaryObjectPosition: "50% 58%",
   tertiaryImage: "/images/about/garden-mountain.avif",
   tertiaryImageAlt: "Gardens and distant hills across the enclosed grounds",
+  tertiaryObjectPosition: "42% 48%",
 };
 
 /** Care section — Independent Living, Healthcare, Medical Support, Our Staff */
@@ -112,6 +116,7 @@ export const careSpaces = [
       'Many of our residents wish to maintain their independence while having access to professional support whenever necessary. Our "Independent Living with Care" philosophy allows guests to enjoy their own routines, social activities, and personal freedom while benefiting from 24-hour care assistance. Unlike traditional nursing homes, our community encourages an active lifestyle with flexible meal times, engaging activities, and opportunities to connect with others in a welcoming environment. We provide the perfect balance between independence and compassionate care.',
     image: "/images/hero/villa-lap-pool.avif",
     imageAlt: "Private villa terrace and lap pool among gardens",
+    objectPosition: "50% 42%",
     features: [] as string[],
   },
   {
@@ -123,6 +128,7 @@ export const careSpaces = [
       "Our dedicated care team provides personalised assistance tailored to every resident's individual needs. Our goal is to help residents maintain their independence while ensuring their health, safety, and wellbeing.",
     image: "/images/villas/window-seat.avif",
     imageAlt: "Quiet window seat looking onto the gardens",
+    objectPosition: "50% 45%",
     features: [
       "24-Hour Care Support",
       "Medication Management",
@@ -142,6 +148,8 @@ export const careSpaces = [
       "When specialist medical attention is required, guests have access to some of Sri Lanka's leading hospitals, including Lanka Hospitals, Durdans Hospital, Asiri Hospital, Hemas Hospitals, and Nawaloka Hospital. Our staff are available to assist with appointments and accompany guests during hospital visits when required.",
     image: "/images/care/medical-support.avif",
     imageAlt: "Nurse gently caring for an elderly guest during a warm healthcare consultation",
+    /** Keep both faces in the care interaction */
+    objectPosition: "45% 35%",
     features: [
       "Lanka Hospitals",
       "Durdans Hospital",
@@ -159,6 +167,7 @@ export const careSpaces = [
       "Our staff are predominantly local Village people. This is an area of exceptionally strong family values and a conservative tradition. These people have a natural respect for the elderly as part of their culture; they expect to care for them, and this forms the basis for an exceptional care ethic. It is not always easy to undertake the duties of caring for the elderly whilst remaining cheerful and friendly, but, in the main, they seem to achieve it.",
     image: "/images/life/communal-dining.avif",
     imageAlt: "Warm communal dining space shared by the village community",
+    objectPosition: "38% 62%",
     features: [] as string[],
   },
 ];
@@ -186,6 +195,7 @@ export const accommodations = [
     accent: "Privacy, comfort, and relaxation in nature",
     image: "/images/villas/veranda-dining.avif",
     imageAlt: "Private villa veranda with dining and lounge seating in tropical gardens",
+    objectPosition: "50% 48%",
   },
   {
     id: "dining",
@@ -206,6 +216,7 @@ export const accommodations = [
     accent: "Organic produce from our own gardens",
     image: "/images/villas/outdoor-dining-terrace.avif",
     imageAlt: "Outdoor dining terrace set among the trees",
+    objectPosition: "50% 45%",
   },
   {
     id: "accessibility",
@@ -228,6 +239,7 @@ export const accommodations = [
     accent: "Accessible and welcoming for all guests",
     image: "/images/villas/wellness-pavilion.avif",
     imageAlt: "Open pavilion with step-friendly access among calm natural grounds",
+    objectPosition: "48% 42%",
   },
   {
     id: "family",
@@ -248,6 +260,7 @@ export const accommodations = [
     accent: "A peaceful place to be together",
     image: "/images/villas/bamboo-lounge.avif",
     imageAlt: "Open-air lounge for couples and family amid bamboo gardens",
+    objectPosition: "50% 40%",
   },
 ];
 
@@ -289,6 +302,7 @@ export const wellness = {
     "For additional relaxation, guests may also enjoy our Ayurveda treatments, Panchakarma therapies, and sauna facilities.",
   image: "/images/life/blue-loungers.avif",
   imageAlt: "Restorative garden loungers at Mind Body & Soul",
+  objectPosition: "55% 68%",
 };
 
 export const community = {
@@ -334,6 +348,7 @@ export const journeySteps = [
       "Private villas surrounded by nature with modern amenities.",
     image: "/images/hero/villa-lap-pool.avif",
     imageAlt: "Private villa terrace and lap pool",
+    objectPosition: "50% 40%",
   },
   {
     id: "personalised-care",
@@ -343,6 +358,7 @@ export const journeySteps = [
       "Care plans tailored to every individual's unique needs.",
     image: "/images/villas/window-seat.avif",
     imageAlt: "Quiet private corner for restful living",
+    objectPosition: "50% 42%",
   },
   {
     id: "wellness-lifestyle",
@@ -351,6 +367,7 @@ export const journeySteps = [
     description: "Yoga, meditation, Ayurveda, and healthy living.",
     image: "/images/life/blue-loungers.avif",
     imageAlt: "Garden loungers for wellness and rest",
+    objectPosition: "55% 65%",
   },
   {
     id: "natural-environment",
@@ -360,6 +377,7 @@ export const journeySteps = [
       "28 acres of gardens, forests, lakes, and mountain views.",
     image: "/images/about/garden-mountain.avif",
     imageAlt: "Gardens and mountain views at Mind Body & Soul",
+    objectPosition: "42% 48%",
   },
   {
     id: "independence-support",
@@ -369,6 +387,7 @@ export const journeySteps = [
       "Freedom to enjoy life while receiving professional care whenever needed.",
     image: "/images/about/forest-balcony.avif",
     imageAlt: "Private balcony overlooking the forest canopy",
+    objectPosition: "50% 55%",
   },
 ];
 
@@ -377,6 +396,7 @@ function galleryItem(
   alt: string,
   caption: string,
   span: "tall" | "wide" | "normal",
+  objectPosition = "50% 50%",
 ) {
   return {
     src,
@@ -384,6 +404,7 @@ function galleryItem(
     alt,
     caption,
     span,
+    objectPosition,
   };
 }
 
@@ -393,84 +414,98 @@ export const gallery = [
     "Open pavilion and brick cottage beneath a canopy of trees",
     "Garden Pavilion",
     "tall",
+    "42% 48%",
   ),
   galleryItem(
     "/images/hero/villa-lap-pool.avif",
     "Private villa lap pool with sun loungers among tropical gardens",
     "Private Plunge Pool",
     "wide",
+    "50% 40%",
   ),
   galleryItem(
     "/images/gallery/poolside-garden.avif",
     "Poolside lounge seating under shade among tropical plants",
     "Poolside Garden",
     "normal",
+    "50% 55%",
   ),
   galleryItem(
     "/images/location/lake-sunset.avif",
     "Golden sunset light reflected across a calm lake and distant hills",
     "Lake at Dusk",
     "normal",
+    "50% 45%",
   ),
   galleryItem(
     "/images/villas/bedroom-daybed.avif",
     "Villa bedroom with canopy bed and daybed seating",
     "Private Suite",
     "tall",
+    "50% 42%",
   ),
   galleryItem(
     "/images/villas/villa-evening.avif",
     "Lantern-lit villa veranda at dusk among tropical greenery",
     "Evening Veranda",
     "wide",
+    "48% 45%",
   ),
   galleryItem(
     "/images/villas/indoor-outdoor-bath.avif",
     "Indoor-outdoor bathroom with blue tile floors and rain shower",
     "Open-Air Bath",
     "normal",
+    "50% 40%",
   ),
   galleryItem(
     "/images/villas/patio-lounge.avif",
     "Covered villa patio with blue lounge seating overlooking the garden",
     "Patio Lounge",
     "normal",
+    "50% 50%",
   ),
   galleryItem(
     "/images/life/blue-loungers.avif",
     "Blue outdoor loungers nestled among the trees",
     "Garden Loungers",
     "normal",
+    "55% 68%",
   ),
   galleryItem(
     "/images/villas/canopy-bed.avif",
     "Canopied villa bed with soft natural light",
     "Canopy Bed",
     "wide",
+    "50% 40%",
   ),
   galleryItem(
     "/images/gallery/forest-desk.avif",
     "Outdoor writing desk overlooking the forest",
     "Forest Desk",
     "tall",
+    "50% 45%",
   ),
   galleryItem(
     "/images/care/garden-loungers.avif",
     "Red cushion loungers on a stone patio amid the forest",
     "Forest Loungers",
     "normal",
+    "50% 55%",
   ),
   galleryItem(
     "/images/life/garden-jeep.avif",
     "Classic off-road vehicle parked in the garden for local excursions",
     "Estate Explorer",
     "normal",
+    "48% 50%",
   ),
   galleryItem(
     "/images/gallery/activity-pavilion.avif",
     "Open Ajna pavilion for wellness and gatherings among the trees",
     "Ajna Pavilion",
     "wide",
+    "45% 48%",
   ),
 ];
 
@@ -483,6 +518,8 @@ export const location = {
     "Surrounded by over 4,500 trees, tranquil lakes, landscaped gardens, and breathtaking mountain views — a safe and relaxing retreat away from the stress of city life.",
   image: "/images/location/lake-meadow.avif",
   imageAlt: "Lake and meadow landscape near Dambulla in central Sri Lanka",
+  /** Forest path glow — keep lit midground on tall mobile crops */
+  objectPosition: "50% 42%",
 };
 
 export const bookingIntro = {
